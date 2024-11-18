@@ -1,4 +1,24 @@
-<?php include "admin/inc/koneksi.php"; ?>
+<?php include "admin/inc/koneksi.php";
+include "fungsi.php";
+$link = mysqli_connect('localhost', 'root', '', 'db_companyprofile');
+
+$mysqli = new databases();
+?>
+<?php
+// Pastikan ini ada di bagian atas file PHP
+setcookie(
+  "my_cookie",
+  "cookie_value",
+  [
+    "expires" => time() + 3600, // Berlaku 1 jam
+    "path" => "/",
+    "domain" => "example.com",
+    "secure" => true, // Hanya untuk HTTPS
+    "httponly" => true,
+    "samesite" => "None" // Bisa diganti "Lax" atau "Strict"
+  ]
+);
+?>
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +38,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <title>Dinarpusta Kota Kupang</title>
 </head>
 
@@ -77,13 +98,39 @@
     </div>
   </nav>
   <!-- hero section -->
+  <?php $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
+  ?>
+  <style>
+    .hero {
+      height: 100vh;
+      width: 100%;
+      background-image: url("img/<?php echo $profile['gambar']; ?>");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+  </style>
   <section class="hero" id="hero">
-    <!-- <img src="img/bookbg.jpg" alt="" class="position-absolute  end-0 buttom-0 hero_img"> -->
+
     <div class="container h-100">
       <div class="row h-100">
         <div class="col-md-6 hero_tagline my-auto">
-          <h1>Dinas <span>Kearsipan</span> dan <span>Perpustakaan</span> Kota Kupang</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, enim.</p>
+          <!-- <h1>Dinas <span>Kearsipan</span> dan <span>Perpustakaan</span> Kota Kupang</h1> -->
+          <!-- Menampilkan data dari database -->
+          <?php
+          $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
+
+          if ($profile) {
+            echo "
+                  <h3>{$profile['welcomeparagraf']}</h3>
+                  <h1>{$profile['titleparagraf']}</h1>
+                  <p>{$profile['description']}</p>";
+          } else {
+            echo "<p>Data tidak ditemukan!</p>";
+          }
+
+          ?>
           <a href="#layanan" class="button-lg-primary_titel">
             <button class="button-lg-primary">
               Selengkapnya
@@ -92,6 +139,7 @@
         </div>
       </div>
     </div>
+  </section>
   </section>
 
   <!-- Menu Section start -->

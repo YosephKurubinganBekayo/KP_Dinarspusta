@@ -106,15 +106,6 @@ body {
 }
 
 /* hero */
-#hero {
-  height: 100vh;
-  width: 100%;
-  background-image: url("../img/gedung.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
 
 #hero::before {
   content: "";
@@ -144,6 +135,10 @@ body {
   font-size: 32px;
   line-height: 50px;
 }
+.hero_tagline h3 {
+  color: var(--font-white) !important;
+  font-weight: 400;
+}
 #hero h1 span {
   color: var(--primary);
 }
@@ -151,7 +146,7 @@ body {
   font-size: 16px;
   color: var(--font-white);
   margin-bottom: 60px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   line-height: 30px;
 }
 .button-lg-primary {
@@ -269,7 +264,6 @@ body {
   padding-top: 45px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
 #layanan h2 {
@@ -320,7 +314,6 @@ body {
   background-color: var(--white);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 .menu-card-img {
   height: 320px;
