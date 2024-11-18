@@ -1,0 +1,78 @@
+/* Default font-size */
+:root {
+  --primary: #ff6500;
+  --secondary: #080d3f;
+  --white: #ffffff;
+  --bg: #dee2e6;
+
+  --font-white: #ffffff;
+  --font-black: #444;
+}
+@media (max-width: 991.98px) {
+  .navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .login-button {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .button_secondary {
+    padding: 12px 0;
+    background-color: var(--primary);
+    border: none;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--font-white);
+  }
+  .navbar-nav .nav-link {
+    margin-bottom: 10px; /* Jarak antar tombol menu */
+  }
+
+  .navbar-nav .dropdown-menu {
+    margin-top: 10px; /* Jarak tambahan untuk dropdown */
+  }
+}
+@media (max-width: 768px) {
+  .hero_tagline {
+    text-align: center;
+  }
+
+  .library-info {
+    margin-top: 10px;
+    padding-top: 10px !important;
+    border-top: 1px solid #dee2e6;
+    text-align: left;
+  }
+  #kegiatan {
+    background-color: var(--white);
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Tombol Navigasi */
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero_tagline {
+    text-align: center;
+  }
+  .library-foter button {
+    width: 100%; /* Tombol memenuhi lebar kartu */
+    text-align: center; /* Pusatkan teks di dalam tombol */
+  }
+}
+
+@media (max-width: 400px) {
+  .hero_tagline {
+    text-align: center;
+  }
+  .library-foter button {
+    width: 100%; /* Tombol memenuhi lebar kartu */
+    text-align: center; /* Pusatkan teks di dalam tombol */
+  }
+}

@@ -1,0 +1,222 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  background-color: #002244;
+  background-size: cover;
+  padding: 60px 20px;
+  color: #ffffff;
+  text-align: center;
+  position: relative; /* Tambahkan ini untuk memungkinkan positioning */
+  height: 200px; /* Atur tinggi header sesuai kebutuhan */
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  position: absolute;
+  bottom: 50px; /* Sesuaikan jarak dari bawah */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5em;
+  color: #ff5733;
+  font-weight: bold;
+  margin: 0;
+}
+
+.header h2 {
+  position: absolute;
+  bottom: 20px; /* Sesuaikan jarak dari bawah */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.75em;
+  color: #ffffff;
+  transition: color 0.3s; /* Smooth transition */
+  margin: 0;
+}
+
+.header h2:hover {
+  color: #ff5733; /* Warna teks berubah saat dihover */
+}
+.content {
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.section-title {
+  color: #002244;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative; /* Diperlukan untuk ::after */
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 100%; /* Panjang garis, bisa diubah */
+  height: 1px; /* Ketebalan garis */
+  background-color: #000000; /* Warna garis */
+  margin: 8px auto 0; /* Atur jarak dari teks dan rata tengah */
+}
+.content2 {
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.section-title2 {
+  color: #002244;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative; /* Diperlukan untuk ::after */
+}
+
+.section-title2::after {
+  content: "";
+  display: block;
+  width: 100%; /* Panjang garis, bisa diubah */
+  height: 1px; /* Ketebalan garis */
+  background-color: #000000; /* Warna garis */
+  margin: 8px auto 0; /* Atur jarak dari teks dan rata tengah */
+}
+.visi,
+.misi {
+  margin: 20px 0;
+}
+.misi ul {
+  padding-left: 20px;
+}
+.misi li {
+  margin-bottom: 10px;
+}
+.kontak a {
+  color: #002244;
+  text-decoration: none;
+  font-weight: bold;
+}
+.kontak a:hover {
+  color: #ff5733;
+}
+
+/* sejarah css */
+.timeline-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline {
+  position: relative;
+  padding: 20px 0;
+  margin-left: 50px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background-color: #ff5733;
+  margin-left: -2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+.timeline-item:nth-child(odd) .timeline-content {
+  order: 1; 
+  margin-right: auto;
+  /* background-color: #f0f8ff; */
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  order: 2; 
+  margin-left: auto;
+  /* background-color: #ffe4e1; */
+}
+/* .timeline-item:nth-child(even) .timeline-content {
+  order: 2; 
+} */
+
+.timeline-item .timeline-icon {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5733;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  transform: translate(-50%, 0);
+}
+
+.timeline-content {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 45%;
+  position: relative;
+}
+
+.timeline-content h3 {
+  margin: 0;
+  font-size: 1.25em;
+  border-bottom: 2px solid #ff5733;
+  padding-bottom: 5px;
+}
+
+.timeline-content p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
+
+/* Layanan */
+.layanan {
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin: auto;
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.service {
+  /* display: flex;
+  align-items: center; */
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  /* border-radius: 10px; */
+}
+.service img {
+  max-width: 200px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+.service-text {
+  max-width: 800px;
+}
+.service-text h2 {
+  margin: 0 0 10px;
+}

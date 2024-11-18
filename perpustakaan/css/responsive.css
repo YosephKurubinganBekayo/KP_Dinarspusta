@@ -1,0 +1,87 @@
+/* Default font-size */
+:root {
+  --primary: #ff6500;
+  --secondary: #080d3f;
+  --white: #ffffff;
+  --bg: #dee2e6;
+
+  --font-white: #ffffff;
+  --font-black: #444;
+}
+html {
+  font-size: 100%; /* 16px */
+}
+
+@media (max-width: 1200px) {
+  html {
+    font-size: 90%; /* 14.4px */
+  }
+}
+/* ini */
+/* Warna navbar di desktop */
+@media (min-width: 992px) {
+ 
+}
+
+/* Warna navbar di mobile */
+@media (max-width: 991px) {
+  
+}
+
+/* ini */
+
+@media (max-width: 992px) {
+  html {
+    font-size: 80%; /* 12.8px */
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 70%; /* 11.2px */
+  }
+  .nav-color_hp {
+    background-color: var(--white);
+    transition: all 0.3s ease 0s;
+  }
+  
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 60%; /* 9.6px */
+  }
+  .nav-color {
+    background-color: var(--white);
+    transition: all 0.3s ease 0s;
+    color: var(--font-black);
+
+  }
+  
+
+  /* #hero {
+    height: 50vh;
+    width: 100%;
+  } */
+  /* .img-hero {
+    height: auto;
+    width: 100%;
+  } */
+
+
+}
+
+@media (max-width: 400px) {
+  html {
+    font-size: 50%; /* 8px */
+  }
+  /* .nav-color {
+    background-color: var(--white);
+    transition: all 0.3s ease 0s;
+  }
+  .nav-second-color {
+    background-color: #ffffff;
+    transition: all 0.3s ease 0s;
+    box-shadow: 0 5px 5px 0 rgb(0, 0, 0, 0.1);
+  } */
+}

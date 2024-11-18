@@ -1,0 +1,138 @@
+:root {
+  --primary: #ff6500;
+  --secondary: #080d3f;
+  --white: #ffffff;
+  --bg: #eff2f5;
+
+  --font-white: #ffffff;
+  --font-black: #444;
+}
+body {
+  font-family: "Poppins", "sans-serif";
+  background-color: var(--bg);
+  color: var(--font-black);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #002244;
+  padding-bottom: 20px;
+  padding-top: 75px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 70px;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.header h2 {
+  color: #ff5733;
+  font-weight: 600;
+}
+.header h4:hover {
+  color: #ff5733; /* Warna teks berubah saat dihover */
+}
+.content {
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.section-title {
+  /* color: #002244; */
+  color: var(--font-black);
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.visi,
+.misi {
+  margin: 20px 0;
+
+}
+.visi p{
+}
+.misi ul {
+  padding-left: 20px;
+
+}
+.misi li {
+  margin-bottom: 10px;
+
+
+}
+ul li{
+
+}
+
+/* sejarah css */
+
+.timeline {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background-color: #ff5733;
+  margin-left: -2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin: 20px 0;
+  display: flex;
+  /* align-items: center; */
+}
+.timeline-item:nth-child(even) .timeline-content {
+  order: 2;
+  margin-left: auto;
+}
+
+.timeline-item .timeline-icon {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5733;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  transform: translate(-50%, 0);
+  margin-top: 20px;
+}
+
+.timeline-content {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 47%;
+  position: relative;
+}
+
+.timeline-content h3 {
+  margin: 0;
+  /* font-size: 1.25em; */
+  border-bottom: 2px solid #ff5733;
+  padding-bottom: 5px;
+}
+
+.timeline-content p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
