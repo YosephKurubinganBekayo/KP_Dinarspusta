@@ -188,7 +188,7 @@ while ($data = $sql->fetch_assoc()) {
                 <div class="row">
                     <div class="col-md-12 text-right mb-3">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter</button>
-                        <?php if ($bulanFilter || $tahunFilter || $jenisFilter): ?>
+                        <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
                             <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
                         <?php endif; ?>
                     </div>
@@ -239,7 +239,7 @@ while ($data = $sql->fetch_assoc()) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                    <h3 class="text-center">Data Buku</h3>
+                        <h3 class="text-center">Data Buku</h3>
                         <canvas id="barChart" width="400" height="200"></canvas>
                     </div>
                     <div class="col-md-4">

@@ -1,0 +1,15 @@
+.navbar {
+  height: 50px !important;
+  /* border-bottom: 1px solid #444 !important;s */
+  /* box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.1) !important; */
+}
+.navbar a {
+  width: 50px;
+  height: auto;
+  /* align-items: center !important; */
+  /* margin: 0 0 !important; */
+  /* top: -50px; */
+  margin-top: -10px !important;
+  margin-left: -15px;
+  background-color: transparent !important;
+}
