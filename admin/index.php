@@ -31,7 +31,13 @@ include "inc/koneksi.php";
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- DataTables -->
-	<link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/dataTables.bootstrap.css">
+	<!-- DataTables CSS -->
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"> -->
+	<!-- Buttons CSS -->
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css"> -->
+
+	<link rel="stylesheet" href="plugins/datatables2/Buttons-1.5.1/css/buttons.dataTables.min.css">
+	<!-- <link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/dataTables.bootstrap.css"> -->
 	<link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/jquery.dataTables.min.css">
 	<!-- Select2 -->
 	<!-- <link rel="stylesheet" href="plugins/select2/select2.min.css"> -->
@@ -39,12 +45,12 @@ include "inc/koneksi.php";
 	<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-	<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="dist/css/skins/skin-blue-light.min.css">
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
-<body class="hold-transition skin-yellow-light sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 
 	<!-- Site wrapper -->
 	<div class="wrapper">
@@ -492,6 +498,7 @@ include "inc/koneksi.php";
 
 
 
+
 		<!-- jQuery 2.2.3 -->
 		<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 
@@ -506,10 +513,33 @@ include "inc/koneksi.php";
 		<!-- <script src="plugins/datatables/dataTables.bootstrap.min.js"></script> -->
 
 		<!-- DataTables -->
-		<script src="plugins/datatables2/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script>
+		<!-- <script src="plugins/datatables2/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script> -->
 		<script src="plugins/datatables2/DataTables-1.10.16/js/jquery.dataTables.min.js"></script>
+		<!-- butons js -->
+		<script src="plugins/datatables2/Buttons-1.5.1/js/dataTables.buttons.min.js"></script>
+		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.flash.min.js"></script>
+		<script src="plugins/datatables2/JSZip-2.5.0/jszip.min.js"></script>
+		<script src="plugins/datatables2/pdfmake-0.1.32/pdfmake.min.js"></script>
+		<script src="plugins/datatables2/pdfmake-0.1.32/vfs_fonts.js"></script>
+		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.html5.min.js"></script>
+		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.print.min.js"></script>
 		<!-- <script src="plugins/datatables2/datatables.js"></script> -->
 		<!-- <script src="plugins/datatables2/Buttons-1.5.1/js/dataTables.buttons.min.js"></script> -->
+
+
+		<!-- ini coba saja -->
+		<!-- jQuery -->
+		<!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
+		<!-- DataTables JS -->
+		<!-- <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script> -->
+		<!-- Buttons JS -->
+		<!-- <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script> -->
 
 
 		<!-- AdminLTE App -->
