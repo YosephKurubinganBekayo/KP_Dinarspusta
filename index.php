@@ -46,9 +46,16 @@ setcookie(
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-fixed w-100">
     <div class="container">
-      <a class="navbar-brand" href="#">
-        <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top"> -->
-        Araspus Kupang</a>
+      <?php
+      $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
+      if ($profile) { ?>
+        <a class="navbar-brand" href="#">
+          <img src="img/buku.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          <?php echo $profile['titlewebsite'] ?></a>
+      <?php } else {
+        echo "<p>Nama Brand</p>";
+      } ?>
+
 
       <button class="navbar-toggler border-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -139,7 +146,6 @@ setcookie(
         </div>
       </div>
     </div>
-  </section>
   </section>
 
   <!-- Menu Section start -->

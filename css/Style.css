@@ -9,9 +9,21 @@
 }
 body {
   font-family: "Poppins", "sans-serif";
-  background-color: var(--bg);
+  background-color: var(--white);
   color: var(--font-black);
 }
+/* body {
+  font-family: "Poppins", "sans-serif";
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../img/gedung.jpg");
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  height: 100vh; 
+  color: var(--font-black);
+} */
+
 /* Awal animasi */
 
 /* Animasi dasar */
@@ -263,7 +275,7 @@ body {
   background-color: var(--white);
   padding-top: 45px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 #layanan h2 {
@@ -313,7 +325,7 @@ body {
 .service-section {
   background-color: var(--white);
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 .menu-card-img {
   height: 320px;
