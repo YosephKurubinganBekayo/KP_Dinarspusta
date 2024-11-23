@@ -99,7 +99,7 @@ setcookie(
           </li>
         </ul>
         <div class="navbar-nav login-button ">
-          <a href="admin/index.php"><button class="button_secondary">Masuk</button></a>
+          <button class="button_secondary"><a href="admin/index.php">Masuk</a></button>
         </div>
       </div>
     </div>
@@ -116,6 +116,7 @@ setcookie(
       background-size: cover;
       background-position: center;
       position: relative;
+
     }
   </style>
   <section class="hero" id="hero">
@@ -138,7 +139,7 @@ setcookie(
           }
 
           ?>
-          <a href="#layanan" class="button-lg-primary_titel">
+          <a href="#tentang_kami" class="button-lg-primary_titel">
             <button class="button-lg-primary">
               Selengkapnya
             </button>
@@ -147,8 +148,36 @@ setcookie(
       </div>
     </div>
   </section>
+  <!-- section about -->
+  <section id="tentang_kami">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="header-about">
+          <h2 class=""><span>Tentang</span> Kami</h2>
+        </div>
 
-  <!-- Menu Section start -->
+        <div class="row">
+          <div class="col-md-5 img_about">
+            <img src="img/perpus.jpg" alt="Tentang Kami" class="menu-card-img">
+          </div>
+          <div class="col-md-7  about_info">
+            <div class="about_item border">
+              <h4>Dinas Kearsipan Dan perpustakan Kota Kupang</h4>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ducimus voluptatum dolor. Et, voluptatum
+                accusantium!</p>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic deserunt iure amet facilis eos a quo cum
+                voluptates molestias nihil.</p>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus, praesentium, tenetur, sapiente quis obcaecati quidem expedita rem odio voluptatibus velit deleniti? Ipsum ab sed impedit. Eos et adipisci esse quam.</p>
+            </div>
+            <div class="footer_about">
+              <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- layanan Section start -->
   <section id="layanan">
     <div class="container">
       <div class="header-layanan">
@@ -179,77 +208,80 @@ setcookie(
       <?php foreach ($bidang_data as $index => $bidang) : ?>
         <!-- Seksi untuk setiap bidang -->
         <div id="bidang-<?= $bidang['id']; ?>" class="service-section" style="display: <?= $index === 0 ? 'block' : 'none'; ?>;">
-          <h4 class="library-title "><?= htmlspecialchars($bidang['nama_bidang']); ?></h4>
-          <div class="row border-top layanan_item">
+
+          <div class="row layanan_item">
             <div class="col-md-5 img_layanan">
               <img src="img/<?= htmlspecialchars($bidang['gambar'] ?? 'default.png'); ?>" alt="<?= htmlspecialchars($bidang['nama_bidang']); ?>" class="menu-card-img">
             </div>
 
-            <div class="col-md-7 d-flex flex-column justify-content-between layanan_info">
-              <h5 class="library-info ">Informasi Pelayanan</h5>
-              <div class="library-main">
-                <p><i class="fas fa-map-marker-alt"></i> Alamat: <?= htmlspecialchars($bidang['alamat']); ?></p>
-                <p><i class="fas fa-building"></i> Lantai: <?= htmlspecialchars($bidang['lantai']); ?></p>
+            <div class="col-md-7  detail_layanan ">
+              <div class="library-title border">
+                <h5 class=""><?= htmlspecialchars($bidang['nama_bidang']); ?></h5>
+              </div>
+              <div class="layanan_info border">
+                <div class="library-main">
+                  <p><i class="fas fa-building"></i><span>Lantai : </span><?= htmlspecialchars($bidang['lantai']); ?></p>
 
-                <p>Jam Operasional:</p>
-                <ul style="list-style-type: none; padding-left: 1;">
-                  <?php
-                  // Ubah teks jam operasional menjadi daftar
-                  $jamOperasional = explode("\n", $bidang['jam_operasional']); // Pecah teks berdasarkan baris baru
-                  foreach ($jamOperasional as $jam) :
-                    if (trim($jam)) : // Hanya tampilkan jika tidak kosong
-                  ?>
-                      <li class=""><i class="far fa-clock"></i> <?= htmlspecialchars($jam); ?></li>
-                  <?php
-                    endif;
-                  endforeach;
-                  ?>
-                </ul>
-                <p><i class="fas fa-plus-circle"></i> Jam Tambahan:
-                  <?= !empty($bidang['jam_tambahan']) ? htmlspecialchars($bidang['jam_tambahan']) : '<em>Tidak ada data</em>'; ?>
-                </p>
-                <p> Pegawai Bertugas Hari Ini:</p>
-                <ul style="list-style-type: none; padding-left: 1;">
-                  <?php
-                  $hari_map = [
-                    'monday' => 'senin',
-                    'tuesday' => 'selasa',
-                    'wednesday' => 'rabu',
-                    'thursday' => 'kamis',
-                    'friday' => 'jumat',
-                    'saturday' => 'sabtu',
-                    'sunday' => 'minggu',
-                  ];
-                  $hari_inggris = strtolower(date('l')); // Hari dalam bahasa Inggris
-                  $hari_ini = $hari_map[$hari_inggris]; // Ubah ke bahasa Indonesia
-                  $nama_bidang = $bidang['nama_bidang'];
+                  <p><span>Jam Operasional : </span></p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <?php
+                    // Ubah teks jam operasional menjadi daftar
+                    $jamOperasional = explode("\n", $bidang['jam_operasional']); // Pecah teks berdasarkan baris baru
+                    foreach ($jamOperasional as $jam) :
+                      if (trim($jam)) : // Hanya tampilkan jika tidak kosong
+                    ?>
+                        <li class=""><i class="far fa-clock"></i> <?= htmlspecialchars($jam); ?></li>
+                    <?php
+                      endif;
+                    endforeach;
+                    ?>
+                  </ul>
+                  <p><span>Jam Tambahan : </span></p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <li><i class="far fa-clock"> </i><?= !empty($bidang['jam_tambahan']) ? htmlspecialchars($bidang['jam_tambahan']) : '<em>Tidak ada data</em>'; ?></li>
+                  </ul>
+                  <p> Pegawai Bertugas Hari Ini:</p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <?php
+                    $hari_map = [
+                      'monday' => 'senin',
+                      'tuesday' => 'selasa',
+                      'wednesday' => 'rabu',
+                      'thursday' => 'kamis',
+                      'friday' => 'jumat',
+                      'saturday' => 'sabtu',
+                      'sunday' => 'minggu',
+                    ];
+                    $hari_inggris = strtolower(date('l')); // Hari dalam bahasa Inggris
+                    $hari_ini = $hari_map[$hari_inggris]; // Ubah ke bahasa Indonesia
+                    $nama_bidang = $bidang['nama_bidang'];
 
-                  $query_pegawai = $koneksi->query("
+                    $query_pegawai = $koneksi->query("
                     SELECT p.nama_pegawai, p.kontak 
                     FROM pegawai AS p
                     JOIN jadwal_pegawai AS j ON p.id = j.id_pegawai 
                     JOIN bidang AS b ON p.id_bidang = b.id
                     WHERE LOWER(j.hari) = '$hari_ini' AND b.nama_bidang = '$nama_bidang'
                 ");
-
-                  // Memeriksa apakah query berhasil
-                  if (!$query_pegawai) {
-                    die('Query gagal: ' . $koneksi->error);
-                  }
-                  while ($pegawai = $query_pegawai->fetch_assoc()) :
-                  ?>
-                    <li class=""><i class="fas fa-user"></i> <?= htmlspecialchars($pegawai['nama_pegawai']); ?> - <?= htmlspecialchars($pegawai['kontak']); ?></li>
-                  <?php endwhile; ?>
-                </ul>
-              </div>
-              <div class="closed-info">
-                <p>Tutup: <?= htmlspecialchars($bidang['tutup']); ?></p>
+                    // Memeriksa apakah query berhasil
+                    if (!$query_pegawai) {
+                      die('Query gagal: ' . $koneksi->error);
+                    }
+                    while ($pegawai = $query_pegawai->fetch_assoc()) :
+                    ?>
+                      <li class=""><i class="fas fa-user"></i> <?= htmlspecialchars($pegawai['nama_pegawai']); ?> - <?= htmlspecialchars($pegawai['kontak']); ?></li>
+                    <?php endwhile; ?>
+                  </ul>
+                </div>
+                <div class="closed-info">
+                  <p>Tutup: <?= htmlspecialchars($bidang['tutup']); ?></p>
+                </div>
               </div>
             </div>
           </div>
           <!-- Footer layanan -->
           <div class="library-foter border-top ">
-            <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Detail</a></button>
+            <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Selengkapnya</a></button>
           </div>
         </div>
       <?php endforeach; ?>
@@ -503,14 +535,14 @@ setcookie(
             </div>
           </div>
         </div>
-        <div class="row gmap">
-          <!-- <div class="col-md-12"> -->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <!-- </div> -->
-        </div>
       </div>
     </div>
   </section>
+  <!-- <section id="gmap">
+  
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section> -->
+  <?php include  "footer.php" ?>
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
