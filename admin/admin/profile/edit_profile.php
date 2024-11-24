@@ -55,7 +55,6 @@ if (isset($_POST['update'])) {
       if (file_exists($target_dir . $gambar_lama)) {
         unlink($target_dir . $gambar_lama);
       }
-
       // Upload gambar baru
       if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
         $gambar = $gambar_baru; // Set nama gambar baru untuk disimpan di database
@@ -108,93 +107,80 @@ if (isset($_POST['update'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Edit Data Profil</title>
-  <link rel="stylesheet" href="path_to_css.css"> <!-- Tambahkan CSS Anda -->
-</head>
 
-<body>
-
-  <section class="content">
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h1>Edit Data Profil</h1>
-      </div>
-      <div class="box-body">
-        <form method="POST" action="" enctype="multipart/form-data">
-          <div class="form-group">
-            <label>Nama Website</label>
-            <input type="text" name="titlewebsite" class="form-control" value="<?php echo $data['titlewebsite']; ?>" required>
-          </div>
-          <div class="form-group">
-            <label>Nama Dinas</label>
-            <input type="text" name="titleparagraf" class="form-control" value="<?php echo $data['titleparagraf']; ?>" required>
-          </div>
-          <div class="form-group">
-            <label>Paragraf Welcome</label>
-            <textarea name="welcomeparagraf" class="form-control" required><?php echo $data['welcomeparagraf']; ?></textarea>
-          </div>
-          <div class="form-group">
-            <label>Copyright</label>
-            <input type="text" name="copyright" class="form-control" value="<?php echo $data['copyright']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Deskripsi</label>
-            <textarea name="description" class="form-control"><?php echo $data['description']; ?></textarea>
-          </div>
-          <div class="form-group">
-            <label>Kata Kunci</label>
-            <input type="text" name="keywords" class="form-control" value="<?php echo $data['keywords']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Alamat</label>
-            <input type="text" name="alamat" class="form-control" value="<?php echo $data['alamat']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Google Maps</label>
-            <textarea name="gmap" class="form-control"><?php echo $data['gmap']; ?></textarea>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" value="<?php echo $data['email']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Telepon</label>
-            <input type="text" name="telepon" class="form-control" value="<?php echo $data['telepon']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Facebook</label>
-            <input type="text" name="facebook" class="form-control" value="<?php echo $data['facebook']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Instagram</label>
-            <input type="text" name="instagram" class="form-control" value="<?php echo $data['instagram']; ?>">
-          </div>
-          <div class="form-group">
-            <label>X</label>
-            <input type="text" name="x" class="form-control" value="<?php echo $data['x']; ?>">
-          </div>
-          <div class="form-group">
-            <label>YouTube</label>
-            <input type="text" name="youtube" class="form-control" value="<?php echo $data['youtube']; ?>">
-          </div>
-          <div class="form-group">
-            <label>Gambar</label><br>
-            <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar Profil" style="width: 100px; height: auto;"><br><br>
-            <input type="file" name="gambar" class="form-control">
-          </div>
-
-          <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
-          <a href="profile.php" class="btn btn-default">Batal</a>
-        </form>
-      </div>
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h1>Edit Data Profil</h1>
     </div>
-  </section>
+    <div class="box-body">
+      <form method="POST" action="" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Nama Website</label>
+          <input type="text" name="titlewebsite" class="form-control" value="<?php echo $data['titlewebsite']; ?>" required>
+        </div>
+        <div class="form-group">
+          <label>Nama Dinas</label>
+          <input type="text" name="titleparagraf" class="form-control" value="<?php echo $data['titleparagraf']; ?>" required>
+        </div>
+        <div class="form-group">
+          <label>Paragraf Welcome</label>
+          <textarea name="welcomeparagraf" class="form-control" required><?php echo $data['welcomeparagraf']; ?></textarea>
+        </div>
+        <div class="form-group">
+          <label>Copyright</label>
+          <input type="text" name="copyright" class="form-control" value="<?php echo $data['copyright']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Deskripsi</label>
+          <textarea name="description" class="form-control"><?php echo $data['description']; ?></textarea>
+        </div>
+        <div class="form-group">
+          <label>Kata Kunci</label>
+          <input type="text" name="keywords" class="form-control" value="<?php echo $data['keywords']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Alamat</label>
+          <input type="text" name="alamat" class="form-control" value="<?php echo $data['alamat']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Google Maps</label>
+          <textarea name="gmap" class="form-control"><?php echo $data['gmap']; ?></textarea>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" value="<?php echo $data['email']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Telepon</label>
+          <input type="text" name="telepon" class="form-control" value="<?php echo $data['telepon']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Facebook</label>
+          <input type="text" name="facebook" class="form-control" value="<?php echo $data['facebook']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Instagram</label>
+          <input type="text" name="instagram" class="form-control" value="<?php echo $data['instagram']; ?>">
+        </div>
+        <div class="form-group">
+          <label>X</label>
+          <input type="text" name="x" class="form-control" value="<?php echo $data['x']; ?>">
+        </div>
+        <div class="form-group">
+          <label>YouTube</label>
+          <input type="text" name="youtube" class="form-control" value="<?php echo $data['youtube']; ?>">
+        </div>
+        <div class="form-group">
+          <label>Gambar</label><br>
+          <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar Profil" style="width: 100px; height: auto;"><br><br>
+          <input type="file" name="gambar" class="form-control">
+        </div>
 
-</body>
-
-</html>
+        <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
+        <a href="profile.php" class="btn btn-default">Batal</a>
+      </form>
+    </div>
+  </div>
+</section>

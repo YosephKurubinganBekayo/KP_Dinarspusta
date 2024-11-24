@@ -30,6 +30,8 @@ include "inc/koneksi.php";
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- summernote -->
+	<link href="assets/summernote/summernote.min.css" rel="stylesheet">
 	<!-- DataTables -->
 	<!-- DataTables CSS -->
 	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"> -->
@@ -250,11 +252,15 @@ include "inc/koneksi.php";
 										<i class="fa fa-profile"></i>Profil</a>
 								</li>
 								<li>
-									<a href="?page=layanan">
+									<a href="?page=MyApp/tentang_kami">
+										<i class="fa fa-service"></i>Tentang Kami</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/layanan">
 										<i class="fa fa-service"></i>Layanan</a>
 								</li>
 								<li>
-									<a href="?page=kegiatan">
+									<a href="?page=MyApp/kegiatan">
 										<i class="fa fa-activity"></i>Kegiatan</a>
 								</li>
 							</ul>
@@ -488,6 +494,13 @@ include "inc/koneksi.php";
 						case 'MyApp/edit_profile':
 							include "admin/profile/edit_profile.php";
 							break;
+							// tentang kami
+						case 'MyApp/tentang_kami':
+							include "admin/tentang_kami/profil.php";
+							break;
+						case 'MyApp/edit_tentang_kami':
+							include "admin/tentang_kami/edit/edit_tentang_kami.php";
+							break;
 							// case 'MyApp/print_laporan':
 							// 	include "admin/laporan/print_laporan.php";
 							// break;
@@ -531,6 +544,9 @@ include "inc/koneksi.php";
 		<script src="plugins/datatables2/pdfmake-0.1.32/vfs_fonts.js"></script>
 		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.html5.min.js"></script>
 		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.print.min.js"></script>
+		<!-- summernore -->
+		<!-- include summernote css/js -->
+		<script src="assets/summernote/summernote.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="dist/js/app.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
@@ -548,6 +564,14 @@ include "inc/koneksi.php";
 						"close"
 					]
 				});
+			});
+		</script>
+		<!-- script_summernote -->
+		<script>
+			$('#summernote').summernote({
+				tabsize: 2,
+				height: 200,
+
 			});
 		</script>
 		<!-- script datatabels-->

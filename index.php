@@ -140,15 +140,14 @@ setcookie(
 
           ?>
           <a href="#tentang_kami" class="button-lg-primary_titel">
-            <button class="button-lg-primary">
-              Selengkapnya
-            </button>
+            <button class="button-lg-primary">Tentang Kami</button>
           </a>
         </div>
       </div>
     </div>
   </section>
   <!-- section about -->
+
   <section id="tentang_kami">
     <div class="container-fluid">
       <div class="container">
@@ -157,22 +156,28 @@ setcookie(
         </div>
 
         <div class="row">
+          <?php
+          // Query untuk mendapatkan data gambar pertama
+          $sql_gambar = $koneksi->query("SELECT * FROM tbl_aboutus LIMIT 1");
+          $data_gambar = $sql_gambar->fetch_assoc();
+          ?>
           <div class="col-md-5 img_about">
-            <img src="img/perpus.jpg" alt="Tentang Kami" class="menu-card-img">
+            <img src="img/<?php echo $data_gambar['pict_aboutus']; ?>" alt="Tentang Kami" class="menu-card-img">
           </div>
-          <div class="col-md-7  about_info">
-            <div class="about_item border">
-              <h4>Dinas Kearsipan Dan perpustakan Kota Kupang</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ducimus voluptatum dolor. Et, voluptatum
-                accusantium!</p>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic deserunt iure amet facilis eos a quo cum
-                voluptates molestias nihil.</p>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus, praesentium, tenetur, sapiente quis obcaecati quidem expedita rem odio voluptatibus velit deleniti? Ipsum ab sed impedit. Eos et adipisci esse quam.</p>
-            </div>
-            <div class="footer_about">
-              <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
-            </div>
+          <div class="col-md-7 about_info">
+            <?php
+            $sql = $koneksi->query("SELECT * FROM tbl_aboutus");
+            while ($data = $sql->fetch_assoc()) {
+            ?>
+              <div class="about_item">
+                <?php echo substr($data['detail_aboutus'], 0, 700); ?>...
+              </div>
+              <div class="footer_about">
+                <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
+              </div>
+            <?php } ?>
           </div>
+
         </div>
       </div>
     </div>
@@ -181,21 +186,23 @@ setcookie(
   <section id="layanan">
     <div class="container">
       <div class="header-layanan">
-        <h2><span>Layanan</span> Kami</h2>
-        <p class="px-50">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam cum, assumenda odio excepturi numquam suscipit. Ut aliquam molestias animi vitae at fugiat, repellendus deleniti aperiam! Eos unde natus consequuntur harum.
-        </p>
-
-        <?php
-        // Query bidang untuk mendapatkan semua data bidang
+        <?php // Query bidang untuk mendapatkan semua data bidang
         $query_bidang = $koneksi->query("SELECT * FROM bidang");
         $bidang_data = [];
         while ($row = $query_bidang->fetch_assoc()) {
           $bidang_data[] = $row; // Simpan data bidang ke array
+          $bidang_data_nama[] = $row['nama_bidang'];
         }
-        ?>
-
-        <!-- Navigasi untuk memilih layanan -->
+        // Membentuk kalimat layanan dari nama bidang
+        if (count($bidang_data_nama) > 1) {
+          $layanan_list = implode(', ', array_slice($bidang_data_nama, 0, -1)) . ' dan ' . end($bidang_data_nama);
+        } else {
+          $layanan_list = $bidang_data_nama[0] ?? '';
+        } ?>
+        <h2><span>Layanan</span> Kami</h2>
+        <p class="px-50">
+          <?php echo $profile['titlewebsite']; ?> menyediakan layanan <?php echo $layanan_list; ?> yang terkelola dengan baik untuk mendukung kebutuhan informasi dan literasi Anda. Klik tombol di bawah ini untuk informasi layanan lebih lanjut.
+        </p> <!-- Navigasi untuk memilih layanan -->
         <div class="service-navigation border-top">
           <?php foreach ($bidang_data as $index => $bidang) : ?>
             <button class="service-btn <?= $index === 0 ? 'active' : '' ?>" data-target="bidang-<?= $bidang['id']; ?>">
@@ -324,8 +331,7 @@ setcookie(
         }
       });
     });
-  </script>
-  <!-- kegiatan dan berita -->
+  </script> <!-- kegiatan dan berita -->
   <?php
   // Koneksi ke database
 
@@ -333,7 +339,6 @@ setcookie(
   if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
   }
-
   // Query untuk mengambil data kegiatan
   $sql = "SELECT * FROM kegiatan ORDER BY tanggal DESC";
   $result = $koneksi->query($sql);
@@ -468,17 +473,70 @@ setcookie(
       </div>
     </div>
   </section>
+  <!-- kontak -->
   <!-- kontak Section -->
   <section id="contact">
     <div class="container-fluid overlay h-100">
-      <div class="container ">
-        <h2 class="text-center">Kontak Kami</h2>
-        <h3 class="text-center">Butuh konsultasi..?
-          Silahkan Kontak Kami
-        </h3>
-        <br>
-        <div class="row pt-20 ">
-          <div class="col-md-6 m-auto ">
+      <div class="container">
+        <h2 class="text-center"><span>Kontak</span> Kami</h2>
+        <div class="row kontak_item">
+          <div class="col-md-5 kontak_info">
+            <div class="kontak_item_header border-bottom">
+              <h4>Hubungi Kami</h4>
+              <p>Butuh Bantuan..? Silahkan Hubungi kami untuk informasi lebih lanjut</p>
+            </div>
+            <h5>Alamat</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
+                </a>
+              </div>
+            </div>
+            <h5>whatsapp</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+            </div>
+            <h5>Telepon</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-phone"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fas fa-phone"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+
+            </div>
+            <h5>Email</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
+              </div>
+            </div>
+            <div class="medsos mt-4 ">
+              <h5>Media Sosial</h5>
+            </div>
+            <div class="medsos mb-4 ">
+              <a href="https://www.facebook.com/profile.php?id=100069371252712" target="_blank"><i class="fab fa-facebook-f me-4 "></i></a>
+              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-4 "></i></a>
+              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter me-4 "></i></a>
+            </div>
+          </div>
+          <div class="col-md-6">
             <div class="card-contact ">
               <form action="">
                 <h4>Ada Pertanyaan..?</h4>
@@ -498,52 +556,34 @@ setcookie(
               </form>
             </div>
           </div>
-          <div class="col-md-6 mx-auto">
-
-            <div class="kontak mt-3">
-              <h6>Alamat</h6>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="gmap">
+    <div class="row g_map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+  <!-- footer -->
+  <footer>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row footer">
+          <div class="col-md-4 ">
+            <div class="logo">
+              <a href="#" class="scroll-top"> <img src="img/buku.jpg" alt=""> | <?php echo "$profile[titlewebsite]"; ?></a>
             </div>
-            <div class="kontak">
-              <a href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">
-                <i class="fas fa-map-marker-alt"></i> Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
-              </a>
-            </div>
-            <div class="kontak mt-3">
-              <h6>WhatsApp</h6>
-            </div>
-            <div class="kontak">
-              <a href="https://wa.me/081237788789" target="_blank">
-                <i class="fab fa-whatsapp"></i> 081237788789
-              </a>
-            </div>
-            <div class="kontak mt-3">
-              <h6>Email</h6>
-            </div>
-            <div class="kontak">
-              <a href="mailto:arspuskpg@gmail.com">
-                <i class="fas fa-envelope"></i> arspuskpg@gmail.com
-              </a>
-            </div>
-
-            <div class="kontak mt-4 ">
-              <h6>Media Sosial</h6>
-            </div>
-            <div class="social-icons mb-4 ">
-              <a href="https://www.facebook.com/profile.php?id=100069371252712" target="_blank"><i class="fab fa-facebook-f me-4 "></i></a>
-              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-4 "></i></a>
-              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter me-4 "></i></a>
+          </div>
+          <div class="col-md-8 my-auto">
+            <div class="copyrigt ">
+              <a>Copyright &copy; <?php echo date("Y"); ?> | Created by : <span>Kerja Praktek Ilmu Komputer UNDANA</span></a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- <section id="gmap">
-  
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </section> -->
-  <?php include  "footer.php" ?>
-  <!-- Optional JavaScript; choose one of the two! -->
+  </footer> <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>

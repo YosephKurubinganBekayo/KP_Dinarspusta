@@ -43,6 +43,10 @@
   .hero_tagline {
     text-align: center;
   }
+  /* about */
+  .about_info {
+    padding-top: 20px;
+  }
   /* layanan */
   .library-info {
     margin-top: 10px;
@@ -65,6 +69,18 @@
   .carousel-control-prev,
   .carousel-control-next {
     display: none;
+  }
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  footer .logo,
+  footer .copyrigt {
+    text-align: center;
+  }
+  footer .copyrigt {
+    padding-top: 10px;
   }
 }
 
