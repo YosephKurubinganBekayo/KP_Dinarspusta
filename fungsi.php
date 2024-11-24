@@ -160,8 +160,6 @@ class databases
     }
     return $result_aboutus;
   }
-
-
   //fungsi menampilkan isi data dari tbl_contactus
   public function get_show_contactus()
   {
@@ -182,8 +180,6 @@ class databases
     }
     return $result_contactus;
   }
-
-
   //fungsi menampilkan isi data dari tbl_gallery
   public function get_show_gallery()
   {
@@ -194,7 +190,6 @@ class databases
     }
     return $result_gallery;
   }
-
   public function get_show_gallery_detail()
   {
     $data_gallery = "SELECT * FROM tbl_gallery ORDER BY id_gallery DESC";
@@ -204,8 +199,6 @@ class databases
     }
     return $result_gallery;
   }
-
-
   //fungsi menampilkan isi data dari tbl_testimonials
   public function get_show_testimonial()
   {
