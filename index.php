@@ -287,7 +287,7 @@ setcookie(
             </div>
           </div>
           <!-- Footer layanan -->
-          <div class="library-foter border-top ">
+          <div class="library-foter ">
             <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Selengkapnya</a></button>
           </div>
         </div>

@@ -1,6 +1,6 @@
-:root {
+/* :root {
   --primary: #ff6500;
-  --secondary: #080d3f;
+  --secondary: #002379;
   --white: #ffffff;
   --black: #373a40;
   --grey: #686d76;
@@ -8,7 +8,7 @@
 
   --font-white: #ffffff;
   --font-black: #444;
-}
+} */
 @media (max-width: 991.98px) {
   .navbar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;

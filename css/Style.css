@@ -1,6 +1,6 @@
 :root {
   --primary: #ff6500;
-  --secondary: #080d3f;
+  --secondary: #00215e;
   --white: #ffffff;
   --black: #373a40;
   --grey: #686d76;
@@ -292,9 +292,9 @@ body {
 .header-layanan {
   /* background-color: var(--white); */
   padding-top: 45px;
-  border-radius: 5px;
-  padding-right: 20px;
-  padding-left: 20px;
+  /* border-radius: 5px; */
+  /* padding-right: 20px; */
+  /* padding-left: 20px; */
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
@@ -309,7 +309,7 @@ body {
   font-weight: 400;
   margin-bottom: 20px;
 
-  padding: 0 10px;
+  /* padding: 0 10px; */
 }
 
 .service-navigation {
@@ -317,6 +317,7 @@ body {
   justify-content: space-evenly;
   padding: 10px;
   margin-bottom: 15px;
+  /* background-color: #ff6500; */
 }
 
 .service-navigation .active {
@@ -388,7 +389,7 @@ body {
 }
 .layanan_item {
   display: flex;
-  padding: 10px;
+  /* padding: 10px; */
   /* border: 1px solid var(--primary); */
 }
 .layanan_info {
