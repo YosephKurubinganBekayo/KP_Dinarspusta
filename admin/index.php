@@ -501,10 +501,16 @@ include "inc/koneksi.php";
 						case 'MyApp/edit_tentang_kami':
 							include "admin/tentang_kami/edit/edit_tentang_kami.php";
 							break;
-							// case 'MyApp/print_laporan':
-							// 	include "admin/laporan/print_laporan.php";
-							// break;
-							//default
+							// kegiatan
+						case 'MyApp/kegiatan':
+							include "admin/kegiatan/kegiatan.php";
+							break;
+						case 'MyApp/add_kegiatan':
+							include "admin/kegiatan/add_kegiatan.php";
+							break;
+						case 'MyApp/edit_kegiatan':
+							include "admin/kegiatan/edit_kegiatan.php";
+							break;
 						default:
 							echo "<center><br><br><br><br><br><br><br><br><br>
 				  <h1> Halaman tidak ditemukan !</h1></center>";
