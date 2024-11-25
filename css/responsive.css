@@ -1,13 +1,14 @@
-/* Default font-size */
-:root {
+/* :root {
   --primary: #ff6500;
-  --secondary: #080d3f;
+  --secondary: #002379;
   --white: #ffffff;
-  --bg: #dee2e6;
+  --black: #373a40;
+  --grey: #686d76;
+  --bg: #eeeeee;
 
   --font-white: #ffffff;
   --font-black: #444;
-}
+} */
 @media (max-width: 991.98px) {
   .navbar {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
@@ -26,6 +27,9 @@
     text-transform: capitalize;
     color: var(--font-white);
   }
+  .button_secondary a {
+    color: var(--font-white);
+  }
   .navbar-nav .nav-link {
     margin-bottom: 10px; /* Jarak antar tombol menu */
   }
@@ -35,25 +39,48 @@
   }
 }
 @media (max-width: 768px) {
+  /* hero */
   .hero_tagline {
     text-align: center;
   }
-
+  /* about */
+  .about_info {
+    padding-top: 20px;
+  }
+  /* layanan */
   .library-info {
     margin-top: 10px;
     padding-top: 10px !important;
     border-top: 1px solid #dee2e6;
     text-align: left;
   }
+  .library-title {
+    margin-top: 10px;
+  }
+  .layanan_item .menu-card-img {
+    height: 280px;
+  }
+  /* kegiayan */
   #kegiatan {
     background-color: var(--white);
     padding-left: 0;
     padding-right: 0;
   }
-  /* Tombol Navigasi */
   .carousel-control-prev,
   .carousel-control-next {
     display: none;
+  }
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  footer .logo,
+  footer .copyrigt {
+    text-align: center;
+  }
+  footer .copyrigt {
+    padding-top: 10px;
   }
 }
 
