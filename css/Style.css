@@ -519,11 +519,14 @@ body {
 
   padding: 10px 0;
 }
+
+
 .card_kegiatan {
   height: 100%; /* Pastikan semua kartu memiliki tinggi penuh */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
 }
 
 .card_image img {
@@ -532,21 +535,21 @@ body {
   width: 100%; /* Pastikan gambar memenuhi lebar kartu */
 }
 
-.card-title {
-  overflow: hidden; /* Potong teks jika terlalu panjang */
-  text-overflow: ellipsis; /* Tambahkan titik-titik jika teks terpotong */
-  white-space: nowrap; /* Tetap dalam satu baris */
+.card-body {
+  height: 250px; /* Tinggi tetap untuk deskripsi */
+  overflow: hidden;
 }
-
-.card-text {
-  height: 100px; /* Tinggi tetap untuk deskripsi */
-  overflow: hidden; /* Potong teks jika terlalu panjang */
-  text-overflow: ellipsis; /* Tambahkan titik-titik jika teks terpotong */
+.info-header {
+  display: flex;
+  justify-content: space-between;
 }
-
+.info-header p {
+  font-size: 12px;
+}
 .card_kegiatan:hover {
-  border: 1px solid var(--primary);
+  /* border: 1px solid var(--primary); */
   transition: all 0.3s ease-in;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .card_kegiatan:hover button {
   background-color: var(--primary);
@@ -793,6 +796,10 @@ body {
   background-color: var(--primary);
   color: var(--font-white);
   border: none;
+}
+.gmap{
+  padding-top:  10px ;
+  padding-bottom:  10px ;
 }
 .g_map {
   padding: 0;

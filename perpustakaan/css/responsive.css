@@ -5,16 +5,15 @@
   --white: #ffffff;
   --bg: #dee2e6;
 
-  --font-white: #ffffff;
-  --font-black: #444;
+  --font-white: #444;
+  /* --font-black: #000000; */
 }
 html {
-  font-size: 100%; /* 16px */
+  color: var(--font-black);
 }
 
 @media (max-width: 1200px) {
   html {
-    font-size: 90%; /* 14.4px */
   }
 }
 /* ini */
@@ -32,24 +31,69 @@ html {
 
 @media (max-width: 992px) {
   html {
-    font-size: 80%; /* 12.8px */
   }
 }
 
 @media (max-width: 768px) {
   html {
-    font-size: 70%; /* 11.2px */
   }
   .nav-color_hp {
     background-color: var(--white);
     transition: all 0.3s ease 0s;
   }
+
+
+  .timeline {
+    /* position: relative; */
+    /* margin-left: 50px; */
+    padding: 30px;
+  }
   
+  .timeline::before {
+    left: 30px;
+    /* background-color: #ff5733; */
+    margin-left: -2px;
+    
+  }
+  
+  .timeline-item {
+    position: relative;
+    margin: 20px 0 0  30px;
+    display: flex;
+  }
+
+  
+  .timeline-item:nth-child(even) .timeline-content {
+    order: 2; 
+    margin-left: 0;
+  }
+
+  
+  .timeline-item .timeline-icon {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5733;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    transform: translate(-200%, 0);
+  }
+  .timeline-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px ;
+    width: 100%;
+    position: relative;
+  }
 }
 
 @media (max-width: 576px) {
   html {
-    font-size: 60%; /* 9.6px */
   }
   .nav-color {
     background-color: var(--white);
@@ -73,7 +117,6 @@ html {
 
 @media (max-width: 400px) {
   html {
-    font-size: 50%; /* 8px */
   }
   /* .nav-color {
     background-color: var(--white);

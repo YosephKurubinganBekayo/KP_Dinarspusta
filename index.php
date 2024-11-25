@@ -162,7 +162,8 @@ setcookie(
           $data_gambar = $sql_gambar->fetch_assoc();
           ?>
           <div class="col-md-5 img_about">
-            <img src="img/<?php echo $data_gambar['pict_aboutus']; ?>" alt="Tentang Kami" class="menu-card-img">
+            <img src="img/<?php echo $data_gambar['pict_aboutus']; 
+                          ?>" alt="Tentang Kami" class="menu-card-img">
           </div>
           <div class="col-md-7 about_info">
             <?php
@@ -170,12 +171,14 @@ setcookie(
             while ($data = $sql->fetch_assoc()) {
             ?>
               <div class="about_item">
-                <?php echo substr($data['detail_aboutus'], 0, 700); ?>...
+                <?php echo substr($data['detail_aboutus'], 0, 700); 
+                ?>...
               </div>
               <div class="footer_about">
                 <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
               </div>
-            <?php } ?>
+            <?php } 
+            ?>
           </div>
 
         </div>
@@ -368,15 +371,17 @@ setcookie(
                   <div class="carousel-item <?= $active ?>">
                     <div class="card card_kegiatan h-100">
                       <div class="card_image">
-                        <img src="<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
+                        <img src="img/<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
                       </div>
                       <div class="card-body ">
                         <div class="info-header text-muted border-bottom mb-3">
                           <p class="text-muted"><i class="fas fa-calendar-alt"></i> <?= date("d F Y", strtotime($row['tanggal'])) ?></p>
-                          <!-- <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p> -->
+                          <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p>
                         </div>
-                        <h5 class="card-title text-start"><?= substr($row['judul'], 0, 50) . '...' ?></h5>
-                        <p class="card-text text-justify"><?= substr($row['deskripsi'], 0, 80) . '...' ?></p>
+                        <div>
+                          <h5 class="card-title text-start"><?= substr($row['judul'], 0, 70) . '...' ?></h5>
+                          <?= substr($row['deskripsi'], 0, 180) . '...' ?>
+                        </div>
                       </div>
                       <div class="library-foter border-top">
                         <button><a href="kegiatan/detail_kegiatan.php?id=<?= $row['id'] ?>">lihat detail</a></button>
@@ -429,16 +434,22 @@ setcookie(
                   <div class="col-md-4">
                     <div class="card card_kegiatan h-100">
                       <div class="card_image">
-                        <img src="<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
+                        <img src="img/<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
                       </div>
                       <div class="card-body">
                         <div class="info-header text-muted border-bottom mb-3">
+                          <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p>
                           <p class="text-muted"><i class="fas fa-calendar-alt"></i> <?= date("l, d F Y", strtotime($row['tanggal'])) ?></p>
-                          <!-- <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p> -->
                         </div>
-                        <h5 class="card-title"><?= substr($row['judul'], 0, 80) . '...' ?></h5>
-                        <p class="card-text"><?= substr($row['deskripsi'], 0, 100) . '...' ?></p>
+
+                        <h5 class="card-title">
+                          <?= strlen($row['judul']) > 50 ? substr($row['judul'], 0, 50) . '...' : $row['judul'] ?>
+                        </h5>
+
+                        <?= strlen($row['deskripsi']) > 180 ? substr($row['deskripsi'], 0, 180) . '...' : $row['deskripsi'] ?>
+
                       </div>
+
                       <div class="library-foter border-top">
                         <button><a href="kegiatan/detail_kegiatan.php?id=<?= $row['id'] ?>">lihat detail</a></button>
                       </div>
@@ -545,7 +556,7 @@ setcookie(
                   <label for="floatingInput">Email </label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <input type="text" class="form-control" id="floatingInput_no" placeholder="no hp">
                   <label for="floatingInput">No HP </label>
                 </div>
                 <div class="form-floating">
@@ -561,8 +572,11 @@ setcookie(
     </div>
   </section>
   <section id="gmap">
-    <div class="row g_map">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="container-fluid gmap">
+      <div class="row g_map">
+        <!-- <p><?php echo $profile['gmap']?></p> -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342696545936!2d123.60418207479559!3d-10.152773889960576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1732518029038!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </section>
   <!-- footer -->
@@ -583,7 +597,8 @@ setcookie(
         </div>
       </div>
     </div>
-  </footer> <!-- Optional JavaScript; choose one of the two! -->
+  </footer>
+  <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
