@@ -520,13 +520,12 @@ body {
   padding: 10px 0;
 }
 
-
 .card_kegiatan {
   height: 100%; /* Pastikan semua kartu memiliki tinggi penuh */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .card_image img {
@@ -549,7 +548,6 @@ body {
 .card_kegiatan:hover {
   /* border: 1px solid var(--primary); */
   transition: all 0.3s ease-in;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .card_kegiatan:hover button {
   background-color: var(--primary);
@@ -797,9 +795,9 @@ body {
   color: var(--font-white);
   border: none;
 }
-.gmap{
-  padding-top:  10px ;
-  padding-bottom:  10px ;
+.gmap {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .g_map {
   padding: 0;

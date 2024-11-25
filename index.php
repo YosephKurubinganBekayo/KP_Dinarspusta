@@ -162,7 +162,7 @@ setcookie(
           $data_gambar = $sql_gambar->fetch_assoc();
           ?>
           <div class="col-md-5 img_about">
-            <img src="img/<?php echo $data_gambar['pict_aboutus']; 
+            <img src="img/<?php echo $data_gambar['pict_aboutus'];
                           ?>" alt="Tentang Kami" class="menu-card-img">
           </div>
           <div class="col-md-7 about_info">
@@ -171,13 +171,13 @@ setcookie(
             while ($data = $sql->fetch_assoc()) {
             ?>
               <div class="about_item">
-                <?php echo substr($data['detail_aboutus'], 0, 700); 
+                <?php echo substr($data['detail_aboutus'], 0, 700);
                 ?>...
               </div>
               <div class="footer_about">
                 <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
               </div>
-            <?php } 
+            <?php }
             ?>
           </div>
 
@@ -428,7 +428,7 @@ setcookie(
                   if ($counter % 3 === 0) {
                     if ($counter > 0) echo '</div></div>'; // Tutup slide sebelumnya
                     $active = ($counter === 0) ? 'active' : '';
-                    echo '<div class="carousel-item ' . $active . '"><div class="row">';
+                    echo '<div class="carousel-item ' . $active . '"><div class="row card_item_kegiatan">';
                   }
               ?>
                   <div class="col-md-4">
@@ -438,7 +438,7 @@ setcookie(
                       </div>
                       <div class="card-body">
                         <div class="info-header text-muted border-bottom mb-3">
-                          <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p>
+                          <!-- <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p> -->
                           <p class="text-muted"><i class="fas fa-calendar-alt"></i> <?= date("l, d F Y", strtotime($row['tanggal'])) ?></p>
                         </div>
 
@@ -574,7 +574,7 @@ setcookie(
   <section id="gmap">
     <div class="container-fluid gmap">
       <div class="row g_map">
-        <!-- <p><?php echo $profile['gmap']?></p> -->
+        <!-- <p><?php echo $profile['gmap'] ?></p> -->
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342696545936!2d123.60418207479559!3d-10.152773889960576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1732518029038!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
