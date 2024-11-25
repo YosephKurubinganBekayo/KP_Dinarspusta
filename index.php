@@ -46,9 +46,16 @@ setcookie(
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-fixed w-100">
     <div class="container">
-      <a class="navbar-brand" href="#">
-        <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top"> -->
-        Araspus Kupang</a>
+      <?php
+      $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
+      if ($profile) { ?>
+        <a class="navbar-brand" href="#">
+          <img src="img/buku.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          <?php echo $profile['titlewebsite'] ?></a>
+      <?php } else {
+        echo "<p>Nama Brand</p>";
+      } ?>
+
 
       <button class="navbar-toggler border-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -92,7 +99,7 @@ setcookie(
           </li>
         </ul>
         <div class="navbar-nav login-button ">
-          <a href="admin/index.php"><button class="button_secondary">Masuk</button></a>
+          <button class="button_secondary"><a href="admin/index.php">Masuk</a></button>
         </div>
       </div>
     </div>
@@ -109,6 +116,7 @@ setcookie(
       background-size: cover;
       background-position: center;
       position: relative;
+
     }
   </style>
   <section class="hero" id="hero">
@@ -131,36 +139,70 @@ setcookie(
           }
 
           ?>
-          <a href="#layanan" class="button-lg-primary_titel">
-            <button class="button-lg-primary">
-              Selengkapnya
-            </button>
+          <a href="#tentang_kami" class="button-lg-primary_titel">
+            <button class="button-lg-primary">Tentang Kami</button>
           </a>
         </div>
       </div>
     </div>
   </section>
-  </section>
+  <!-- section about -->
 
-  <!-- Menu Section start -->
+  <section id="tentang_kami">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="header-about">
+          <h2 class=""><span>Tentang</span> Kami</h2>
+        </div>
+
+        <div class="row">
+          <?php
+          // Query untuk mendapatkan data gambar pertama
+          $sql_gambar = $koneksi->query("SELECT * FROM tbl_aboutus LIMIT 1");
+          $data_gambar = $sql_gambar->fetch_assoc();
+          ?>
+          <div class="col-md-5 img_about">
+            <img src="img/<?php echo $data_gambar['pict_aboutus']; ?>" alt="Tentang Kami" class="menu-card-img">
+          </div>
+          <div class="col-md-7 about_info">
+            <?php
+            $sql = $koneksi->query("SELECT * FROM tbl_aboutus");
+            while ($data = $sql->fetch_assoc()) {
+            ?>
+              <div class="about_item">
+                <?php echo substr($data['detail_aboutus'], 0, 700); ?>...
+              </div>
+              <div class="footer_about">
+                <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
+              </div>
+            <?php } ?>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- layanan Section start -->
   <section id="layanan">
     <div class="container">
       <div class="header-layanan">
-        <h2><span>Layanan</span> Kami</h2>
-        <p class="px-50">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam cum, assumenda odio excepturi numquam suscipit. Ut aliquam molestias animi vitae at fugiat, repellendus deleniti aperiam! Eos unde natus consequuntur harum.
-        </p>
-
-        <?php
-        // Query bidang untuk mendapatkan semua data bidang
+        <?php // Query bidang untuk mendapatkan semua data bidang
         $query_bidang = $koneksi->query("SELECT * FROM bidang");
         $bidang_data = [];
         while ($row = $query_bidang->fetch_assoc()) {
           $bidang_data[] = $row; // Simpan data bidang ke array
+          $bidang_data_nama[] = $row['nama_bidang'];
         }
-        ?>
-
-        <!-- Navigasi untuk memilih layanan -->
+        // Membentuk kalimat layanan dari nama bidang
+        if (count($bidang_data_nama) > 1) {
+          $layanan_list = implode(', ', array_slice($bidang_data_nama, 0, -1)) . ' dan ' . end($bidang_data_nama);
+        } else {
+          $layanan_list = $bidang_data_nama[0] ?? '';
+        } ?>
+        <h2><span>Layanan</span> Kami</h2>
+        <p class="px-50">
+          <?php echo $profile['titlewebsite']; ?> menyediakan layanan <?php echo $layanan_list; ?> yang terkelola dengan baik untuk mendukung kebutuhan informasi dan literasi Anda. Klik tombol di bawah ini untuk informasi layanan lebih lanjut.
+        </p> <!-- Navigasi untuk memilih layanan -->
         <div class="service-navigation border-top">
           <?php foreach ($bidang_data as $index => $bidang) : ?>
             <button class="service-btn <?= $index === 0 ? 'active' : '' ?>" data-target="bidang-<?= $bidang['id']; ?>">
@@ -173,77 +215,80 @@ setcookie(
       <?php foreach ($bidang_data as $index => $bidang) : ?>
         <!-- Seksi untuk setiap bidang -->
         <div id="bidang-<?= $bidang['id']; ?>" class="service-section" style="display: <?= $index === 0 ? 'block' : 'none'; ?>;">
-          <h4 class="library-title "><?= htmlspecialchars($bidang['nama_bidang']); ?></h4>
-          <div class="row border-top layanan_item">
+
+          <div class="row layanan_item">
             <div class="col-md-5 img_layanan">
               <img src="img/<?= htmlspecialchars($bidang['gambar'] ?? 'default.png'); ?>" alt="<?= htmlspecialchars($bidang['nama_bidang']); ?>" class="menu-card-img">
             </div>
 
-            <div class="col-md-7 d-flex flex-column justify-content-between layanan_info">
-              <h5 class="library-info ">Informasi Pelayanan</h5>
-              <div class="library-main">
-                <p><i class="fas fa-map-marker-alt"></i> Alamat: <?= htmlspecialchars($bidang['alamat']); ?></p>
-                <p><i class="fas fa-building"></i> Lantai: <?= htmlspecialchars($bidang['lantai']); ?></p>
+            <div class="col-md-7  detail_layanan ">
+              <div class="library-title border">
+                <h5 class=""><?= htmlspecialchars($bidang['nama_bidang']); ?></h5>
+              </div>
+              <div class="layanan_info border">
+                <div class="library-main">
+                  <p><i class="fas fa-building"></i><span>Lantai : </span><?= htmlspecialchars($bidang['lantai']); ?></p>
 
-                <p>Jam Operasional:</p>
-                <ul style="list-style-type: none; padding-left: 1;">
-                  <?php
-                  // Ubah teks jam operasional menjadi daftar
-                  $jamOperasional = explode("\n", $bidang['jam_operasional']); // Pecah teks berdasarkan baris baru
-                  foreach ($jamOperasional as $jam) :
-                    if (trim($jam)) : // Hanya tampilkan jika tidak kosong
-                  ?>
-                      <li class=""><i class="far fa-clock"></i> <?= htmlspecialchars($jam); ?></li>
-                  <?php
-                    endif;
-                  endforeach;
-                  ?>
-                </ul>
-                <p><i class="fas fa-plus-circle"></i> Jam Tambahan:
-                  <?= !empty($bidang['jam_tambahan']) ? htmlspecialchars($bidang['jam_tambahan']) : '<em>Tidak ada data</em>'; ?>
-                </p>
-                <p> Pegawai Bertugas Hari Ini:</p>
-                <ul style="list-style-type: none; padding-left: 1;">
-                  <?php
-                  $hari_map = [
-                    'monday' => 'senin',
-                    'tuesday' => 'selasa',
-                    'wednesday' => 'rabu',
-                    'thursday' => 'kamis',
-                    'friday' => 'jumat',
-                    'saturday' => 'sabtu',
-                    'sunday' => 'minggu',
-                  ];
-                  $hari_inggris = strtolower(date('l')); // Hari dalam bahasa Inggris
-                  $hari_ini = $hari_map[$hari_inggris]; // Ubah ke bahasa Indonesia
-                  $nama_bidang = $bidang['nama_bidang'];
+                  <p><span>Jam Operasional : </span></p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <?php
+                    // Ubah teks jam operasional menjadi daftar
+                    $jamOperasional = explode("\n", $bidang['jam_operasional']); // Pecah teks berdasarkan baris baru
+                    foreach ($jamOperasional as $jam) :
+                      if (trim($jam)) : // Hanya tampilkan jika tidak kosong
+                    ?>
+                        <li class=""><i class="far fa-clock"></i> <?= htmlspecialchars($jam); ?></li>
+                    <?php
+                      endif;
+                    endforeach;
+                    ?>
+                  </ul>
+                  <p><span>Jam Tambahan : </span></p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <li><i class="far fa-clock"> </i><?= !empty($bidang['jam_tambahan']) ? htmlspecialchars($bidang['jam_tambahan']) : '<em>Tidak ada data</em>'; ?></li>
+                  </ul>
+                  <p> Pegawai Bertugas Hari Ini:</p>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <?php
+                    $hari_map = [
+                      'monday' => 'senin',
+                      'tuesday' => 'selasa',
+                      'wednesday' => 'rabu',
+                      'thursday' => 'kamis',
+                      'friday' => 'jumat',
+                      'saturday' => 'sabtu',
+                      'sunday' => 'minggu',
+                    ];
+                    $hari_inggris = strtolower(date('l')); // Hari dalam bahasa Inggris
+                    $hari_ini = $hari_map[$hari_inggris]; // Ubah ke bahasa Indonesia
+                    $nama_bidang = $bidang['nama_bidang'];
 
-                  $query_pegawai = $koneksi->query("
+                    $query_pegawai = $koneksi->query("
                     SELECT p.nama_pegawai, p.kontak 
                     FROM pegawai AS p
                     JOIN jadwal_pegawai AS j ON p.id = j.id_pegawai 
                     JOIN bidang AS b ON p.id_bidang = b.id
                     WHERE LOWER(j.hari) = '$hari_ini' AND b.nama_bidang = '$nama_bidang'
                 ");
-
-                  // Memeriksa apakah query berhasil
-                  if (!$query_pegawai) {
-                    die('Query gagal: ' . $koneksi->error);
-                  }
-                  while ($pegawai = $query_pegawai->fetch_assoc()) :
-                  ?>
-                    <li class=""><i class="fas fa-user"></i> <?= htmlspecialchars($pegawai['nama_pegawai']); ?> - <?= htmlspecialchars($pegawai['kontak']); ?></li>
-                  <?php endwhile; ?>
-                </ul>
-              </div>
-              <div class="closed-info">
-                <p>Tutup: <?= htmlspecialchars($bidang['tutup']); ?></p>
+                    // Memeriksa apakah query berhasil
+                    if (!$query_pegawai) {
+                      die('Query gagal: ' . $koneksi->error);
+                    }
+                    while ($pegawai = $query_pegawai->fetch_assoc()) :
+                    ?>
+                      <li class=""><i class="fas fa-user"></i> <?= htmlspecialchars($pegawai['nama_pegawai']); ?> - <?= htmlspecialchars($pegawai['kontak']); ?></li>
+                    <?php endwhile; ?>
+                  </ul>
+                </div>
+                <div class="closed-info">
+                  <p>Tutup: <?= htmlspecialchars($bidang['tutup']); ?></p>
+                </div>
               </div>
             </div>
           </div>
           <!-- Footer layanan -->
-          <div class="library-foter border-top ">
-            <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Detail</a></button>
+          <div class="library-foter ">
+            <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Selengkapnya</a></button>
           </div>
         </div>
       <?php endforeach; ?>
@@ -286,8 +331,7 @@ setcookie(
         }
       });
     });
-  </script>
-  <!-- kegiatan dan berita -->
+  </script> <!-- kegiatan dan berita -->
   <?php
   // Koneksi ke database
 
@@ -295,7 +339,6 @@ setcookie(
   if ($koneksi->connect_error) {
     die("Koneksi gagal: " . $koneksi->connect_error);
   }
-
   // Query untuk mengambil data kegiatan
   $sql = "SELECT * FROM kegiatan ORDER BY tanggal DESC";
   $result = $koneksi->query($sql);
@@ -430,17 +473,70 @@ setcookie(
       </div>
     </div>
   </section>
+  <!-- kontak -->
   <!-- kontak Section -->
   <section id="contact">
     <div class="container-fluid overlay h-100">
-      <div class="container ">
-        <h2 class="text-center">Kontak Kami</h2>
-        <h3 class="text-center">Butuh konsultasi..?
-          Silahkan Kontak Kami
-        </h3>
-        <br>
-        <div class="row pt-20 ">
-          <div class="col-md-6 m-auto ">
+      <div class="container">
+        <h2 class="text-center"><span>Kontak</span> Kami</h2>
+        <div class="row kontak_item">
+          <div class="col-md-5 kontak_info">
+            <div class="kontak_item_header border-bottom">
+              <h4>Hubungi Kami</h4>
+              <p>Butuh Bantuan..? Silahkan Hubungi kami untuk informasi lebih lanjut</p>
+            </div>
+            <h5>Alamat</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
+                </a>
+              </div>
+            </div>
+            <h5>whatsapp</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+            </div>
+            <h5>Telepon</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-phone"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fas fa-phone"></i>
+                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+              </div>
+
+            </div>
+            <h5>Email</h5>
+            <div class="kontak">
+              <div class="kontak_detail">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
+              </div>
+              <div class="kontak_detail">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
+              </div>
+            </div>
+            <div class="medsos mt-4 ">
+              <h5>Media Sosial</h5>
+            </div>
+            <div class="medsos mb-4 ">
+              <a href="https://www.facebook.com/profile.php?id=100069371252712" target="_blank"><i class="fab fa-facebook-f me-4 "></i></a>
+              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-4 "></i></a>
+              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter me-4 "></i></a>
+            </div>
+          </div>
+          <div class="col-md-6">
             <div class="card-contact ">
               <form action="">
                 <h4>Ada Pertanyaan..?</h4>
@@ -460,52 +556,34 @@ setcookie(
               </form>
             </div>
           </div>
-          <div class="col-md-6 mx-auto">
-
-            <div class="kontak mt-3">
-              <h6>Alamat</h6>
-            </div>
-            <div class="kontak">
-              <a href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">
-                <i class="fas fa-map-marker-alt"></i> Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
-              </a>
-            </div>
-            <div class="kontak mt-3">
-              <h6>WhatsApp</h6>
-            </div>
-            <div class="kontak">
-              <a href="https://wa.me/081237788789" target="_blank">
-                <i class="fab fa-whatsapp"></i> 081237788789
-              </a>
-            </div>
-            <div class="kontak mt-3">
-              <h6>Email</h6>
-            </div>
-            <div class="kontak">
-              <a href="mailto:arspuskpg@gmail.com">
-                <i class="fas fa-envelope"></i> arspuskpg@gmail.com
-              </a>
-            </div>
-
-            <div class="kontak mt-4 ">
-              <h6>Media Sosial</h6>
-            </div>
-            <div class="social-icons mb-4 ">
-              <a href="https://www.facebook.com/profile.php?id=100069371252712" target="_blank"><i class="fab fa-facebook-f me-4 "></i></a>
-              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-4 "></i></a>
-              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter me-4 "></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="row gmap">
-          <!-- <div class="col-md-12"> -->
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <!-- </div> -->
         </div>
       </div>
     </div>
   </section>
-  <!-- Optional JavaScript; choose one of the two! -->
+  <section id="gmap">
+    <div class="row g_map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342761635182!2d123.60214357300359!3d-10.152768587323042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1726416102762!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+  <!-- footer -->
+  <footer>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row footer">
+          <div class="col-md-4 ">
+            <div class="logo">
+              <a href="#" class="scroll-top"> <img src="img/buku.jpg" alt=""> | <?php echo "$profile[titlewebsite]"; ?></a>
+            </div>
+          </div>
+          <div class="col-md-8 my-auto">
+            <div class="copyrigt ">
+              <a>Copyright &copy; <?php echo date("Y"); ?> | Created by : <span>Kerja Praktek Ilmu Komputer UNDANA</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer> <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>

@@ -30,6 +30,8 @@ include "inc/koneksi.php";
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- summernote -->
+	<link href="assets/summernote/summernote.min.css" rel="stylesheet">
 	<!-- DataTables -->
 	<!-- DataTables CSS -->
 	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"> -->
@@ -46,8 +48,10 @@ include "inc/koneksi.php";
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="dist/css/skins/skin-blue-light.min.css">
-
+	<!-- alert / pesan -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<!-- fancybox -->
+	<link rel="stylesheet" href="assets/fancybox/jquery.fancybox.css">
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini">
@@ -99,13 +103,13 @@ include "inc/koneksi.php";
 
 		<!-- Left side column. contains the sidebar -->
 		<aside class="main-sidebar">
-			<style>
+			<!-- <style>
 				.main-sidebar {
 					position: fixed;
 
 					height: 100vh;
 				}
-			</style>
+			</style> -->
 			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
 				<!-- Sidebar user panel -->
@@ -235,13 +239,34 @@ include "inc/koneksi.php";
 							</a>
 						</li>
 						<li class="treeview">
-							<a href="?page=MyApp/halaman_profile">
-								<i class="fa fa-dashboard"></i>
-								<span>Halaman Profil</span>
+							<a href="#">
+								<i class="fa fa-home"></i>
+								<span>Halaman Utama</span>
 								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
 								</span>
 							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="?page=MyApp/profile_dinas">
+										<i class="fa fa-profile"></i>Profil</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/tentang_kami">
+										<i class="fa fa-service"></i>Tentang Kami</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/layanan">
+										<i class="fa fa-service"></i>Layanan</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/kegiatan">
+										<i class="fa fa-activity"></i>Kegiatan</a>
+								</li>
+							</ul>
 						</li>
+						<!-- belum tambahkan navigasinya-->
+
 
 					<?php
 					} elseif ($data_level == "Petugas") {
@@ -384,8 +409,6 @@ include "inc/koneksi.php";
 						case 'MyApp/del_pengguna':
 							include "admin/pengguna/del_pengguna.php";
 							break;
-
-
 							//agt
 						case 'MyApp/data_agt':
 							include "admin/agt/data_agt.php";
@@ -405,7 +428,6 @@ include "inc/koneksi.php";
 						case 'MyApp/print_allagt':
 							include "admin/agt/print_allagt.php";
 							break;
-
 							// pegawai
 						case 'MyApp/data_pegawai':
 							include "admin/pegawai/data_pegawai.php";
@@ -438,7 +460,6 @@ include "inc/koneksi.php";
 						case 'MyApp/del_buku':
 							include "admin/buku/del_buku.php";
 							break;
-
 							//sirkul
 						case 'data_sirkul':
 							include "admin/sirkul/data_sirkul.php";
@@ -452,7 +473,6 @@ include "inc/koneksi.php";
 						case 'kembali':
 							include "admin/sirkul/kembali.php";
 							break;
-
 							//log
 						case 'log_pinjam':
 							include "admin/log/log_pinjam.php";
@@ -460,7 +480,6 @@ include "inc/koneksi.php";
 						case 'log_kembali':
 							include "admin/log/log_kembali.php";
 							break;
-
 							//laporan
 						case 'laporan_sirkulasi':
 							include "admin/laporan/laporan_sirkulasi.php";
@@ -468,12 +487,23 @@ include "inc/koneksi.php";
 						case 'laporan_inventaris_buku':
 							include "admin/laporan/laporan_inventaris_buku.php";
 							break;
+							//profile
+						case 'MyApp/profile_dinas':
+							include "admin/profile/profile.php";
+							break;
+						case 'MyApp/edit_profile':
+							include "admin/profile/edit_profile.php";
+							break;
+							// tentang kami
+						case 'MyApp/tentang_kami':
+							include "admin/tentang_kami/profil.php";
+							break;
+						case 'MyApp/edit_tentang_kami':
+							include "admin/tentang_kami/edit/edit_tentang_kami.php";
+							break;
 							// case 'MyApp/print_laporan':
 							// 	include "admin/laporan/print_laporan.php";
 							// break;
-
-
-
 							//default
 						default:
 							echo "<center><br><br><br><br><br><br><br><br><br>
@@ -495,23 +525,14 @@ include "inc/koneksi.php";
 			</section>
 			<!-- /.content -->
 		</div>
-
-
-
-
 		<!-- jQuery 2.2.3 -->
 		<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-
 		<!--Bootstrap 3.3.6 -->
-
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-
-
 		<script src="plugins/select2/select2.full.min.js"></script>
 		<!-- DataTables -->
 		<!-- <script src="plugins/datatables/jquery.dataTables.min.js"></script> -->
 		<!-- <script src="plugins/datatables/dataTables.bootstrap.min.js"></script> -->
-
 		<!-- DataTables -->
 		<!-- <script src="plugins/datatables2/DataTables-1.10.16/js/dataTables.bootstrap.min.js"></script> -->
 		<script src="plugins/datatables2/DataTables-1.10.16/js/jquery.dataTables.min.js"></script>
@@ -523,30 +544,37 @@ include "inc/koneksi.php";
 		<script src="plugins/datatables2/pdfmake-0.1.32/vfs_fonts.js"></script>
 		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.html5.min.js"></script>
 		<script src="plugins/datatables2/Buttons-1.5.1/js/buttons.print.min.js"></script>
-		<!-- <script src="plugins/datatables2/datatables.js"></script> -->
-		<!-- <script src="plugins/datatables2/Buttons-1.5.1/js/dataTables.buttons.min.js"></script> -->
-
-
-		<!-- ini coba saja -->
-		<!-- jQuery -->
-		<!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> -->
-		<!-- DataTables JS -->
-		<!-- <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script> -->
-		<!-- Buttons JS -->
-		<!-- <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-		<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script> -->
-
-
+		<!-- summernore -->
+		<!-- include summernote css/js -->
+		<script src="assets/summernote/summernote.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="dist/js/app.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="dist/js/demo.js"></script>
+		<!-- fancybox -->
+		<script src="assets/fancybox/jquery.fancybox.js"></script>
 		<!-- page script -->
+
+		<!-- script fancybox -->
+		<script>
+			$(document).ready(function() {
+				$('[data-fancybox="gallery"]').fancybox({
+					buttons: [
+						"zoom",
+						"close"
+					]
+				});
+			});
+		</script>
+		<!-- script_summernote -->
+		<script>
+			$('#summernote').summernote({
+				tabsize: 2,
+				height: 200,
+
+			});
+		</script>
+		<!-- script datatabels-->
 		<script>
 			$(function() {
 				$("#tabel_kelola_data").DataTable({
@@ -615,7 +643,7 @@ include "inc/koneksi.php";
 				});
 			});
 		</script>
-
+		<!-- script select -->
 		<script>
 			$(function() {
 				// Initialize Select2 Elements

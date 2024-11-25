@@ -88,7 +88,9 @@ include "head.php";
   </div>
 
   <div class="container content">
-    <div class="section-title border-bottom"><h5>Tugas dan Fungsi</h5></div>
+    <div class="section-title border-bottom">
+      <h5>Tugas dan Fungsi</h5>
+    </div>
 
     <div class="Visi">
       <h6>Tugas</h6>
