@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Perpustakaan Daerah</title>
-    <!-- Bootstrap CSS -->
-    <link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="../css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    
-</head>
+<?php
+include "head.php";
+?>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-fixed w-100">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-fixed w-100">
     <div class="container">
       <a class="navbar-brand" href="#">
         <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top"> -->
@@ -23,10 +16,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item mx-2">
+          <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="../#">Beranda</a>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Tentang kami
             </a>
@@ -36,7 +29,7 @@
               <li><a class="dropdown-item" href="../tentangkami/struktur.php">Struktur Organisasi </a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuPerpustakaan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Perpustakaan
             </a>
@@ -45,7 +38,7 @@
               <li><a class="dropdown-item" href="#">Layanan Perpustakaan</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuKearsipan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Kearsipan
             </a>
@@ -65,34 +58,36 @@
       </div>
     </div>
   </nav>
-    
-<div class="header">
-    <h1>MENGENAL ARASPUS</h1>
-    <h2>Profil Pwepustakaan Kupang</h2>
-</div>
 
-<div class="layanan">
-        <?php
-        $services = [
-            [
-                "title" => "Layanan Stationary",
-                "description" => "Menyediakan berbagai alat tulis seperti buku, pulpen, dan kebutuhan stationary lainnya untuk mendukung aktivitas belajar.",
-                "image" => "../img/book.jpg" // Ganti dengan path gambar layanan stationary
-            ],
-            [
-                "title" => "Layanan Aktivitas Literasi",
-                "description" => "Mengadakan aktivitas literasi seperti membaca bersama, bercerita, dan pelatihan literasi digital untuk anak-anak dan dewasa.",
-                "image" => "literacy.png" // Ganti dengan path gambar aktivitas literasi
-            ],
-            [
-                "title" => "Layanan Perpustakaan Keliling",
-                "description" => "Perpustakaan keliling yang membawa buku langsung ke komunitas untuk mempermudah akses literasi.",
-                "image" => "mobile_library.png" // Ganti dengan path gambar perpustakaan keliling
-            ]
-        ];
+  <div class="header container-fluid">
+    <div class="container overlay">
+      <h2>MENGENAL ARASPUS</h2>
+      <h4>Profil ARASPUS KUPANG</h4>
+    </div>
+  </div>
 
-        foreach ($services as $service) {
-            echo "
+  <div class="container content">
+    <?php
+    $services = [
+      [
+        "title" => "Layanan Stationary",
+        "description" => "Menyediakan berbagai alat tulis seperti buku, pulpen, dan kebutuhan stationary lainnya untuk mendukung aktivitas belajar.",
+        "image" => "../img/book.jpg" // Ganti dengan path gambar layanan stationary
+      ],
+      [
+        "title" => "Layanan Aktivitas Literasi",
+        "description" => "Mengadakan aktivitas literasi seperti membaca bersama, bercerita, dan pelatihan literasi digital untuk anak-anak dan dewasa.",
+        "image" => "literacy.png" // Ganti dengan path gambar aktivitas literasi
+      ],
+      [
+        "title" => "Layanan Perpustakaan Keliling",
+        "description" => "Perpustakaan keliling yang membawa buku langsung ke komunitas untuk mempermudah akses literasi.",
+        "image" => "mobile_library.png" // Ganti dengan path gambar perpustakaan keliling
+      ]
+    ];
+
+    foreach ($services as $service) {
+      echo "
             <div class='service'>
             <div class='service-text'>
             <h2>{$service['title']}</h2>
@@ -100,10 +95,10 @@
             </div>
             <img src='{$service['image']}' alt='{$service['title']}'>
             </div>";
-        }
-        ?>
-    </div>
-    <!--<div class="misi">
+    }
+    ?>
+  </div>
+  <!--<div class="misi">
         <h3>Misi</h3>
         <ul>
             <li>Menjadikan Jakarta kota yang aman, sehat, cerdas, berbudaya, dengan memperkuat nilai-nilai keluarga dan memberikan ruang kreativitas melalui kepemimpinan yang melibatkan, menggerakkan dan memanusiakan.</li>
@@ -111,9 +106,9 @@
            
         </ul>
     </div> -->
-</div>
+  </div>
 
-<!-- kontak Section -->
+  <!-- kontak Section -->
 
   <script src="../bootstrap5/js/bootstrap.bundle.min.js"></script>
   <script src="../js/script.js"></script>

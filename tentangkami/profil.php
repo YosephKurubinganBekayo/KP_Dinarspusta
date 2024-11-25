@@ -16,10 +16,10 @@ include "head.php";
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item mx-2">
+          <li class="nav-item ">
             <a class="nav-link active" aria-current="page" href="../#">Beranda</a>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Tentang kami
             </a>
@@ -29,7 +29,7 @@ include "head.php";
               <li><a class="dropdown-item" href="#">Struktur Organisasi </a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuPerpustakaan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Perpustakaan
             </a>
@@ -38,7 +38,7 @@ include "head.php";
               <li><a class="dropdown-item" href="../perpustakaan/layanan.php">Layanan Perpustakaan</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown mx-2">
+          <li class="nav-item dropdown ">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuKearsipan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Kearsipan
             </a>
