@@ -68,7 +68,7 @@ if (isset($_POST['update'])) {
   Swal.fire({title: 'Ubah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
   }).then((result) => {
       if (result.value) {
-          window.location = 'index.php?page=MyApp/profile_dinas';
+          window.location = 'index.php?page=MyApp/tentang_kami';
       }
   })</script>";
   } else {
@@ -76,7 +76,7 @@ if (isset($_POST['update'])) {
   Swal.fire({title: 'Ubah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
   }).then((result) => {
       if (result.value) {
-          window.location = 'index.php?page=MyApp/profile_dinas';
+          window.location = 'index.php?page=MyApp/tentang_kami';
       }
   })</script>";
   }
@@ -105,7 +105,7 @@ if (isset($_POST['update'])) {
         </div>
 
         <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
-        <a href="profile.php" class="btn btn-default">Batal</a>
+        <a href="?page=MyApp/tentang_kami" class="btn btn-default">Batal</a>
       </form>
     </div>
   </div>

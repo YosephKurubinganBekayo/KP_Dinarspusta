@@ -498,8 +498,11 @@ include "inc/koneksi.php";
 						case 'MyApp/tentang_kami':
 							include "admin/tentang_kami/profil.php";
 							break;
+						case 'MyApp/add_tentang_kami':
+							include "admin/tentang_kami/add_tentang_kami.php";
+							break;
 						case 'MyApp/edit_tentang_kami':
-							include "admin/tentang_kami/edit/edit_tentang_kami.php";
+							include "admin/tentang_kami/edit_tentang_kami.php";
 							break;
 							// kegiatan
 						case 'MyApp/kegiatan':
@@ -510,6 +513,16 @@ include "inc/koneksi.php";
 							break;
 						case 'MyApp/edit_kegiatan':
 							include "admin/kegiatan/edit_kegiatan.php";
+							break;
+							// layanan
+						case 'MyApp/layanan':
+							include "admin/layanan/layanan.php";
+							break;
+						case 'MyApp/add_layanan':
+							include "admin/layanan/add_layanan.php";
+							break;
+						case 'MyApp/edit_layanan':
+							include "admin/layanan/edit_layanan.php";
 							break;
 						default:
 							echo "<center><br><br><br><br><br><br><br><br><br>
