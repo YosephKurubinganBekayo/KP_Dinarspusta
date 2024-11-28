@@ -529,13 +529,14 @@ body {
 }
 
 .card_image img {
-  height: 200px; /* Tinggi tetap untuk gambar */
-  object-fit: cover; /* Agar gambar tidak terdistorsi */
-  width: 100%; /* Pastikan gambar memenuhi lebar kartu */
+  height: 200px; 
+  object-fit: cover; 
+  width: 100%; 
 }
 
+
 .card-body {
-  height: 250px; /* Tinggi tetap untuk deskripsi */
+  height: 250px; 
   overflow: hidden;
 }
 .info-header {
