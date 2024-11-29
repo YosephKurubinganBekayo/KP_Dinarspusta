@@ -2,7 +2,7 @@
 // Proses simpan data ketika form disubmit
 if (isset($_POST['simpan'])) {
     $nama_layanan = $_POST['nama_layanan'];
-    $id_bidang = $_POST['id_bidang'];
+    $id_departemen = $_POST['id_departemen'];
     $deskripsi = $_POST['deskripsi'];
     
     // Proses upload gambar baru
@@ -40,8 +40,8 @@ if (isset($_POST['simpan'])) {
     }
 
     // Query simpan data
-    $query_simpan = $koneksi->query("INSERT INTO layanan (nama_layanan, id_bidang, deskripsi, gambar) 
-    VALUES ('$nama_layanan', '$id_bidang', '$deskripsi', '$gambar')");
+    $query_simpan = $koneksi->query("INSERT INTO layanan (nama_layanan, id_departemen, deskripsi, gambar) 
+    VALUES ('$nama_layanan', '$id_departemen', '$deskripsi', '$gambar')");
 
     if ($query_simpan) {
         echo "<script>
@@ -75,14 +75,14 @@ if (isset($_POST['simpan'])) {
                     <input type="text" name="nama_layanan" class="form-control" placeholder="Masukkan Nama Layanan" required>
                 </div>
                 <div class="form-group">
-                    <label>Bidang</label>
-                    <select name="id_bidang" class="form-control" required>
-                        <option value="">-- Pilih Bidang --</option>
+                    <label>departemen</label>
+                    <select name="id_departemen" class="form-control" required>
+                        <option value="">-- Pilih departemen --</option>
                         <?php
-                        $query_bidang = $koneksi->query("SELECT `id`, `nama_bidang` FROM `bidang` ORDER BY `id` ASC");
-                        while ($row_bidang = $query_bidang->fetch_assoc()) { ?>
-                            <option value="<?php echo $row_bidang['id']; ?>">
-                                <?php echo $row_bidang['nama_bidang']; ?>
+                        $query_departemen = $koneksi->query("SELECT `id`, `nama_departemen` FROM `departemen` ORDER BY `id` ASC");
+                        while ($row_departemen = $query_departemen->fetch_assoc()) { ?>
+                            <option value="<?php echo $row_departemen['id']; ?>">
+                                <?php echo $row_departemen['nama_departemen']; ?>
                             </option>
                         <?php } ?>
                     </select>

@@ -9,7 +9,7 @@ class databases
   public $host   = 'localhost';
   public $name   = 'root';
   public $pass   = '';
-  public $dbname = 'arspus';
+  public $dbname = 'dbarspus';
   public $mysqli;
 
   //fungsi menguji koneksi database

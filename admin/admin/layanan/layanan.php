@@ -21,7 +21,7 @@
               <th>No</th>
               <th>gambar</th>
               <th>Nama Layanan</th>
-              <th>Nama Bidang</th>
+              <th>Nama Departemen</th>
               <th>Deskripsi layanan</th>
               <!-- <th>Penulis</th> -->
               <!-- <th>Deskripsi</th> -->
@@ -31,7 +31,7 @@
 
             <?php
             $no = 1;
-            $sql = $koneksi->query("SELECT l.`id`,b.`nama_bidang`,l.`nama_layanan`,l.`deskripsi`,l.`gambar`FROM`layanan` l INNER JOIN`bidang` b ON l.`id_bidang` = b.`id` ORDER BY id_bidang");
+            $sql = $koneksi->query("SELECT l.`id`,d.`nama_departemen`,l.`nama_layanan`,l.`deskripsi`,l.`gambar`FROM`layanan` l INNER JOIN`departemen` d ON l.`id_departemen` = d.`id` ORDER BY id_departemen");
             while ($data = $sql->fetch_assoc()) {
             ?>
 
@@ -48,12 +48,11 @@
                   <?php echo $data['nama_layanan']; ?>
                 </td>
                 <td>
-                  <?php echo $data['nama_bidang']; ?>
+                  <?php echo $data['nama_departemen']; ?>
                 </td>
                 <td>
                   <?php echo $data['deskripsi']; ?>
                 </td>
-               
                 <td>
                   <a href="?page=MyApp/edit_layanan&kode=<?php echo $data['id']; ?>" title="Ubah Data" class="btn btn-success">
                     <i class="glyphicon glyphicon-edit"></i>

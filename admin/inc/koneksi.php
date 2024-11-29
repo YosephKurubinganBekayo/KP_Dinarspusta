@@ -1,3 +1,2 @@
 <?php
-$koneksi = new mysqli ("localhost","root","","arspus");
-?>
+$koneksi = new mysqli("localhost", "root", "", "dbarspus");

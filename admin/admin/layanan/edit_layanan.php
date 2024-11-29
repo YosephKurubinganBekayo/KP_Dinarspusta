@@ -5,14 +5,14 @@
 $id_profile = $_GET['kode'];
 
 // Ambil data dari database berdasarkan ID
-$sql = $koneksi->query("SELECT l.`id`,l.`id_bidang`,b.`nama_bidang`,l.`nama_layanan`,l.`deskripsi`,l.`gambar`FROM`layanan` l INNER JOIN`bidang` b ON l.`id_bidang` = b.`id` WHERE l.id = '$id_profile'");
+$sql = $koneksi->query("SELECT l.`id`,l.`id_departemen`,d.`nama_departemen`,l.`nama_layanan`,l.`deskripsi`,l.`gambar`FROM`layanan` l INNER JOIN`departemen` d ON l.`id_departemen` = d.`id` WHERE l.id = '$id_profile'");
 $data = $sql->fetch_assoc();
 $gambar_lama = $data['gambar']; // Simpan nama gambar lama untuk digunakan nanti
 
 // Proses update data ketika form disubmit
 if (isset($_POST['update'])) {
   $nama_layanan = $_POST['nama_layanan'];
-  $id_bidang = $_POST['id_bidang'];
+  $id_departemen = $_POST['id_departemen'];
   $deskripsi = $_POST['deskripsi'];
   // Proses upload gambar baru jika ada
   $gambar_baru = $_FILES['gambar']['name'];
@@ -60,7 +60,7 @@ if (isset($_POST['update'])) {
   // Query update data
   $query_ubah = $koneksi->query("UPDATE layanan SET 
         nama_layanan = '$nama_layanan',
-        id_bidang = '$id_bidang',
+        id_departemen = '$id_departemen',
         deskripsi = '$deskripsi',
         gambar = '$gambar'
         WHERE id = '$id_profile'");
@@ -97,16 +97,16 @@ if (isset($_POST['update'])) {
           <input type="text" name="nama_layanan" class="form-control" value="<?php echo $data['nama_layanan']; ?>" required>
         </div>
         <div class="form-group">
-          <label>Bidang</label>
-          <select name="id_bidang" class="form-control" required>
-            <option value="">-- Pilih Bidang --</option>
+          <label>departemen</label>
+          <select name="id_departemen" class="form-control" required>
+            <option value="">-- Pilih departemen --</option>
             <?php
-            $query_bidang = $koneksi->query("SELECT `id`, `nama_bidang` FROM `bidang` ORDER BY `id` ASC");
-            while ($row_bidang = $query_bidang->fetch_assoc()) {
-              $selected = ($data['id_bidang'] == $row_bidang['id']) ? 'selected' : '';
+            $query_departemen = $koneksi->query("SELECT `id`, `nama_departemen` FROM `departemen` ORDER BY `id` ASC");
+            while ($row_departemen = $query_departemen->fetch_assoc()) {
+              $selected = ($data['id_departemen'] == $row_departemen['id']) ? 'selected' : '';
             ?>
-              <option value="<?php echo $row_bidang['id']; ?>" <?php echo $selected; ?>>
-                <?php echo $row_bidang['nama_bidang']; ?>
+              <option value="<?php echo $row_departemen['id']; ?>" <?php echo $selected; ?>>
+                <?php echo $row_departemen['nama_departemen']; ?>
               </option>
             <?php
             }

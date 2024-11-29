@@ -31,6 +31,7 @@
                             <th>Departemen</th>
                             <th>Bidang</th>
                             <th>Tanggal Masuk</th>
+                            <th>SK</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,13 +93,11 @@
                                 </td>
 
                                 <td>
-                                    <a href="?page=MyApp/edit_pegawai&kode=<?php echo $data['NIP']; ?>" title="Ubah Data"
-                                        class="btn btn-success">
+                                    <a href="?page=MyApp/edit_pegawai&kode=<?php echo $data['NIP']; ?>" title="Ubah Data" class="btn btn-success">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </a>
 
-                                    <a href="?page=MyApp/del_pegawai&kode=<?php echo $data['NIP']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')"
-                                        title="Hapus" class="btn btn-danger">
+                                    <a href="?page=MyApp/del_pegawai&kode=<?php echo $data['NIP']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')" title="Hapus" class="btn btn-danger">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </a>
 
