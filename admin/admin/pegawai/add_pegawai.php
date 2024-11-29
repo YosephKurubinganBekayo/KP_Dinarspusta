@@ -1,17 +1,88 @@
 <?php
+// Koneksi database
 
-$carikode = mysqli_query($koneksi, "SELECT id_pegawai FROM tb_pegawai order by id_pegawai desc");
-$datakode = mysqli_fetch_array($carikode);
-$kode = $datakode['id_pegawai'];
-$urut = substr($kode, 1, 3);
-$tambah = (int) $urut + 1;
+// Proses tambah data ketika form disubmit
+if (isset($_POST['tambah'])) {
+    $id_pegawai = $_POST['id_pegawai'];
+    $nama = $_POST['nama'];
+    $jenis_kelamin = $_POST['jenis_kelamin'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $alamat = $_POST['alamat'];
+    $no_telepon = $_POST['no_telepon'];
+    $email = $_POST['email'];
+    $posisi = $_POST['posisi'];
+    $bidang = $_POST['bidang'];
+    $tanggal_masuk = $_POST['tanggal_masuk']; // Perbaiki ini
 
-if (strlen($tambah) == 1) {
-    $format = "P" . "00" . $tambah;
-} else if (strlen($tambah) == 2) {
-    $format = "P" . "0" . $tambah;
-} else if (strlen($tambah) == 3) {
-    $format = "P" . $tambah;
+    // Proses upload gambar jika ada
+    $gambar_baru = $_FILES['gambar']['name'];
+    if ($gambar_baru) {
+        $target_dir = "../img/";
+        $target_file = $target_dir . basename($gambar_baru);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Periksa apakah file adalah gambar
+        $check = getimagesize($_FILES["gambar"]["tmp_name"]);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            echo "<script>alert('File yang dipilih bukan gambar.');</script>";
+            $uploadOk = 0;
+        }
+
+        // Batasi tipe file yang diizinkan
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            echo "<script>alert('Hanya file JPG, JPEG, dan PNG yang diizinkan.');</script>";
+            $uploadOk = 0;
+        }
+
+        // Cek jika $uploadOk sama dengan 1, maka file dapat diupload
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
+                $gambar = $gambar_baru; // Set nama gambar baru untuk disimpan di database
+            } else {
+                echo "<script>alert('Gagal mengupload gambar.');</script>";
+                $gambar = null; // Jika gagal upload, biarkan null
+            }
+        } else {
+            $gambar = null; // Jika gagal upload, biarkan null
+        }
+    } else {
+        $gambar = null; // Jika tidak ada gambar, biarkan null
+    }
+
+    // Query tambah data
+    $query_tambah = $koneksi->query("INSERT INTO tb_pegawai (`NIP`, `nama`, `jenis_kelamin`, `tanggal_lahir`, `alamat`, `no_telepon`, `email`, `posisi`, `id_bidang`, `tanggal_masuk`, `gambar_sk`) VALUES (
+        '$id_pegawai',
+        '$nama',
+        '$jenis_kelamin',
+        '$tanggal_lahir',
+        '$alamat',
+        '$no_telepon',
+        '$email',
+        '$posisi',
+        '$bidang',
+        '$tanggal_masuk',
+        '$gambar')");
+
+    if ($query_tambah) {
+        echo "<script>
+        Swal.fire({title: 'Tambah Data Berhasil', text: '', icon: 'success', confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.value) {
+                window.location = 'index.php?page=MyApp/data_pegawai';
+            }
+        })</script>";
+    } else {
+        echo "<script>
+        Swal.fire({title: 'Tambah Data Gagal', text: '', icon: 'error', confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.value) {
+                window.location = 'index.php?page=MyApp/add_pegawai';
+            }
+        })</script>";
+    }
 }
 ?>
 
@@ -29,11 +100,9 @@ if (strlen($tambah) == 1) {
                             <!-- Kolom Kiri -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>ID Pegawai</label>
-                                    <input type="text" name="id_pegawai" id="id_pegawai" class="form-control" value="<?php echo $format; ?>"
-                                        readonly />
+                                    <label>NIP</label>
+                                    <input type="number" name="id_pegawai" id="id_pegawai" class="form-control" placeholder="NIP">
                                 </div>
-
                                 <div class="form-group">
                                     <label>Nama </label>
                                     <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Pegawai">
@@ -74,7 +143,19 @@ if (strlen($tambah) == 1) {
                                 </div>
                                 <div class="form-group">
                                     <label>Bidang</label>
-                                    <input type="text" name="departemen" id="departemen" class="form-control" placeholder="bidang">
+                                    <select name="bidang" id="bidang" class="form-control" required>
+                                        <option value="">-- Pilih Bidang --</option>
+                                        <?php
+                                        $query_bidang = mysqli_query($koneksi, "SELECT `id`, `nama_bidang` FROM `bidang`");
+                                        while ($row_bidang = mysqli_fetch_assoc($query_bidang)) {
+                                            echo '<option value="' . $row_bidang['id'] . '">' . $row_bidang['nama_bidang'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gambar</label><br>
+                                    <input type="file" name="gambar" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal_masuk">Tanggal Masuk</label>
@@ -89,7 +170,7 @@ if (strlen($tambah) == 1) {
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <input type="submit" name="Simpan" value="Simpan" class="btn btn-info">
+                        <input type="submit" name="tambah" value="tambah" class="btn btn-info">
                         <a href="?page=MyApp/data_pegawai" class="btn btn-warning">Batal</a>
                     </div>
                 </form>
@@ -100,37 +181,4 @@ if (strlen($tambah) == 1) {
 </section>
 <?php
 
-if (isset($_POST['Simpan'])) {
-    $sql_simpan = "INSERT INTO tb_pegawai (id_pegawai, nama, jenis_kelamin, tanggal_lahir, alamat, no_telepon, email, posisi, departemen, tanggal_masuk) VALUES (
-           '" . $_POST['id_pegawai'] . "',
-          '" . $_POST['nama'] . "',
-          '" . $_POST['jenis_kelamin'] . "',
-          '" . $_POST['tanggal_lahir'] . "',
-          '" . $_POST['alamat'] . "',
-          '" . $_POST['no_telepon'] . "',
-          '" . $_POST['email'] . "',
-          '" . $_POST['posisi'] . "',
-          '" . $_POST['departemen'] . "',
-          '" . $_POST['tanggal_masuk'] . "')";
-    $query_simpan = mysqli_query($koneksi, $sql_simpan);
-    mysqli_close($koneksi);
 
-    if ($query_simpan) {
-
-        echo "<script>
-      Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
-      }).then((result) => {
-          if (result.value) {
-              window.location = 'index.php?page=MyApp/data_pegawai';
-          }
-      })</script>";
-    } else {
-        echo "<script>
-      Swal.fire({title: 'Tambah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
-      }).then((result) => {
-          if (result.value) {
-              window.location = 'index.php?page=MyApp/add_add pegawai';
-          }
-      })</script>";
-    }
-}
