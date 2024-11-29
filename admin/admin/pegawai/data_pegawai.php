@@ -20,7 +20,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Id Pegawai</th>
+                            <th>NIP</th>
+                            <th>Nama</th>
                             <th>Jenis Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>Alamat </th>
@@ -28,6 +29,7 @@
                             <th>Email</th>
                             <th>Posisi</th>
                             <th>Departemen</th>
+                            <th>Bidang</th>
                             <th>Tanggal Masuk</th>
                         </tr>
                     </thead>
@@ -35,7 +37,12 @@
 
                         <?php
                         $no = 1;
-                        $sql = $koneksi->query("SELECT * from tb_pegawai");
+                        $sql = $koneksi->query("SELECT p.NIP, p.nama, p.jenis_kelamin, p.tanggal_lahir, p.alamat, p.no_telepon, p.email, p.posisi, 
+                        d.nama_departemen, b.nama_bidang, p.tanggal_masuk,p.gambar_sk
+                        FROM tb_pegawai p
+                        LEFT JOIN bidang b ON p.id_bidang = b.id
+                        LEFT JOIN departemen d ON b.id_departemen = d.id
+                        ");
                         while ($data = $sql->fetch_assoc()) {
                         ?>
 
@@ -44,7 +51,7 @@
                                     <?php echo $no++; ?>
                                 </td>
                                 <td>
-                                    <?php echo $data['id_pegawai']; ?>
+                                    <?php echo $data['NIP']; ?>
                                 </td>
                                 <td>
                                     <?php echo $data['nama']; ?>
@@ -68,19 +75,29 @@
                                     <?php echo $data['posisi']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $data['departemen']; ?>
+                                    <?php echo $data['nama_departemen']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $data['tanggal_masuk']; ?>
+                                    <?php echo $data['nama_bidang']; ?>
                                 </td>
 
                                 <td>
-                                    <a href="?page=MyApp/edit_pegawai&kode=<?php echo $data['id_pegawai']; ?>" title="Ubah Data"
+                                    <?php echo $data['tanggal_masuk']; ?>
+                                </td>
+                                <td>
+                                    <a class="fancybox" data-fancybox="gallery" href="../img/<?php echo $data['gambar_sk']; ?>">
+                                        <img src="../img/<?php echo $data['gambar_sk']; ?>" alt="Gambar" style="width: 100px; height: auto;">
+                                    </a>
+                                    <?php echo $data['gambar_sk']; ?>
+                                </td>
+
+                                <td>
+                                    <a href="?page=MyApp/edit_pegawai&kode=<?php echo $data['NIP']; ?>" title="Ubah Data"
                                         class="btn btn-success">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </a>
 
-                                    <a href="?page=MyApp/del_pegawai&kode=<?php echo $data['id_pegawai']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')"
+                                    <a href="?page=MyApp/del_pegawai&kode=<?php echo $data['NIP']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')"
                                         title="Hapus" class="btn btn-danger">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </a>
@@ -98,5 +115,5 @@
             </div>
         </div>
     </div>
-    
+
 </section>
