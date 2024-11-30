@@ -146,13 +146,10 @@ include "inc/koneksi.php";
 								</span>
 							</a>
 						</li>
-
-
-
 						<li class="treeview">
 							<a href="#">
 								<i class="fa fa-folder"></i>
-								<span>Kelola Data</span>
+								<span>Perpustakaan</span>
 								<span class="pull-right-container">
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
@@ -167,13 +164,59 @@ include "inc/koneksi.php";
 									<a href="?page=MyApp/data_agt">
 										<i class="fa fa-users"></i>Data Anggota</a>
 								</li>
-								<li>
-									<a href="?page=MyApp/data_pegawai">
-										<i class="fa fa-users"></i>Data Pegawai</a>
+								<li class="treeview">
+									<a href="#">
+										<i class="fa fa-book"></i>
+										<span>Transaksi</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-left pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+
+										<li>
+											<a href="?page=log_pinjam">
+												<i class="fa fa-arrow-circle-o-down"></i>Peminjaman</a>
+										</li>
+										<li>
+											<a href="?page=log_kembali">
+												<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
+										</li>
+									</ul>
 								</li>
+								<li class="treeview">
+									<a href="#">
+										<i class="fa fa-print"></i>
+										<span>Laporan</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-left pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li>
+											<a href="?page=laporan_sirkulasi">
+												<i class="fa fa-file"></i>Laporan Sirkulasi</a>
+										</li>
+										<li>
+											<a href="?page=laporan_inventaris_buku">
+												<i class="fa fa-file"></i>Laporan Inventaris Buku</a>
+										</li>
+									</ul>
+								</li>
+								<!-- <li>
+									<a href="?page=MyApp/data_pegawai">
+										<i class="fa fa-"></i>Data Pegawai</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/data_departemen">
+										<i class="fa fa-"></i>Data Depatemen</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/data_bidang">
+										<i class="fa fa-"></i>Data Bidang</a>
+								</li> -->
 							</ul>
 						</li>
-
 						<li class="treeview">
 							<a href="?page=data_sirkul">
 								<i class="fa fa-refresh"></i>
@@ -182,30 +225,32 @@ include "inc/koneksi.php";
 								</span>
 							</a>
 						</li>
-
 						<li class="treeview">
 							<a href="#">
 								<i class="fa fa-book"></i>
-								<span>Log Data</span>
+								<span>Kepegawaian</span>
 								<span class="pull-right-container">
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
 							</a>
 							<ul class="treeview-menu">
 
+
 								<li>
-									<a href="?page=log_pinjam">
-										<i class="fa fa-arrow-circle-o-down"></i>Peminjaman</a>
+									<a href="?page=MyApp/data_departemen">
+										<i class="fa fa-"></i>Data Depatemen</a>
 								</li>
 								<li>
-									<a href="?page=log_kembali">
-										<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
+									<a href="?page=MyApp/data_bidang">
+										<i class="fa fa-"></i>Data Bidang</a>
+								</li>
+								<li>
+									<a href="?page=MyApp/data_pegawai">
+										<i class="fa fa-"></i>Data Pegawai</a>
 								</li>
 							</ul>
 						</li>
-
-
-						<li class="treeview">
+						<!-- <li class="treeview">
 							<a href="#">
 								<i class="fa fa-print"></i>
 								<span>Laporan</span>
@@ -223,13 +268,8 @@ include "inc/koneksi.php";
 										<i class="fa fa-file"></i>Laporan Inventaris Buku</a>
 								</li>
 							</ul>
-						</li>
-
-
-
-
+						</li> -->
 						<li class="header">SETTING</li>
-
 						<li class="treeview">
 							<a href="?page=MyApp/data_pengguna">
 								<i class="fa fa-user"></i>
@@ -241,7 +281,7 @@ include "inc/koneksi.php";
 						<li class="treeview">
 							<a href="#">
 								<i class="fa fa-home"></i>
-								<span>Halaman Utama</span>
+								<span>Profil Website</span>
 								<span class="pull-right-container">
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
@@ -249,15 +289,30 @@ include "inc/koneksi.php";
 							<ul class="treeview-menu">
 								<li>
 									<a href="?page=MyApp/profile_dinas">
-										<i class="fa fa-profile"></i>Profil</a>
+										<i class="fa fa-profile"></i>Profil Instansi</a>
 								</li>
 								<li>
 									<a href="?page=MyApp/tentang_kami">
 										<i class="fa fa-service"></i>Tentang Kami</a>
 								</li>
-								<li>
-									<a href="?page=MyApp/layanan">
-										<i class="fa fa-service"></i>Layanan</a>
+								<li class="treeview">
+									<a href="#">
+										<i class="fa fa-"></i>
+										<span>Layanan Kami</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-left pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li>
+											<a href="?page=MyApp/data_informasi">
+												<i class="fa fa-"></i>Informasi Pelayanan</a>
+										</li>
+										<li>
+											<a href="?page=MyApp/layanan">
+												<i class="fa fa-service"></i>Layanan</a>
+										</li>
+									</ul>
 								</li>
 								<li>
 									<a href="?page=MyApp/kegiatan">
@@ -441,6 +496,32 @@ include "inc/koneksi.php";
 						case 'MyApp/del_pegawai':
 							include "admin/pegawai/del_pegawai.php";
 							break;
+							// departemen
+						case 'MyApp/data_departemen':
+							include "admin/departemen/departemen.php";
+							break;
+						case 'MyApp/add_departemen':
+							include "admin/departemen/add_departemen.php";
+							break;
+						case 'MyApp/edit_departemen':
+							include "admin/departemen/edit_departemen.php";
+							break;
+						case 'MyApp/del_departemen':
+							include "admin/departemen/del_departemen.php";
+							break;
+							// bidang
+						case 'MyApp/data_bidang':
+							include "admin/bidang/bidang.php";
+							break;
+						case 'MyApp/add_bidang':
+							include "admin/bidang/add_bidang.php";
+							break;
+						case 'MyApp/edit_bidang':
+							include "admin/bidang/edit_bidang.php";
+							break;
+						case 'MyApp/del_bidang':
+							include "admin/bidang/del_bidang.php";
+							break;
 							// case 'MyApp/print_agt':
 							// 	include "admin/agt/print_agt.php";
 							// 	break;
@@ -523,6 +604,16 @@ include "inc/koneksi.php";
 							break;
 						case 'MyApp/edit_layanan':
 							include "admin/layanan/edit_layanan.php";
+							break;
+							// info layanan
+						case 'MyApp/data_informasi':
+							include "admin/informsi_pelayanan/informasi.php";
+							break;
+						case 'MyApp/add_informasi':
+							include "admin/informsi_pelayanan/add_informasi.php";
+							break;
+						case 'MyApp/edit_informasi':
+							include "admin/informsi_pelayanan/edit_informasi.php";
 							break;
 						default:
 							echo "<center><br><br><br><br><br><br><br><br><br>

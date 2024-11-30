@@ -45,9 +45,11 @@
 				  a.nama,
 				  s.tgl_pinjam, 
 				  s.tgl_kembali,
-				  p.nama_pengguna
+				  p.nama_pegawai
                   from tb_sirkulasi s inner join buku b on s.id_buku=b.no_induk
-				  inner join tb_anggota a on s.id_anggota=a.id_anggota inner join tb_pengguna p on s.id_petugas=p.id_pengguna where status='PIN' order by tgl_pinjam desc");
+				  inner join tb_anggota a on s.id_anggota=a.id_anggota 
+					inner join pegawai p on s.id_petugas=p.id 
+					where status='PIN' order by tgl_pinjam desc, id_sk asc");
 						while ($data = $sql->fetch_assoc()) {
 						?>
 
@@ -75,7 +77,8 @@
 									echo date("d/M/Y", strtotime($tgl)) ?>
 								</td>
 								<td>
-									<?php echo $data['nama_pengguna'];?>
+									<?php echo $data['nama_pegawai'];
+									?>
 								</td>
 
 								<?php

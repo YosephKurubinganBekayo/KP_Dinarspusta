@@ -1,12 +1,11 @@
-<section class="content-header" style="text-align: center;">
-    <h1>
-        Data Pegawai
-    </h1>
-
-</section>
 <!-- Main content -->
 <section class="content">
     <div class="box box-primary">
+        <div class="box-header with-border">
+            <h1>
+                Data Pegawai
+            </h1>
+        </div>
         <div class="box-header with-border">
             <a href="?page=MyApp/add_pegawai" title="Tambah Data" class="btn btn-primary">
                 <i class="glyphicon glyphicon-plus"></i> Tambah Data</a>
