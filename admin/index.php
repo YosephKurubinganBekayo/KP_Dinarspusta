@@ -42,7 +42,7 @@ include "inc/koneksi.php";
 	<!-- <link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/dataTables.bootstrap.css"> -->
 	<link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/jquery.dataTables.min.css">
 	<!-- Select2 -->
-	<!-- <link rel="stylesheet" href="plugins/select2/select2.min.css"> -->
+	<link rel="stylesheet" href="plugins/select2/select2.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -155,7 +155,6 @@ include "inc/koneksi.php";
 								</span>
 							</a>
 							<ul class="treeview-menu">
-
 								<li>
 									<a href="?page=MyApp/data_buku">
 										<i class="fa fa-book"></i>Data inventaris Buku</a>
@@ -163,6 +162,26 @@ include "inc/koneksi.php";
 								<li>
 									<a href="?page=MyApp/data_agt">
 										<i class="fa fa-users"></i>Data Anggota</a>
+								</li>
+								<li class="treeview">
+									<a href="#">
+										<i class="fa fa-book"></i>
+										<span>Pengunjung</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-left pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+
+										<li>
+											<a href="?page=MyApp/data_kunjungan">
+												<i class="fa fa-arrow-circle-o-down"></i>Riwayat Kunjungan</a>
+										</li>
+										<li>
+											<a href="?page=log_kembali">
+												<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
+										</li>
+									</ul>
 								</li>
 								<li class="treeview">
 									<a href="#">
@@ -464,8 +483,21 @@ include "inc/koneksi.php";
 						case 'MyApp/del_pengguna':
 							include "admin/pengguna/del_pengguna.php";
 							break;
+							//pengunjung
+						case 'MyApp/data_kunjungan':
+							include "admin/Pengunjung/data_kunjungan.php";
+							break;
+						case 'MyApp/add_kunjungan':
+							include "admin/pengunjung/add_kunjungan.php";
+							break;
+						case 'MyApp/edit_kunjungan':
+							include "admin/pengunjung/edit_kunjungan.php";
+							break;
+						case 'MyApp/del_kunjungan':
+							include "admin/pengunjung/del_kunjungan.php";
+							break;
 							//agt
-						case 'MyApp/data_agt':
+						case 'MyApp/data_K':
 							include "admin/agt/data_agt.php";
 							break;
 						case 'MyApp/add_agt':

@@ -136,21 +136,21 @@ while ($data = $sql->fetch_assoc()) {
 
             // Membuat query SQL dengan kondisi filter
             $sql = "SELECT 
-            CASE 
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 0 AND 99 THEN '000-Karya Umum'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 100 AND 199 THEN '100-Filsafat & Psikologi'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 200 AND 299 THEN '200-Agama'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 300 AND 399 THEN '300-Ilmu Sosial'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 400 AND 499 THEN '400-Bahasa'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 500 AND 599 THEN '500-Ilmu-Ilmu Murni'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 600 AND 699 THEN '600-Ilmu-Ilmu Terapan/Teknologi'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 700 AND 799 THEN '700-Kesenian & Olahraga'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 800 AND 899 THEN '800-Kesusasteraan'
-                WHEN CAST(no_kelas AS DECIMAL) BETWEEN 900 AND 999 THEN '900-Sejarah & Geografi'
-            END AS range_kelas,
-            COUNT(id_buku) AS jumlah_buku 
-        FROM buku 
-        WHERE 1=1";
+                CASE 
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 0 AND 99 THEN '000-Karya Umum'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 100 AND 199 THEN '100-Filsafat & Psikologi'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 200 AND 299 THEN '200-Agama'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 300 AND 399 THEN '300-Ilmu Sosial'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 400 AND 499 THEN '400-Bahasa'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 500 AND 599 THEN '500-Ilmu-Ilmu Murni'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 600 AND 699 THEN '600-Ilmu-Ilmu Terapan/Teknologi'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 700 AND 799 THEN '700-Kesenian & Olahraga'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 800 AND 899 THEN '800-Kesusasteraan'
+                    WHEN CAST(no_kelas AS DECIMAL) BETWEEN 900 AND 999 THEN '900-Sejarah & Geografi'
+                END AS range_kelas,
+                COUNT(id_buku) AS jumlah_buku 
+            FROM buku 
+            WHERE 1=1";
 
             // Menambahkan kondisi filter jika ada
             if (!empty($bulanFilter)) {
@@ -236,102 +236,252 @@ while ($data = $sql->fetch_assoc()) {
             </div>
 
             <!-- Tempatkan canvas untuk grafik Chart.js -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h3 class="text-center">Data Buku</h3>
-                        <canvas id="barChart" width="400" height="200"></canvas>
-                    </div>
-                    <div class="col-md-4">
-                        <h3 class="text-center"> Grafik Kedua</h3>
-                        <div style="width: 100%; max-width: 700px; margin: auto;">
-                            <canvas id="secondChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Script untuk grafik Chart.js -->
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                const kelasData = <?php echo json_encode($kelasData); ?>;
-                const jumlahData = <?php echo json_encode($jumlahData); ?>;
 
-                const ctx = document.getElementById('barChart').getContext('2d');
-                const barChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: kelasData,
-                        datasets: [{
-                            label: 'Jumlah Buku',
-                            data: jumlahData,
-                            backgroundColor: [
-                                '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df',
-                                '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df'
-                            ],
-                            borderColor: '#2e59d9',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                enabled: true
-                            }
-                        }
-                    }
-                });
-                // Data dan konfigurasi untuk grafik kedua (misalnya diagram lingkaran)
-                const ctx2 = document.getElementById('secondChart').getContext('2d');
-                const secondChart = new Chart(ctx2, {
-                    type: 'pie', // Ganti dengan tipe grafik yang Anda inginkan
-                    data: {
-                        labels: kelasData, // Atur label sesuai data yang relevan untuk grafik kedua
-                        datasets: [{
-                            label: 'Contoh Data',
-                            data: jumlahData, // Atur data yang relevan untuk grafik kedua
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                enabled: true
-                            }
-                        }
-                    }
-                });
-            </script>
 
 
         </div>
 </section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="text-center">Grafik Data Buku</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="barChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="box box-info h-100">
+                <div class="box-header with-border">
+                    <h3 class="text-center"> Grafik Kedua</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="secondChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const kelasData = <?php echo json_encode($kelasData); ?>;
+        const jumlahData = <?php echo json_encode($jumlahData); ?>;
+
+        const ctx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: kelasData,
+                datasets: [{
+                    label: 'Jumlah Buku',
+                    data: jumlahData,
+                    backgroundColor: [
+                        '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df',
+                        '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df'
+                    ],
+                    borderColor: '#2e59d9',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+        // Data dan konfigurasi untuk grafik kedua (misalnya diagram lingkaran)
+        const ctx2 = document.getElementById('secondChart').getContext('2d');
+
+        // Hitung total jumlah data
+        const totalData = jumlahData.reduce((acc, value) => acc + value, 0);
+
+        // Konversi nilai mentah ke dalam bentuk persentase
+        const percentageData = jumlahData.map(value => ((value / totalData) * 100).toFixed(2));
+
+        const secondChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: kelasData, // Label kategori
+                datasets: [{
+                    label: 'Distribusi Buku (%)',
+                    data: percentageData, // Data dalam bentuk persentase
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false // Menyembunyikan legenda
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                // Ambil persentase dari data
+                                const percentage = percentageData[tooltipItem.dataIndex];
+                                return `${tooltipItem.label}: ${percentage}%`; // Format tooltip dengan persentase
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <div class="row">
+        <!-- Grafik Buku Terpopuler -->
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Grafik Buku Terpopuler</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="chartBuku"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grafik Anggota Teraktif -->
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Grafik Anggota Teraktif</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="chartAnggota"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Data Buku Terpopuler
+    <?php
+    $labelsBuku = [];
+    $dataBuku = [];
+    $query_buku_populer = $koneksi->query("
+        SELECT b.judul_buku, COUNT(s.id_buku) as jumlah_peminjaman
+        FROM buku b
+        JOIN log_pinjam s ON b.no_induk = s.id_buku
+        GROUP BY s.id_buku
+        ORDER BY jumlah_peminjaman DESC
+        LIMIT 10
+    ");
+    while ($row = $query_buku_populer->fetch_assoc()) {
+        $labelsBuku[] = $row['judul_buku'];
+        $dataBuku[] = $row['jumlah_peminjaman'];
+    }
+    ?>
+    const labelsBuku = <?= json_encode($labelsBuku); ?>;
+    const dataBuku = <?= json_encode($dataBuku); ?>;
+
+    // Data Anggota Teraktif
+    <?php
+    $labelsAnggota = [];
+    $dataAnggota = [];
+    $query_anggota_aktif = $koneksi->query("
+        SELECT a.nama, COUNT(s.id_anggota) as jumlah_peminjaman
+        FROM tb_anggota a
+        JOIN log_pinjam s ON a.id_anggota = s.id_anggota
+        GROUP BY s.id_anggota
+        ORDER BY jumlah_peminjaman DESC
+        LIMIT 10
+    ");
+    while ($row = $query_anggota_aktif->fetch_assoc()) {
+        $labelsAnggota[] = $row['nama'];
+        $dataAnggota[] = $row['jumlah_peminjaman'];
+    }
+    ?>
+    const labelsAnggota = <?= json_encode($labelsAnggota); ?>;
+    const dataAnggota = <?= json_encode($dataAnggota); ?>;
+
+    // Chart Buku Terpopuler
+    const ctxBuku = document.getElementById('chartBuku').getContext('2d');
+    new Chart(ctxBuku, {
+        type: 'bar',
+        data: {
+            labels: labelsBuku,
+            datasets: [{
+                label: 'Jumlah Peminjaman',
+                data: dataBuku,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Chart Anggota Teraktif
+    const ctxAnggota = document.getElementById('chartAnggota').getContext('2d');
+    new Chart(ctxAnggota, {
+        type: 'bar',
+        data: {
+            labels: labelsAnggota,
+            datasets: [{
+                label: 'Jumlah Peminjaman',
+                data: dataAnggota,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

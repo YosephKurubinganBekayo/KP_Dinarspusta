@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -31,15 +28,14 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<h3>
-				<font color="green">
-					<b>Sistem Informasi Perpustakaan</b>
-				</font>
-			</h3>
+
 			</a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
+			<h3>
+				Sistem Informasi Perpustakaan
+			</h3>
 			<center>
 				<img src="dist/img/logo.png" width=160px />
 			</center>
@@ -86,32 +82,32 @@
 </html>
 
 
-<?php 
+<?php
 include "inc/koneksi.php";
 
-		if (isset($_POST['btnLogin'])) {  
-		
-		
-
-			$username=mysqli_real_escape_string($koneksi,$_POST['username']);
-			$password=mysqli_real_escape_string($koneksi,md5($_POST['password']));
+if (isset($_POST['btnLogin'])) {
 
 
-		$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username' AND password= '$password'";
-		$query_login = mysqli_query($koneksi, $sql_login);
-		$data_login = mysqli_fetch_array($query_login,MYSQLI_BOTH);
-		$jumlah_login = mysqli_num_rows($query_login);
-        
 
-            if ($jumlah_login == 1 ){
-              session_start();
-              $_SESSION["ses_id"]=$data_login["id_pengguna"];
-              $_SESSION["ses_nama"]=$data_login["nama_pengguna"];
-              $_SESSION["ses_username"]=$data_login["username"];
-              $_SESSION["ses_password"]=$data_login["password"];
-              $_SESSION["ses_level"]=$data_login["level"];
-                
-              echo "<script>
+	$username = mysqli_real_escape_string($koneksi, $_POST['username']);
+	$password = mysqli_real_escape_string($koneksi, md5($_POST['password']));
+
+
+	$sql_login = "SELECT * FROM tb_pengguna WHERE BINARY username='$username' AND password= '$password'";
+	$query_login = mysqli_query($koneksi, $sql_login);
+	$data_login = mysqli_fetch_array($query_login, MYSQLI_BOTH);
+	$jumlah_login = mysqli_num_rows($query_login);
+
+
+	if ($jumlah_login == 1) {
+		session_start();
+		$_SESSION["ses_id"] = $data_login["id_pengguna"];
+		$_SESSION["ses_nama"] = $data_login["nama_pengguna"];
+		$_SESSION["ses_username"] = $data_login["username"];
+		$_SESSION["ses_password"] = $data_login["password"];
+		$_SESSION["ses_level"] = $data_login["level"];
+
+		echo "<script>
                     Swal.fire({title: 'Login Berhasil',
 						text: '',
 						icon: 'success',
@@ -121,8 +117,8 @@ include "inc/koneksi.php";
                             window.location = 'index.php';
                         }
                     })</script>";
-              }else{
-              echo "<script>
+	} else {
+		echo "<script>
                     Swal.fire({title: 'Login Gagal',
 						text: '',
 						icon: 'error',
@@ -132,5 +128,5 @@ include "inc/koneksi.php";
                             window.location = 'login.php';
                         }
                     })</script>";
-                }
-			  }
+	}
+}
