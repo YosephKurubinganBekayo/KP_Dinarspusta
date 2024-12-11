@@ -215,16 +215,17 @@ include "inc/koneksi.php";
 								</li>
 								<li>
 									<a href="?page=MyApp/data_kunjungan">
-										<i class="fa "></i>Riwayat Kunjungan</a>
+										<i class="fa fa-history"></i>Riwayat Kunjungan</a>
 								</li>
 								<li>
 									<a href="?page=MyApp/data_pengunjung">
 										<i class="fa fa-users"></i>Data Pengunjung</a>
 								</li>
-								<li>
+
+								<!-- <li>
 									<a href="?page=MyApp/data_pegawai">
 										<i class="fa fa-"></i>Data Pegawai</a>
-								</li>
+								</li> -->
 
 								<!-- <li class="treeview">
 									<a href="#">
@@ -285,6 +286,14 @@ include "inc/koneksi.php";
 								</li> -->
 
 							</ul>
+						</li>
+						<li class="treeview">
+							<a href="?page=MyApp/data_pengguna">
+								<i class="fa fa-user"></i>
+								<span>Pegawai</span>
+								<span class="pull-right-container">
+								</span>
+							</a>
 						</li>
 						<li class="treeview">
 							<a href="?page=data_sirkul">
@@ -377,14 +386,7 @@ include "inc/koneksi.php";
 							</ul>
 						</li> -->
 						<li class="header">SETTING</li>
-						<li class="treeview">
-							<a href="?page=MyApp/data_pengguna">
-								<i class="fa fa-user"></i>
-								<span>Pengguna Sistem</span>
-								<span class="pull-right-container">
-								</span>
-							</a>
-						</li>
+
 						<!-- <li class="treeview">
 							<a href="#">
 								<i class="fa fa-home"></i>

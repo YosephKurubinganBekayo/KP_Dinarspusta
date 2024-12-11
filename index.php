@@ -397,13 +397,6 @@ require 'call_fungtion.php'
                     <li><i class="far fa-clock"> </i><?= !empty($row['jam_tambahan']) ? htmlspecialchars($row['jam_tambahan']) : '<em>Tidak ada data</em>'; ?></li>
                   </ul>
                   <p>Tutup : <?php echo $row['tutup'] ?></p>
-                  <!-- <p class="mb-4">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Corporis amet sequi molestiae tenetur eum mollitia,
-                      blanditiis, magnam illo magni error dolore unde
-                      perspiciatis tempore et totam corrupti dignissimos aut
-                      praesentium?
-                    </p> -->
                   <a class="btn btn-secondary rounded-end rounded-bottom py-2 px-4" href="service.php#info_about">Baca Selengkapnya</a>
                 </div>
               </div>

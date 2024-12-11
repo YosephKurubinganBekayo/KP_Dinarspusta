@@ -148,7 +148,7 @@ while ($data = $sql->fetch_assoc()) {
 
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
-                    <div class="small-box bg-red">
+                    <div class="small-box bg-green">
                         <div class="inner">
                             <h4>
                                 <?= $pengunjung; ?>
@@ -176,7 +176,7 @@ while ($data = $sql->fetch_assoc()) {
                             <p>Total Kunjungan</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person"></i>
+                            <i class="ion ion-stats-bars"></i>
                         </div>
                         <a href="?page=MyApp/data_kunjungan" class="small-box-footer">More info
                             <i class="fa fa-arrow-circle-right"></i>
@@ -265,9 +265,24 @@ while ($data = $sql->fetch_assoc()) {
                             <input type="hidden" name="page" value="admin">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="bulan">Bulan (1-12)</label>
-                                    <input type="number" name="bulan1" class="form-control" placeholder="Bulan (1-12)" value="<?php echo $bulanFilter; ?>">
+                                    <label for="bulan">Bulan</label>
+                                    <select name="bulan" class="form-control ">
+                                        <option value="">Pilih Bulan</option>
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="tahun">Tahun</label>
                                     <input type="number" name="tahun1" class="form-control" placeholder="Tahun" value="<?php echo $tahunFilter; ?>">
@@ -280,6 +295,138 @@ while ($data = $sql->fetch_assoc()) {
                                         <option value="NF" <?php echo ($jenisFilter == 'NF') ? 'selected' : ''; ?>>NF</option>
                                         <option value="R" <?php echo ($jenisFilter == 'R') ? 'selected' : ''; ?>>R</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <input type="submit" value="Filter" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="filterModal_data_pengunjung" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filter Data Pengunjung Teraktif</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="GET" action="">
+                            <input type="hidden" name="page" value="admin">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan</label>
+                                    <select name="bulan" class="form-control ">
+                                        <option value="">Pilih Bulan</option>
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="number" name="tahun1" class="form-control" placeholder="Tahun" value="<?php echo $tahunFilter; ?>">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <input type="submit" value="Filter" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="filterModal_data_buku" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filter Data Buku Terpopuler</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="GET" action="">
+                            <input type="hidden" name="page" value="admin">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan</label>
+                                    <select name="bulan" class="form-control ">
+                                        <option value="">Pilih Bulan</option>
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="number" name="tahun1" class="form-control" placeholder="Tahun" value="<?php echo $tahunFilter; ?>">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <input type="submit" value="Filter" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="filterModal_data_anggota" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filter Data Angota Teraktif</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="GET" action="">
+                            <input type="hidden" name="page" value="admin">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan</label>
+                                    <select name="bulan" class="form-control ">
+                                        <option value="">Pilih Bulan</option>
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="number" name="tahun1" class="form-control" placeholder="Tahun" value="<?php echo $tahunFilter; ?>">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -305,7 +452,7 @@ while ($data = $sql->fetch_assoc()) {
             <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="text-center">Grafik Inventaris Buku</h3>
+                        <h3 class="box-title">Grafik Inventaris Buku</h3>
                         <div class="text-right mb-3" style="padding: 20px;">
                             <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
                             <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
@@ -369,7 +516,7 @@ while ($data = $sql->fetch_assoc()) {
                     <div class="box-header with-border">
                         <h3 class="box-title">Grafik Pengunjung Teraktif</h3>
                         <div class="text-right mb-3" style="padding: 20px;">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_data_pengunjung">Filter Data</button>
                             <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
                                 <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
                             <?php endif; ?>
@@ -421,18 +568,18 @@ while ($data = $sql->fetch_assoc()) {
                             }
                         },
                         scales: {
-                x: {
-                    ticks: {
-                        display: false // Menyembunyikan label di sumbu X
-                    },
-                    grid: {
-                        display: false // Menyembunyikan garis grid pada sumbu X
-                    }
-                },
-                y: {
-                    beginAtZero: true
-                }
-            },
+                            x: {
+                                ticks: {
+                                    display: false // Menyembunyikan label di sumbu X
+                                },
+                                grid: {
+                                    display: false // Menyembunyikan garis grid pada sumbu X
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
                     }
                 });
             </script>
@@ -445,7 +592,7 @@ while ($data = $sql->fetch_assoc()) {
                     <div class="box-header with-border">
                         <h3 class="box-title">Grafik Buku Terpopuler</h3>
                         <div class="text-right mb-3" style="padding: 20px;">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_data_buku">Filter Data</button>
                             <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
                                 <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
                             <?php endif; ?>
@@ -463,7 +610,7 @@ while ($data = $sql->fetch_assoc()) {
                     <div class="box-header with-border">
                         <h3 class="box-title">Grafik Anggota Teraktif</h3>
                         <div class="text-right mb-3" style="padding: 20px;">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_data_anggota">Filter Data</button>
                             <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
                                 <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
                             <?php endif; ?>
