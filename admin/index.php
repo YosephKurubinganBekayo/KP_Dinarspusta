@@ -579,6 +579,9 @@ include "inc/koneksi.php";
 							include "admin/pengguna/del_pengguna.php";
 							break;
 							//pengunjung
+						case 'MyApp/data_pengunjung':
+							include "admin/Pengunjung/data_pengunjung.php";
+							break;
 						case 'MyApp/data_kunjungan':
 							include "admin/Pengunjung/data_kunjungan.php";
 							break;
@@ -588,8 +591,14 @@ include "inc/koneksi.php";
 						case 'MyApp/edit_kunjungan':
 							include "admin/pengunjung/edit_kunjungan.php";
 							break;
+						case 'MyApp/edit_pengunjung':
+							include "admin/pengunjung/edit_pengunjung.php";
+							break;
 						case 'MyApp/del_kunjungan':
 							include "admin/pengunjung/del_kunjungan.php";
+							break;
+						case 'MyApp/del_pengunjung':
+							include "admin/pengunjung/del_pengunjung.php";
 							break;
 							//agt
 						case 'MyApp/data_agt':

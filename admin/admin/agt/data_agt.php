@@ -28,10 +28,13 @@
 						<tr>
 							<th>No</th>
 							<th>Id Anggota</th>
+							<th>NIK</th>
 							<th>Nama</th>
 							<th>JK</th>
-							<th>Kelas</th>
+							<th>Alamat</th>
 							<th>No HP</th>
+							<th>Pekerjaan</th>
+							<th>Instansi</th>
 							<th>Kelola</th>
 						</tr>
 					</thead>
@@ -71,7 +74,6 @@
 								<td>
 									<?php echo $data['instansi']; ?>
 								</td>
-								`id_anggota`, `nik`, `nama`, `jekel`, `alamat`, `no_hp`, `Pekerjaan`, `instansi` FROM `tb_anggota`
 								<td>
 									<a href="?page=MyApp/edit_agt&kode=<?php echo $data['id_anggota']; ?>" title="Ubah Data"
 										class="btn btn-success">

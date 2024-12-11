@@ -128,6 +128,8 @@ elseif (isset($_POST['tambah_kunjungan'])) {
                 </div>
                 <div class="box-footer">
                     <button type="submit" name="tambah_pengunjung" class="btn btn-success">Tambah Pengunjung</button>
+                    <a href="?page=MyApp/data_pengunjung" class="btn btn-warning">Data Pengunjung</a>
+                    <a href="?page=MyApp/data_kunjungan" class="btn btn-info">Riwayat Kunjungan</a>
                 </div>
             </form>
         </div>
