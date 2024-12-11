@@ -51,14 +51,15 @@ if (isset($_POST['tambah'])) {
 
     if ($gambar_baru) {
         $target_dir = "../img/";
-        $target_file = $target_dir . basename($gambar_baru);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($gambar_baru, PATHINFO_EXTENSION));
+        $file_name = time() . '_' . uniqid() . '.' . $imageFileType; // Nama file unik
+        $target_file = $target_dir . $file_name;
 
         // Validasi file
         $check = getimagesize($_FILES["gambar"]["tmp_name"]);
         if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
             if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                $gambar = $gambar_baru;
+                $gambar = $file_name;
 
                 // Query insert
                 $query_tambah = $koneksi->query("INSERT INTO bidang (nama_bidang, id_departemen, gambar) 
@@ -74,6 +75,10 @@ if (isset($_POST['tambah'])) {
                     })
                     </script>";
                 } else {
+                    // Hapus file jika query gagal
+                    if (file_exists($target_file)) {
+                        unlink($target_file);
+                    }
                     echo "<script>
                     Swal.fire({title: 'Tambah Data Gagal', text: '', icon: 'error', confirmButtonText: 'OK'})
                     .then((result) => {
@@ -89,6 +94,9 @@ if (isset($_POST['tambah'])) {
         } else {
             echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
         }
+    } else {
+        echo "<script>alert('Harap unggah gambar.');</script>";
     }
 }
 ?>
+

@@ -51,13 +51,6 @@ if (isset($_GET['kode'])) {
                             <label>Tutup</label>
                             <input type="text" name="tutup" class="form-control" value="<?= $data['tutup']; ?>">
                         </div>
-                        <div class="form-group">
-                            <label>Gambar</label>
-                            <input type="file" name="gambar" class="form-control">
-                            <?php if ($data['gambar']) { ?>
-                                <img src="../img/<?= $data['gambar']; ?>" alt="Gambar" width="100" height="100">
-                            <?php } ?>
-                        </div>
                     </div>
                     <div class="box-footer">
                         <input type="submit" name="edit" value="Simpan Perubahan" class="btn btn-info">
@@ -78,31 +71,6 @@ if (isset($_POST['edit'])) {
     $jam_operasional = $_POST['jam_operasional'];
     $jam_tambahan = $_POST['jam_tambahan'];
     $tutup = $_POST['tutup'];
-
-    // Periksa jika ada gambar baru
-    $gambar_baru = $_FILES['gambar']['name'];
-    if ($gambar_baru) {
-        $target_dir = "../img/";
-        $target_file = $target_dir . basename($gambar_baru);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        // Validasi file
-        $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-        if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
-            if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                $gambar = $gambar_baru;
-            } else {
-                echo "<script>alert('Gagal mengupload gambar.');</script>";
-                $gambar = $data['gambar']; // Tetap gunakan gambar lama
-            }
-        } else {
-            echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
-            $gambar = $data['gambar'];
-        }
-    } else {
-        $gambar = $data['gambar']; // Tetap gunakan gambar lama
-    }
-
     // Query update
     $query_edit = $koneksi->query("UPDATE informasi_pelayanan SET 
         id_departemen = '$id_departemen',
@@ -110,8 +78,7 @@ if (isset($_POST['edit'])) {
         lantai = '$lantai',
         jam_operasional = '$jam_operasional',
         jam_tambahan = '$jam_tambahan',
-        tutup = '$tutup',
-        gambar = '$gambar'
+        tutup = '$tutup'
         WHERE id = '$kode'");
 
     if ($query_edit) {

@@ -26,112 +26,51 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>No Induk</th>
+							<th>Nama Peminjam</th>
 							<th>Buku</th>
-							<th>Peminjam</th>
 							<th>Tgl Pinjam</th>
-							<th>Jatuh Tempo</th>
-							<th>Dilayani</th>
-							<th>Denda</th>
-							<th>Kelola</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
-
 						<?php
 						$no = 1;
-						$sql = $koneksi->query("SELECT s.id_sk, b.judul_buku,
-				  a.id_anggota,
-				  a.nama,
-				  s.tgl_pinjam, 
-				  s.tgl_kembali,
-				  p.nama_pegawai
-                  from tb_sirkulasi s inner join buku b on s.id_buku=b.no_induk
-				  inner join tb_anggota a on s.id_anggota=a.id_anggota 
-					inner join pegawai p on s.id_petugas=p.id 
-					where status='PIN' order by tgl_pinjam desc, id_sk asc");
+						$sql = $koneksi->query("
+						SELECT 
+						s.id_sk,
+						a.id_anggota,
+						a.nama AS nama_peminjam,
+						GROUP_CONCAT(b.judul_buku SEPARATOR ', ') AS judul_buku,
+						s.tgl_pinjam
+				FROM 
+						tb_sirkulasi s
+				INNER JOIN 
+						tb_anggota a ON s.id_anggota = a.id_anggota
+				INNER JOIN 
+						buku b ON s.id_buku = b.no_induk
+				WHERE 
+						s.status = 'PIN'
+				GROUP BY 
+						s.id_anggota, s.tgl_pinjam
+				ORDER BY 
+						s.tgl_pinjam DESC;				
+						");
+
 						while ($data = $sql->fetch_assoc()) {
 						?>
-
 							<tr>
+								<td><?php echo $no++; ?></td>
+								<td><?php echo $data['nama_peminjam']; ?></td>
+								<td><?php echo $data['judul_buku']; ?></td>
+								<td><?php echo date("d/M/Y", strtotime($data['tgl_pinjam'])); ?></td>
 								<td>
-									<?php echo $no++; ?>
+									<a href="?page=MyApp/data_sirkul_detail&kode=<?php echo $data['id_anggota']; ?>&tanggal=<?php echo $data['tgl_pinjam']; ?>" title="Detail Riwayat" class="btn btn-primary">
+										<i class="glyphicon glyphicon-eye-open"></i>
+									</a>
 								</td>
-								<td>
-									<?php echo $data['id_sk']; ?>
-								</td>
-								<td>
-									<?php echo $data['judul_buku']; ?>
-								</td>
-								<td>
-									<?php echo $data['id_anggota']; ?>
-									-
-									<?php echo $data['nama']; ?>
-								</td>
-								<td>
-									<?php $tgl = $data['tgl_pinjam'];
-									echo date("d/M/Y", strtotime($tgl)) ?>
-								</td>
-								<td>
-									<?php $tgl = $data['tgl_kembali'];
-									echo date("d/M/Y", strtotime($tgl)) ?>
-								</td>
-								<td>
-									<?php echo $data['nama_pegawai'];
-									?>
-								</td>
-
-								<?php
-
-								$u_denda = 1000;
-
-								$tgl1 = date("Y-m-d");
-								$tgl2 = $data['tgl_kembali'];
-
-								$pecah1 = explode("-", $tgl1);
-								$date1 = $pecah1[2];
-								$month1 = $pecah1[1];
-								$year1 = $pecah1[0];
-
-								$pecah2 = explode("-", $tgl2);
-								$date2 = $pecah2[2];
-								$month2 = $pecah2[1];
-								$year2 =  $pecah2[0];
-
-								$jd1 = GregorianToJD($month1, $date1, $year1);
-								$jd2 = GregorianToJD($month2, $date2, $year2);
-
-								$selisih = $jd1 - $jd2;
-								$denda = $selisih * $u_denda;
-								?>
-
-								<td>
-									<?php if ($selisih <= 0) { ?>
-										<span class="label label-primary">Masa Peminjaman</span>
-									<?php } elseif ($selisih > 0) { ?>
-										<span class="label label-danger">
-											Rp.
-											<?= $denda ?>
-										</span>
-										<br> Terlambat :
-										<?= $selisih ?>
-										Hari
-								</td>
-							<?php } ?>
-
-							<td>
-								<a href="?page=panjang&kode=<?php echo $data['id_sk']; ?>" onclick="return confirm('Perpanjang Data Ini ?')" title="Perpanjang" class="btn btn-success">
-									<i class="glyphicon glyphicon-upload"></i>
-								</a>
-								<a href="?page=kembali&kode=<?php echo $data['id_sk']; ?>" onclick="return confirm('Kembalikan Buku Ini ?')" title="Kembalikan" class="btn btn-danger">
-									<i class="glyphicon glyphicon-download"></i>
-							</td>
 							</tr>
-						<?php
-						}
-						?>
+						<?php } ?>
 					</tbody>
-
 				</table>
 			</div>
 		</div>

@@ -4,64 +4,58 @@ if (isset($_POST['simpan'])) {
     $nama_layanan = $_POST['nama_layanan'];
     $id_departemen = $_POST['id_departemen'];
     $deskripsi = $_POST['deskripsi'];
-    
+
+    // Default nilai gambar
+    $gambar = "";
+
     // Proses upload gambar baru
     $gambar_baru = $_FILES['gambar']['name'];
-    $target_dir = "../img/";
-    $target_file = $target_dir . basename($gambar_baru);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    if ($gambar_baru) {
+        $target_dir = "../img/"; // Folder khusus untuk gambar layanan
+        $imageFileType = strtolower(pathinfo($gambar_baru, PATHINFO_EXTENSION));
+        $file_name = time() . '_' . uniqid() . '.' . $imageFileType; // Nama file unik
+        $target_file = $target_dir . $file_name;
 
-    // Periksa apakah file adalah gambar
-    $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-    if ($check !== false) {
-        $uploadOk = 1;
-    } else {
-        echo "<script>alert('File yang dipilih bukan gambar.');</script>";
-        $uploadOk = 0;
-    }
-
-    // Batasi tipe file yang diizinkan
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-        echo "<script>alert('Hanya file JPG, JPEG, dan PNG yang diizinkan.');</script>";
-        $uploadOk = 0;
-    }
-
-    // Cek jika $uploadOk sama dengan 1, maka file dapat diupload
-    if ($uploadOk == 1) {
-        if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-            $gambar = $gambar_baru; // Set nama gambar baru untuk disimpan di database
+        // Validasi file
+        $check = getimagesize($_FILES["gambar"]["tmp_name"]);
+        if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+            // Upload gambar
+            if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
+                $gambar = $file_name; // Simpan nama gambar baru
+            } else {
+                echo "<script>alert('Gagal mengupload gambar.');</script>";
+            }
         } else {
-            echo "<script>alert('Gagal mengupload gambar.');</script>";
-            $gambar = ""; // Kosongkan jika gagal upload
+            echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
         }
-    } else {
-        $gambar = ""; // Kosongkan jika gagal upload
     }
 
-    // Query simpan data
-    $query_simpan = $koneksi->query("INSERT INTO layanan (nama_layanan, id_departemen, deskripsi, gambar) 
-    VALUES ('$nama_layanan', '$id_departemen', '$deskripsi', '$gambar')");
+    // Query simpan data menggunakan prepared statement untuk keamanan
+    $stmt = $koneksi->prepare("INSERT INTO layanan (nama_layanan, id_departemen, deskripsi, gambar) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("siss", $nama_layanan, $id_departemen, $deskripsi, $gambar);
 
-    if ($query_simpan) {
+    if ($stmt->execute()) {
         echo "<script>
-        Swal.fire({title: 'Tambah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
-        }).then((result) => {
+        Swal.fire({title: 'Tambah Data Berhasil', text: '', icon: 'success', confirmButtonText: 'OK'})
+        .then((result) => {
             if (result.value) {
                 window.location = 'index.php?page=MyApp/layanan';
             }
-        })</script>";
+        });
+        </script>";
     } else {
         echo "<script>
-        Swal.fire({title: 'Tambah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
-        }).then((result) => {
+        Swal.fire({title: 'Tambah Data Gagal', text: '', icon: 'error', confirmButtonText: 'OK'})
+        .then((result) => {
             if (result.value) {
                 window.location = 'index.php?page=MyApp/layanan';
             }
-        })</script>";
+        });
+        </script>";
     }
 }
 ?>
+
 
 <section class="content">
     <div class="box box-primary">

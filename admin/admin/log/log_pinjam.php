@@ -24,18 +24,18 @@
 							<th>Buku</th>
 							<th>Peminjam</th>
 							<th>Tgl Peminjaman</th>
+							<th>Dilayani Oleh</th>
 						</tr>
 					</thead>
 					<tbody>
 
 						<?php
                   $no = 1;
-                  $sql = $koneksi->query("SELECT b.judul_buku, a.id_anggota, a.nama, l.tgl_pinjam
+                  $sql = $koneksi->query("SELECT p.nama_pegawai as nama_petugas, b.judul_buku, a.id_anggota, a.nama, l.tgl_pinjam
                   from log_pinjam l inner join buku b on l.id_buku=b.no_induk
-				  inner join tb_anggota a on l.id_anggota=a.id_anggota order by tgl_pinjam asc");
+				  inner join tb_anggota a on l.id_anggota=a.id_anggota inner join pegawai p on l.id_petugas=p.id order by tgl_pinjam asc");
                   while ($data= $sql->fetch_assoc()) {
-                ?>
-
+                ?> 
 						<tr>
 							<td>
 								<?php echo $no++; ?>
@@ -50,6 +50,9 @@
 							</td>
 							<td>
 								<?php  $tgl = $data['tgl_pinjam']; echo date("d/M/Y", strtotime($tgl))?>
+							</td>
+							<td>
+								<?php echo $data['nama_petugas']; ?>
 							</td>
 						</tr>
 						<?php

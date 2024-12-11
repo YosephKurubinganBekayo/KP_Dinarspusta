@@ -51,7 +51,7 @@
                   <a href="?page=MyApp/edit_tentang_kami&kode=<?php echo $data['id_aboutus']; ?>" title="Ubah Data" class="btn btn-success">
                     <i class="glyphicon glyphicon-edit"></i>
                   </a>
-                  <a href="?page=MyApp/del_tentng_kami&kode=<?php echo $data['id_aboutus']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')" title="Hapus" class="btn btn-danger">
+                  <a href="?page=MyApp/del_tentang_kami&kode=<?php echo $data['id_aboutus']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')" title="Hapus" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                 </td>

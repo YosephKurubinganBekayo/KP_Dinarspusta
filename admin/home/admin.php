@@ -35,6 +35,25 @@ while ($data = $sql->fetch_assoc()) {
     $kem = $data['kem'];
 }
 ?>
+<?php
+$sql = $koneksi->query("SELECT count(NIK) as pengunjung from pengunjung ");
+while ($data = $sql->fetch_assoc()) {
+
+    $pengunjung = $data['pengunjung'];
+}
+?>
+<?php
+$sql = $koneksi->query(" SELECT COUNT(*) as kunjungan 
+FROM (
+    SELECT pengunjung_NIK, tanggal_baca
+    FROM pengunjung_buku
+    GROUP BY pengunjung_NIK, tanggal_baca
+) as kunjungan_unik");
+while ($data = $sql->fetch_assoc()) {
+
+    $kunjungan = $data['kunjungan'];
+}
+?>
 
 
 <!-- Content Header (Page header) -->
@@ -51,7 +70,6 @@ while ($data = $sql->fetch_assoc()) {
             </h1>
 
             <div class="row ">
-
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
                     <div class="small-box bg-blue">
@@ -122,7 +140,45 @@ while ($data = $sql->fetch_assoc()) {
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="?page=log_kembali" class="small-box-footer">More info
+                        <a href="?page=laporan_sirkulasi" class="small-box-footer">More info
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h4>
+                                <?= $pengunjung; ?>
+                            </h4>
+
+                            <p>Pengunjung</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person"></i>
+                        </div>
+                        <a href="?page=MyApp/data_kunjungan" class="small-box-footer">More info
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h4>
+                                <?= $kunjungan; ?>
+                            </h4>
+
+                            <p>Total Kunjungan</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person"></i>
+                        </div>
+                        <a href="?page=MyApp/data_kunjungan" class="small-box-footer">More info
                             <i class="fa fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -184,7 +240,7 @@ while ($data = $sql->fetch_assoc()) {
             ?>
 
             <!-- Tombol Filter dan Hapus Filter -->
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-right mb-3">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter</button>
@@ -193,7 +249,7 @@ while ($data = $sql->fetch_assoc()) {
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Modal Filter -->
             <div class="modal fade" id="filterModal_kelas" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
@@ -244,146 +300,181 @@ while ($data = $sql->fetch_assoc()) {
 
 
         </div>
-</section>
-<section class="content">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="text-center">Grafik Data Buku</h3>
-                </div>
-                <div class="box-body">
-                    <canvas id="barChart" width="400" height="200"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="box box-info h-100">
-                <div class="box-header with-border">
-                    <h3 class="text-center"> Grafik Kedua</h3>
-                </div>
-                <div class="box-body">
-                    <canvas id="secondChart" width="400" height="200"></canvas>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="text-center">Grafik Inventaris Buku</h3>
+                        <div class="text-right mb-3" style="padding: 20px;">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
+                                <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="barChart" width="400" height="200"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
-        const kelasData = <?php echo json_encode($kelasData); ?>;
-        const jumlahData = <?php echo json_encode($jumlahData); ?>;
+            <script>
+                const kelasData = <?php echo json_encode($kelasData); ?>;
+                const jumlahData = <?php echo json_encode($jumlahData); ?>;
 
-        const ctx = document.getElementById('barChart').getContext('2d');
-        const barChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: kelasData,
-                datasets: [{
-                    label: 'Jumlah Buku',
-                    data: jumlahData,
-                    backgroundColor: [
-                        '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df',
-                        '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df'
-                    ],
-                    borderColor: '#2e59d9',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
+                const ctx = document.getElementById('barChart').getContext('2d');
+                const barChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: kelasData,
+                        datasets: [{
+                            label: 'Jumlah Buku',
+                            data: jumlahData,
+                            backgroundColor: [
+                                '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df',
+                                '#4e73df', '#4e73df', '#4e73df', '#4e73df', '#4e73df'
+                            ],
+                            borderColor: '#2e59d9',
+                            borderWidth: 1
+                        }]
                     },
-                    tooltip: {
-                        enabled: true
-                    }
-                }
-            }
-        });
-        // Data dan konfigurasi untuk grafik kedua (misalnya diagram lingkaran)
-        const ctx2 = document.getElementById('secondChart').getContext('2d');
-
-        // Hitung total jumlah data
-        const totalData = jumlahData.reduce((acc, value) => acc + value, 0);
-
-        // Konversi nilai mentah ke dalam bentuk persentase
-        const percentageData = jumlahData.map(value => ((value / totalData) * 100).toFixed(2));
-
-        const secondChart = new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: kelasData, // Label kategori
-                datasets: [{
-                    label: 'Distribusi Buku (%)',
-                    data: percentageData, // Data dalam bentuk persentase
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false // Menyembunyikan legenda
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                // Ambil persentase dari data
-                                const percentage = percentageData[tooltipItem.dataIndex];
-                                return `${tooltipItem.label}: ${percentage}%`; // Format tooltip dengan persentase
+                    options: {
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false // Menyembunyikan label di sumbu X
+                                },
+                                grid: {
+                                    display: false // Menyembunyikan garis grid pada sumbu X
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                enabled: true
                             }
                         }
                     }
-                }
-            }
-        });
-    </script>
-    <div class="row">
-        <!-- Grafik Buku Terpopuler -->
-        <div class="col-md-6">
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Grafik Buku Terpopuler</h3>
-                </div>
-                <div class="box-body">
-                    <canvas id="chartBuku"></canvas>
+                });
+            </script>
+            <div class="col-md-6 ">
+                <div class="box box-info h-100">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Grafik Pengunjung Teraktif</h3>
+                        <div class="text-right mb-3" style="padding: 20px;">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
+                                <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="secondChart" width="400" height="200"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
+            <?php
+            $sql = $koneksi->query("
+        SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 10;
+    ");
 
-        <!-- Grafik Anggota Teraktif -->
-        <div class="col-md-6">
-            <div class="box box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Grafik Anggota Teraktif</h3>
+
+            $data_pengunjung = [];
+            while ($row = $sql->fetch_assoc()) {
+                $data_pengunjung[] = $row;
+            }
+            ?>
+            <script>
+                // Data dari PHP ke JavaScript
+                const pengunjungData = <?php echo json_encode($data_pengunjung); ?>;
+
+                // Ekstrak data untuk Chart.js
+                const labels = pengunjungData.map(data => data.nama);
+                const kunjungan = pengunjungData.map(data => data.total_kunjungan);
+
+                // Inisialisasi Chart.js
+                const ctxkunjungan = document.getElementById('secondChart').getContext('2d');
+                const secondChart = new Chart(ctxkunjungan, {
+                    type: 'bar', // Jenis chart: bar, line, dll.
+                    data: {
+                        labels: labels, // Nama pengunjung
+                        datasets: [{
+                            label: 'Jumlah Kunjungan',
+                            data: kunjungan, // Total kunjungan tiap pengunjung
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                x: {
+                    ticks: {
+                        display: false // Menyembunyikan label di sumbu X
+                    },
+                    grid: {
+                        display: false // Menyembunyikan garis grid pada sumbu X
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            },
+                    }
+                });
+            </script>
+
+        </div>
+        <div class="row">
+            <!-- Grafik Buku Terpopuler -->
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Grafik Buku Terpopuler</h3>
+                        <div class="text-right mb-3" style="padding: 20px;">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
+                                <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="chartBuku"></canvas>
+                    </div>
                 </div>
-                <div class="box-body">
-                    <canvas id="chartAnggota"></canvas>
+            </div>
+
+            <!-- Grafik Anggota Teraktif -->
+            <div class="col-md-6">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Grafik Anggota Teraktif</h3>
+                        <div class="text-right mb-3" style="padding: 20px;">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_kelas">Filter Data</button>
+                            <?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>
+                                <a href="index.php?page=admin" class="btn btn-danger">Hapus Filter</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <canvas id="chartAnggota"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 <script>
@@ -449,10 +540,18 @@ while ($data = $sql->fetch_assoc()) {
                 },
             },
             scales: {
+                x: {
+                    ticks: {
+                        display: false // Menyembunyikan label di sumbu X
+                    },
+                    grid: {
+                        display: false // Menyembunyikan garis grid pada sumbu X
+                    }
+                },
                 y: {
                     beginAtZero: true
                 }
-            }
+            },
         }
     });
 
@@ -478,10 +577,18 @@ while ($data = $sql->fetch_assoc()) {
                 },
             },
             scales: {
+                x: {
+                    ticks: {
+                        display: false // Menyembunyikan label di sumbu X
+                    },
+                    grid: {
+                        display: false // Menyembunyikan garis grid pada sumbu X
+                    }
+                },
                 y: {
                     beginAtZero: true
                 }
-            }
+            },
         }
     });
 </script>

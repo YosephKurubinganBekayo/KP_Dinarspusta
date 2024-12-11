@@ -1,11 +1,14 @@
 <?php
 // Koneksi database
 if (isset($_GET['kode'])) {
-    $kode = $_GET['kode']; // Mengambil kode yang ingin diedit
+    $kode = htmlspecialchars($_GET['kode']); // Hindari input langsung
 
     // Ambil data dari database berdasarkan kode
-    $query = $koneksi->query("SELECT * FROM departemen WHERE id = '$kode'");
-    $data = $query->fetch_assoc();
+    $stmt = $koneksi->prepare("SELECT * FROM departemen WHERE id = ?");
+    $stmt->bind_param("s", $kode);
+    $stmt->execute();
+    $data = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
 }
 ?>
 
@@ -20,13 +23,13 @@ if (isset($_GET['kode'])) {
                     <div class="box-body">
                         <div class="form-group">
                             <label>Nama Departemen</label>
-                            <input type="text" name="nama_departemen" class="form-control" value="<?= $data['nama_departemen']; ?>" required>
+                            <input type="text" name="nama_departemen" class="form-control" value="<?= htmlspecialchars($data['nama_departemen']); ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Gambar</label>
                             <input type="file" name="gambar" class="form-control">
                             <?php if ($data['gambar']) { ?>
-                                <img src="../img/<?= $data['gambar']; ?>" alt="Gambar" width="100" height="100">
+                                <img src="../img/<?= htmlspecialchars($data['gambar']); ?>" alt="Gambar" width="100" height="100">
                             <?php } ?>
                         </div>
                     </div>
@@ -43,45 +46,46 @@ if (isset($_GET['kode'])) {
 <?php
 // Proses edit data
 if (isset($_POST['edit'])) {
-    $nama_departemen = $_POST['nama_departemen'];
-    // Periksa jika ada gambar baru
+    $nama_departemen = htmlspecialchars($_POST['nama_departemen']);
     $gambar_baru = $_FILES['gambar']['name'];
+    $gambar = $data['gambar']; // Default ke gambar lama
+
     if ($gambar_baru) {
         $target_dir = "../img/";
-        $target_file = $target_dir . basename($gambar_baru);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($gambar_baru, PATHINFO_EXTENSION));
+        $file_name = time() . '_' . uniqid() . '.' . $imageFileType; // Nama unik
+        $target_file = $target_dir . $file_name;
 
         // Validasi file
-        $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-        if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
-            if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                $gambar = $gambar_baru;
+        $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
+        $mime_type = mime_content_type($_FILES['gambar']['tmp_name']);
+        if (in_array($mime_type, $allowed_types) && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
+            if (move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file)) {
+                // Hapus gambar lama jika ada
+                if ($data['gambar'] && file_exists($target_dir . $data['gambar'])) {
+                    unlink($target_dir . $data['gambar']);
+                }
+                $gambar = $file_name; // Set nama gambar baru
             } else {
                 echo "<script>alert('Gagal mengupload gambar.');</script>";
-                $gambar = $data['gambar']; // Tetap gunakan gambar lama
             }
         } else {
-            echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
-            $gambar = $data['gambar'];
+            echo "<script>alert('File tidak valid. Hanya JPG, JPEG, atau PNG.');</script>";
         }
-    } else {
-        $gambar = $data['gambar']; // Tetap gunakan gambar lama
     }
 
-    // Query update
-    $query_edit = $koneksi->query("UPDATE departemen SET 
-        nama_departemen = '$nama_departemen',
-        gambar = '$gambar'
-        WHERE id = '$kode'");
+    // Query update dengan prepared statement
+    $stmt = $koneksi->prepare("UPDATE departemen SET nama_departemen = ?, gambar = ? WHERE id = ?");
+    $stmt->bind_param("sss", $nama_departemen, $gambar, $kode);
 
-    if ($query_edit) {
+    if ($stmt->execute()) {
         echo "<script>
         Swal.fire({title: 'Edit Data Berhasil', text: '', icon: 'success', confirmButtonText: 'OK'})
         .then((result) => {
             if (result.value) {
                 window.location = 'index.php?page=MyApp/data_departemen';
             }
-        })
+        });
         </script>";
     } else {
         echo "<script>
@@ -90,8 +94,9 @@ if (isset($_POST['edit'])) {
             if (result.value) {
                 window.location = 'index.php?page=MyApp/edit_departemen&kode=$kode';
             }
-        })
+        });
         </script>";
     }
+    $stmt->close();
 }
 ?>

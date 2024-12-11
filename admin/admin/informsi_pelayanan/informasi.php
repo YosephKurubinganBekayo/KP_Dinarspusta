@@ -20,7 +20,6 @@
             <tr>
               <th>No</th>
               <th>Nama Departemen</th>
-              <th>Gambar</th>
               <th>Alamat </th>
               <th>Lantai </th>
               <th>Jam Operasional</th>
@@ -42,11 +41,7 @@
                 <td>
                   <?php echo $data['nama_departemen']; ?>
                 </td>
-                <td>
-                  <a class="fancybox" data-fancybox="gallery" href="../img/<?php echo $data['gambar']; ?>">
-                    <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar" style="width: 100px; height: auto;">
-                  </a>
-                </td>
+
                 <td>
                   <?php echo $data['alamat']; ?>
                 </td>
