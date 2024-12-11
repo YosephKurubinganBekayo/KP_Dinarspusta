@@ -9,7 +9,7 @@ class databases
   public $host   = 'localhost';
   public $name   = 'root';
   public $pass   = '';
-  public $dbname = 'dbarspus';
+  public $dbname = 'dbarspus_psim';
   public $mysqli;
 
   //fungsi menguji koneksi database
