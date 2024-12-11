@@ -51,18 +51,27 @@
 									<?php echo $data['id_anggota']; ?>
 								</td>
 								<td>
+									<?php echo $data['nik']; ?>
+								</td>
+								<td>
 									<?php echo $data['nama']; ?>
 								</td>
 								<td>
 									<?php echo $data['jekel']; ?>
 								</td>
 								<td>
-									<?php echo $data['kelas']; ?>
+									<?php echo $data['alamat']; ?>
 								</td>
 								<td>
 									<?php echo $data['no_hp']; ?>
 								</td>
-
+								<td>
+									<?php echo $data['pekerjaan']; ?>
+								</td>
+								<td>
+									<?php echo $data['instansi']; ?>
+								</td>
+								`id_anggota`, `nik`, `nama`, `jekel`, `alamat`, `no_hp`, `Pekerjaan`, `instansi` FROM `tb_anggota`
 								<td>
 									<a href="?page=MyApp/edit_agt&kode=<?php echo $data['id_anggota']; ?>" title="Ubah Data"
 										class="btn btn-success">
