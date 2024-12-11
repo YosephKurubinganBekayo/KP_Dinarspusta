@@ -38,14 +38,16 @@ if (isset($_POST['tambah'])) {
 
   // Validasi dan upload gambar
   if ($gambar_baru) {
-    $target_dir = "../img/";
-    $target_file = $target_dir . basename($gambar_baru);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    $check = getimagesize($_FILES["gambar"]["tmp_name"]);
+    $target_dir = "../img/"; // Folder spesifik untuk gambar departemen
+    $imageFileType = strtolower(pathinfo($gambar_baru, PATHINFO_EXTENSION));
+    $file_name = time() . '_' . uniqid() . '.' . $imageFileType; // Nama unik untuk file
+    $target_file = $target_dir . $file_name;
 
+    // Validasi file
+    $check = getimagesize($_FILES["gambar"]["tmp_name"]);
     if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
       if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        $gambar = $gambar_baru;
+        $gambar = $file_name; // Gunakan nama file unik
       } else {
         echo "<script>alert('Gagal mengupload gambar.');</script>";
         $gambar = ""; // Jika gagal upload, gambar kosong
@@ -54,13 +56,15 @@ if (isset($_POST['tambah'])) {
       echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
       $gambar = ""; // Gambar kosong karena validasi gagal
     }
+  } else {
+    $gambar = ""; // Jika tidak ada gambar yang diunggah
   }
-  // Jika gambar sukses diupload
-  if (!empty($gambar)) {
-    $query_tambah = $koneksi->query("INSERT INTO departemen (nama_departemen, gambar) VALUES ('$nama_departemen', '$gambar')");
 
-    if ($query_tambah) {
-      echo "<script>
+  // Jika gambar sukses diupload atau kosong
+  $query_tambah = $koneksi->query("INSERT INTO departemen (nama_departemen, gambar) VALUES ('$nama_departemen', '$gambar')");
+
+  if ($query_tambah) {
+    echo "<script>
             Swal.fire({title: 'Tambah Data Berhasil', text: '', icon: 'success', confirmButtonText: 'OK'})
             .then((result) => {
                 if (result.value) {
@@ -68,8 +72,12 @@ if (isset($_POST['tambah'])) {
                 }
             })
             </script>";
-    } else {
-      echo "<script>
+  } else {
+    // Hapus file jika query gagal
+    if (!empty($gambar) && file_exists($target_file)) {
+      unlink($target_file);
+    }
+    echo "<script>
             Swal.fire({title: 'Tambah Data Gagal', text: '', icon: 'error', confirmButtonText: 'OK'})
             .then((result) => {
                 if (result.value) {
@@ -77,11 +85,6 @@ if (isset($_POST['tambah'])) {
                 }
             })
             </script>";
-    }
-  } else {
-    echo "<script>
-        Swal.fire({title: 'Gagal Mengupload Gambar', text: 'Pastikan file yang diupload valid.', icon: 'error', confirmButtonText: 'OK'});
-        </script>";
   }
 }
 ?>

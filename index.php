@@ -1,200 +1,196 @@
-<?php include "admin/inc/koneksi.php";
-include "fungsi.php";
-$link = mysqli_connect('localhost', 'root', '', 'db_companyprofile');
-
-$mysqli = new databases();
-?>
 <?php
-// Pastikan ini ada di bagian atas file PHP
-setcookie(
-  "my_cookie",
-  "cookie_value",
-  [
-    "expires" => time() + 3600, // Berlaku 1 jam
-    "path" => "/",
-    "domain" => "example.com",
-    "secure" => true, // Hanya untuk HTTPS
-    "httponly" => true,
-    "samesite" => "None" // Bisa diganti "Lax" atau "Strict"
-  ]
-);
+require 'call_fungtion.php'
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php include "head.php" ?>
 
-  <!-- Bootstrap CSS -->
-  <link href="bootstrap5/css/bootstrap.min.css" rel="stylesheet">
-  <!-- mystyle -->
-  <link href="css/Style.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <title>Dinarpusta Kota Kupang</title>
-</head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-fixed w-100">
-    <div class="container">
-      <?php
-      $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
-      if ($profile) { ?>
-        <a class="navbar-brand" href="#">
-          <img src="img/buku.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-          <?php echo $profile['titlewebsite'] ?></a>
-      <?php } else {
-        echo "<p>Nama Brand</p>";
-      } ?>
+  <!-- Spinner Start -->
+  <?php include "topbar.php" ?>
+  <!-- Topbar End -->
+  <!-- Navbar & Hero Start -->
+  <div class="container-fluid position-relative p-0">
+    <?php include "navbar.php" ?>
 
+    <!-- Carousel Start -->
 
-      <button class="navbar-toggler border-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item ">
-            <a class="nav-link " aria-current="page" href="#">Beranda</a>
-          </li>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAbout" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Tentang kami
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuAbout">
-              <li><a class="dropdown-item" href="tentangkami/profil.php">Profil </a></li>
-              <li><a class="dropdown-item" href="tentangkami/sejarah.php">Sejarah </a></li>
-              <li><a class="dropdown-item" href="tentangkami/struktur.php">Struktur Organisasi </a></li>
-              <li><a class="dropdown-item" href="#kegiatan">Kegiatan </a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuPerpustakaan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Perpustakaan
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuPerpustakaan">
-              <li><a class="dropdown-item" href="perpustakaan/profil.php">Profil Perpustakaan</a></li>
-              <li><a class="dropdown-item" href="perpustakaan/layanan.php">Layanan Perpustakaan</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown ">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuKearsipan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Kearsipan
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuKearsipan">
-              <li><a class="dropdown-item" href="kearsipan/profil.html">Profil Kearsipan</a></li>
-              <li><a class="dropdown-item" href="kearsipan/layanan.html">Layanan Kearsipan</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#contact">Kontak</a>
-          </li>
-        </ul>
-        <div class="navbar-nav login-button ">
-          <button class="button_secondary"><a href="admin/index.php">Masuk</a></button>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- hero section -->
-  <?php $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
-  ?>
-  <style>
-    .hero {
-      height: 100vh;
-      width: 100%;
-      background-image: url("img/<?php echo $profile['gambar']; ?>");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      position: relative;
+    <div class="header-carousel owl-carousel">
+      <div class="header-carousel-item">
+        <img src="img/profil/<?php echo $profile['gambar'] ?>" class="img-fluid  h-100" alt="Image" />
+        <div class="carousel-caption">
+          <div class="container">
+            <div class="row gy-0 gx-5">
+              <!-- <div class="col-lg-0 col-xl-5"></div> -->
+              <div class="col-xl-7 animated fadeInLeft">
+                <div class="text-sm-center text-md-start">
+                  <h4 class="text-warning text-uppercase fw-bold mb-4">
+                    Selamat Datang Di <?php echo $profile['titlewebsite']; ?>
+                  </h4>
+                  <h2 class="display-5 text-uppercase text-white mb-4">
+                    <?php echo $profile['titleparagraf']; ?>
+                  </h2>
+                  <p class="mb-5 fs-5">
+                    <?php echo $profile['description']; ?>
+                  </p>
+                  <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                    <a class="btn btn-light rounded-start rounded-top py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i>Tonton Video</a>
+                    <a class="btn btn-light rounded-end rounded-bottom py-3 px-4 px-md-5 ms-2" href="#about">Selengkapnya</a>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center justify-content-md-start">
 
-    }
-  </style>
-  <section class="hero" id="hero">
-
-    <div class="container h-100">
-      <div class="row h-100">
-        <div class="col-md-6 hero_tagline my-auto">
-          <!-- <h1>Dinas <span>Kearsipan</span> dan <span>Perpustakaan</span> Kota Kupang</h1> -->
-          <!-- Menampilkan data dari database -->
-          <?php
-          $profile = $mysqli->get_show_profile(); // Panggil fungsi untuk mendapatkan data
-
-          if ($profile) {
-            echo "
-                  <h3>{$profile['welcomeparagraf']}</h3>
-                  <h1>{$profile['titleparagraf']}</h1>
-                  <p>{$profile['description']}</p>";
-          } else {
-            echo "<p>Data tidak ditemukan!</p>";
-          }
-
-          ?>
-          <a href="#tentang_kami" class="button-lg-primary_titel">
-            <button class="button-lg-primary">Tentang Kami</button>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- section about -->
-
-  <section id="tentang_kami">
-    <div class="container-fluid">
-      <div class="container">
-        <div class="header-about">
-          <h2 class=""><span>Tentang</span> Kami</h2>
-        </div>
-
-        <div class="row">
-          <?php
-          // Query untuk mendapatkan data gambar pertama
-          $sql_gambar = $koneksi->query("SELECT * FROM tbl_aboutus LIMIT 1");
-          $data_gambar = $sql_gambar->fetch_assoc();
-          ?>
-          <div class="col-md-5 img_about">
-            <img src="img/<?php echo $data_gambar['pict_aboutus'];
-                          ?>" alt="Tentang Kami" class="menu-card-img">
+                    <div class="d-flex justify-content-start ms-2">
+                      <a class="btn btn-md-square btn-light rounded-circle me-2" href="<?php echo $profile['facebook'] ?>"><i class="fab fa-facebook-f"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle mx-2" href="<?php echo $profile['x'] ?>"><i class="fab fa-twitter"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle mx-2" href="<?php echo $profile['instagram'] ?>"><i class="fab fa-instagram"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle ms-2" href="<?php echo $profile['youtube'] ?>"><i class="fab fa-youtube"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-md-7 about_info">
+        </div>
+      </div>
+      <?php
+      if (!empty($departemens)) {
+        foreach ($departemens as $departemen) {
+
+      ?>
+          <div class="header-carousel-item">
+            <img src="img/<?php echo $departemen['gambar'] ?>" class="img-fluid w-100" alt="Image" />
+            <div class="carousel-caption">
+              <div class="container">
+                <div class="row gy-0 gx-5">
+                  <!-- <div class="col-lg-0 col-xl-5"></div> -->
+                  <div class="col-xl-7 animated fadeInLeft">
+                    <div class="text-sm-center text-md-start">
+                      <h4 class="text-warning text-uppercase fw-bold mb-4">
+                        Selamat Datang Di <?php echo $profile['titlewebsite']; ?>
+                      </h4>
+                      <h2 class="display-5 text-uppercase text-white mb-4">
+                        <?php echo $profile['titleparagraf']; ?>
+                      </h2>
+                      <p class="mb-5 fs-5">
+                        <?php echo $profile['description']; ?>
+                      </p>
+                      <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                        <a class="btn btn-light rounded-start rounded-top py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i>Tonton Video</a>
+                        <a class="btn btn-light rounded-end rounded-bottom py-3 px-4 px-md-5 ms-2" href="#about">Selengkapnya</a>
+                      </div>
+                      <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+
+                        <div class="d-flex justify-content-start ms-2">
+                          <a class="btn btn-md-square btn-light rounded-circle me-2" href="<?php echo $profile['facebook'] ?>"><i class="fab fa-facebook-f"></i></a>
+                          <a class="btn btn-md-square btn-light rounded-circle mx-2" href="<?php echo $profile['x'] ?>"><i class="fab fa-twitter"></i></a>
+                          <a class="btn btn-md-square btn-light rounded-circle mx-2" href="<?php echo $profile['instagram'] ?>"><i class="fab fa-instagram"></i></a>
+                          <a class="btn btn-md-square btn-light rounded-circle ms-2" href="<?php echo $profile['youtube'] ?>"><i class="fab fa-youtube"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <?php
+        }
+      } else {
+        echo "<p>Tidak ada layanan</p>";
+      }
+      ?>
+      <!-- <div class="header-carousel-item">
+        <img src="img/carousel-2.jpg" class="img-fluid w-100" alt="Image" />
+        <div class="carousel-caption">
+          <div class="container">
+            <div class="row g-5">
+              <div class="col-12 animated fadeInUp">
+                <div class="text-center">
+                  <h4 class="text-warning text-uppercase fw-bold mb-4">
+                    Welcome To Stocker
+                  </h4>
+                  <h1 class="display-4 text-uppercase text-white mb-4">
+                    Invest your money with higher return
+                  </h1>
+                  <p class="mb-5 fs-5">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy...
+                  </p>
+                  <div class="d-flex justify-content-center flex-shrink-0 mb-4">
+                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> Watch Video</a>
+                    <a class="btn btn-warning rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center">
+                    <h2 class="text-white me-2">Follow Us:</h2>
+                    <div class="d-flex justify-content-end ms-2">
+                      <a class="btn btn-md-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-twitter"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle mx-2" href=""><i class="fab fa-instagram"></i></a>
+                      <a class="btn btn-md-square btn-light rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <!-- Carousel End -->
+  </div>
+  <!-- Navbar & Hero End -->
+
+  <!-- Abvout Start -->
+  <div id="about" class="container-fluid about py-5 ">
+    <div class="container py-5">
+      <div class="row g-5 align-items-center">
+        <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
+          <div>
+            <h4 class="text-warning">Tentang Kami</h4>
             <?php
-            $sql = $koneksi->query("SELECT * FROM tbl_aboutus");
+            $sql_gambar = $koneksi->query("SELECT * FROM tbl_aboutus LIMIT 1");
+            $data_gambar = $sql_gambar->fetch_assoc();
+            ?>
+            <?php
+            $sql = $koneksi->query("SELECT * FROM tbl_aboutus LIMIT 1");
             while ($data = $sql->fetch_assoc()) {
             ?>
-              <div class="about_item">
-                <?php echo substr($data['detail_aboutus'], 0, 700);
-                ?>...
-              </div>
-              <div class="footer_about">
-                <a class="btn btn-warning" href="#layanan">Baca Selengkapnya</a>
-              </div>
+              <?php echo strlen($data['detail_aboutus']) > 900 ? substr($data['detail_aboutus'], 0, 900) . "..." : $data['detail_aboutus']; ?>
+
             <?php }
             ?>
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <a href="about.php?id=<?php echo urlencode($data_gambar['id_aboutus']); ?>" class="btn btn-secondary rounded-end rounded-top py-2 px-5 flex-shrink-0">Selengkapnya</a>
+              </div>
+            </div>
           </div>
-
+        </div>
+        <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
+          <div class="rounded position-relative overflow-hidden">
+            <img src="img/<?php echo $data_gambar['pict_aboutus']; ?>" class="img-fluid" style="width: 100%; height: 400px; object-fit: cover; " alt="" />
+          </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- layanan Section start -->
-  <section id="layanan">
-    <div class="container">
-      <div class="header-layanan">
-        <?php // Query bidang untuk mendapatkan semua data bidang
-        $query_bidang = $koneksi->query("SELECT * FROM bidang");
+  </div>
+  <!-- About End -->
+
+  <!-- Services Start -->
+  <div class="container-fluid service py-5" id="service">
+    <div class="container py-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px">
+        <h4 class="text-warning">Layanan Kami</h4>
+        <h1 class="display-5 mb-4">Kami menyediakan layanan terbaik untuk anda</h1>
+        <?php
+        $query_bidang = $koneksi->query("SELECT * FROM layanan");
         $bidang_data = [];
         while ($row = $query_bidang->fetch_assoc()) {
           $bidang_data[] = $row; // Simpan data bidang ke array
-          $bidang_data_nama[] = $row['nama_bidang'];
+          $bidang_data_nama[] = $row['nama_layanan'];
         }
         // Membentuk kalimat layanan dari nama bidang
         if (count($bidang_data_nama) > 1) {
@@ -202,43 +198,193 @@ setcookie(
         } else {
           $layanan_list = $bidang_data_nama[0] ?? '';
         } ?>
-        <h2><span>Layanan</span> Kami</h2>
-        <p class="px-50">
-          <?php echo $profile['titlewebsite']; ?> menyediakan layanan <?php echo $layanan_list; ?> yang terkelola dengan baik untuk mendukung kebutuhan informasi dan literasi Anda. Klik tombol di bawah ini untuk informasi layanan lebih lanjut.
-        </p> <!-- Navigasi untuk memilih layanan -->
-        <div class="service-navigation border-top">
-          <?php foreach ($bidang_data as $index => $bidang) : ?>
-            <button class="service-btn <?= $index === 0 ? 'active' : '' ?>" data-target="bidang-<?= $bidang['id']; ?>">
-              <?= htmlspecialchars($bidang['nama_bidang']); ?>
-            </button>
-          <?php endforeach; ?>
+        <p class="mb-0">
+          <?php echo $profile['titlewebsite']; ?> menyediakan layanan "<?php echo $layanan_list; ?>" yang terkelola dengan baik untuk mendukung kebutuhan informasi dan literasi Anda.
+
+        </p>
+      </div>
+      <div class="row g-4">
+        <?php
+        if (!empty($services)) {
+          foreach ($services as $service) {
+            $nama_layanan = $service['nama_layanan'];
+            $deskripsi = $service['deskripsi'];
+            $max_length = 180;
+
+            // Hitung total panjang karakter
+            $total_length = strlen($nama_layanan) + strlen($deskripsi);
+
+            // Potong deskripsi jika total panjang melebihi batas
+            if ($total_length > $max_length) {
+              $deskripsi = substr($deskripsi, 0, $max_length - strlen($nama_layanan)) . '...';
+            }
+        ?>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+              <div class="service-item">
+                <div class="service-img">
+                  <img src="img/<?php echo htmlspecialchars($service['gambar']); ?>" class="img-fluid rounded-top w-100" alt="<?php echo htmlspecialchars($service['nama_layanan']); ?>" style="height: 250px; object-fit: cover; object-position: center; width: 100%; " />
+                </div>
+                <div class="rounded-bottom p-4" style="height: 180px; overflow: hidden;">
+                  <a href="#" class="h4 text-warning d-inline-block mb-4">
+                    <?php echo  $nama_layanan ?>
+                  </a>
+                  <!-- <p class="mb-4"> -->
+                  <?php echo  $deskripsi ?>
+                  <!-- </p> -->
+                </div>
+                <div class="p-4">
+                  <a class="btn btn-secondary rounded-start rounded-top py-2 px-4" href="service.php#layanan-<?php echo htmlspecialchars($service['id']) ?>">Baca selengkapnya</a>
+                </div>
+              </div>
+            </div>
+        <?php
+          }
+        } else {
+          echo "<p>Tidak ada layanan</p>";
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+  <!-- Services End -->
+
+  <!-- Features Start -->
+  <!-- <div class="container-fluid feature pb-5">
+    <div class="container pb-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px">
+        <h4 class="text-warning">Our Features</h4>
+        <h1 class="display-5 mb-4">
+          Connecting businesses, ideas, and people for greater impact.
+        </h1>
+        <p class="mb-0">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
+          adipisci facilis cupiditate recusandae aperiam temporibus corporis
+          itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
+          obcaecati, ipsam mollitia hic.
+        </p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="feature-item p-4">
+            <div class="feature-icon p-4 mb-4">
+              <i class="fas fa-chart-line fa-4x text-warning"></i>
+            </div>
+            <h4>Global Management</h4>
+            <p class="mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic
+              laborum odit pariatur...
+            </p>
+            <a class="btn btn-warning rounded-pill py-2 px-4" href="#">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+          <div class="feature-item p-4">
+            <div class="feature-icon p-4 mb-4">
+              <i class="fas fa-university fa-4x text-warning"></i>
+            </div>
+            <h4>Corporate Banking</h4>
+            <p class="mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic
+              laborum odit pariatur...
+            </p>
+            <a class="btn btn-warning rounded-pill py-2 px-4" href="#">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+          <div class="feature-item p-4">
+            <div class="feature-icon p-4 mb-4">
+              <i class="fas fa-file-alt fa-4x text-warning"></i>
+            </div>
+            <h4>Asset Management</h4>
+            <p class="mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic
+              laborum odit pariatur...
+            </p>
+            <a class="btn btn-warning rounded-pill py-2 px-4" href="#">Learn More</a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+          <div class="feature-item p-4">
+            <div class="feature-icon p-4 mb-4">
+              <i class="fas fa-hand-holding-usd fa-4x text-warning"></i>
+            </div>
+            <h4>Investment Bank</h4>
+            <p class="mb-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea hic
+              laborum odit pariatur...
+            </p>
+            <a class="btn btn-warning rounded-pill py-2 px-4" href="#">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- Features End -->
+
+  <!-- Offer Start -->
+  <div class="container-fluid offer-section py-5" id="service_info">
+    <div class="container py-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px">
+        <h4 class="text-warning">Informasi layanan</h4>
+        <h1 class="display-5 mb-4">Informasii tentang jadwal layanan Kami</h1>
+        <p class="mb-0">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
+          adipisci facilis cupiditate recusandae aperiam temporibus corporis
+          itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
+          obcaecati, ipsam mollitia hic.
+        </p>
+      </div>
+      <div class="row g-5 align-items-center" data-wow-delay="0.2s">
+        <div class="col-xl-12 mb-5  wow fadeInLeft">
+          <div class="nav nav-pills bg-light rounded-end rounded-top p-2 d-flex justify-content-evenly">
+            <?php
+            $query_bidang = $koneksi->query("SELECT i.*, d.nama_departemen, d.gambar FROM informasi_pelayanan i JOIN departemen d ON i.id_departemen = d.id");
+            $bidang_data = [];
+            while ($row = $query_bidang->fetch_assoc()) {
+              $bidang_data[] = $row;
+            }
+
+            $i = 0;
+            foreach ($bidang_data as $row) {
+              $isActive = ($i === 0) ? 'active' : ''; // Set tab pertama sebagai aktif
+            ?>
+              <a class="accordion-link rounded-end rounded-top <?php echo $isActive; ?>" data-bs-toggle="pill" href="#collapse-<?php echo $row['id']; ?>" style="padding: 10px 20px;">
+                <h5 class="mb-0 text-light">
+                  <?php echo $row['nama_departemen']; ?>
+                </h5>
+              </a>
+            <?php
+              $i++;
+            }
+            ?>
+          </div>
         </div>
       </div>
 
-      <?php foreach ($bidang_data as $index => $bidang) : ?>
-        <!-- Seksi untuk setiap bidang -->
-        <div id="bidang-<?= $bidang['id']; ?>" class="service-section" style="display: <?= $index === 0 ? 'block' : 'none'; ?>;">
-
-          <div class="row layanan_item">
-            <div class="col-md-5 img_layanan">
-              <img src="img/<?= htmlspecialchars($bidang['gambar'] ?? 'default.png'); ?>" alt="<?= htmlspecialchars($bidang['nama_bidang']); ?>" class="menu-card-img">
-            </div>
-
-            <div class="col-md-7  detail_layanan ">
-              <div class="library-title border">
-                <h5 class=""><?= htmlspecialchars($bidang['nama_bidang']); ?></h5>
-              </div>
-              <div class="layanan_info border">
-                <div class="library-main">
-                  <p><i class="fas fa-building"></i><span>Lantai : </span><?= htmlspecialchars($bidang['lantai']); ?></p>
+      <div class="col-xl-12 wow fadeInRight" data-wow-delay="0.4s">
+        <div class="tab-content ">
+          <?php
+          $i = 0;
+          foreach ($bidang_data as $row) {
+            $isActive = ($i === 0) ? 'show active' : '';
+          ?>
+            <div id="collapse-<?php echo $row['id']; ?>" class="tab-pane fade <?php echo $isActive; ?> p-0">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <img src="img/<?php echo $row['gambar'] ?>" class="img-fluid w-100 rounded-start rounded-bottom" style="width: 100%; height: 400px; object-fit: cover; " alt="" />
+                </div>
+                <div class="col-md-6">
+                  <h1 class="display-5 mb-4">
+                    <?php echo $row['nama_departemen']; ?>
+                  </h1>
+                  <p><i class="fas fa-building"></i><span>Lantai : </span><?= htmlspecialchars($row['lantai']); ?></p>
 
                   <p><span>Jam Operasional : </span></p>
                   <ul style="list-style-type: none; padding-left: 0;">
                     <?php
-                    // Ubah teks jam operasional menjadi daftar
-                    $jamOperasional = explode("\n", $bidang['jam_operasional']); // Pecah teks berdasarkan baris baru
+                    $jamOperasional = explode("\n", $row['jam_operasional']);
                     foreach ($jamOperasional as $jam) :
-                      if (trim($jam)) : // Hanya tampilkan jika tidak kosong
+                      if (trim($jam)) :
                     ?>
                         <li class=""><i class="far fa-clock"></i> <?= htmlspecialchars($jam); ?></li>
                     <?php
@@ -248,368 +394,261 @@ setcookie(
                   </ul>
                   <p><span>Jam Tambahan : </span></p>
                   <ul style="list-style-type: none; padding-left: 0;">
-                    <li><i class="far fa-clock"> </i><?= !empty($bidang['jam_tambahan']) ? htmlspecialchars($bidang['jam_tambahan']) : '<em>Tidak ada data</em>'; ?></li>
+                    <li><i class="far fa-clock"> </i><?= !empty($row['jam_tambahan']) ? htmlspecialchars($row['jam_tambahan']) : '<em>Tidak ada data</em>'; ?></li>
                   </ul>
-                  <p> Pegawai Bertugas Hari Ini:</p>
-                  <ul style="list-style-type: none; padding-left: 0;">
-                    <?php
-                    $hari_map = [
-                      'monday' => 'senin',
-                      'tuesday' => 'selasa',
-                      'wednesday' => 'rabu',
-                      'thursday' => 'kamis',
-                      'friday' => 'jumat',
-                      'saturday' => 'sabtu',
-                      'sunday' => 'minggu',
-                    ];
-                    $hari_inggris = strtolower(date('l')); // Hari dalam bahasa Inggris
-                    $hari_ini = $hari_map[$hari_inggris]; // Ubah ke bahasa Indonesia
-                    $nama_bidang = $bidang['nama_bidang'];
-
-                    $query_pegawai = $koneksi->query("
-                    SELECT p.nama_pegawai, p.kontak 
-                    FROM pegawai AS p
-                    JOIN jadwal_pegawai AS j ON p.id = j.id_pegawai 
-                    JOIN bidang AS b ON p.id_bidang = b.id
-                    WHERE LOWER(j.hari) = '$hari_ini' AND b.nama_bidang = '$nama_bidang'
-                ");
-                    // Memeriksa apakah query berhasil
-                    if (!$query_pegawai) {
-                      die('Query gagal: ' . $koneksi->error);
-                    }
-                    while ($pegawai = $query_pegawai->fetch_assoc()) :
-                    ?>
-                      <li class=""><i class="fas fa-user"></i> <?= htmlspecialchars($pegawai['nama_pegawai']); ?> - <?= htmlspecialchars($pegawai['kontak']); ?></li>
-                    <?php endwhile; ?>
-                  </ul>
-                </div>
-                <div class="closed-info">
-                  <p>Tutup: <?= htmlspecialchars($bidang['tutup']); ?></p>
+                  <p>Tutup : <?php echo $row['tutup'] ?></p>
+                  <a class="btn btn-secondary rounded-end rounded-bottom py-2 px-4" href="service.php#info_about">Baca Selengkapnya</a>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Footer layanan -->
-          <div class="library-foter ">
-            <button class=""><a href="<?= strtolower($bidang['nama_bidang']); ?>/layanan.html" class="">Lihat Selengkapnya</a></button>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
-  <script>
-    document.querySelectorAll('.service-btn').forEach(function(button) {
-      button.addEventListener('click', function() {
-        // Hapus aktif dari semua tombol
-        document.querySelectorAll('.service-btn').forEach(function(btn) {
-          btn.classList.remove('active');
-        });
-
-        // Aktifkan tombol yang dipilih
-        button.classList.add('active');
-
-        // Sembunyikan semua service-section dengan animasi keluar
-        document.querySelectorAll('.service-section').forEach(function(section) {
-          if (section.style.display === 'block') {
-            section.classList.remove('fade-in'); // Hapus animasi masuk
-            section.classList.add('fade-out'); // Tambahkan animasi keluar
-
-            // Tunggu animasi selesai sebelum menyembunyikan
-            setTimeout(() => {
-              section.style.display = 'none';
-              section.classList.remove('fade-out'); // Hapus animasi keluar
-            }, 300); // Durasi sesuai animasi di CSS
+          <?php
+            $i++;
           }
-        });
-
-        // Tampilkan service-section yang sesuai dengan animasi masuk
-        const targetId = button.getAttribute('data-target');
-        const targetSection = document.getElementById(targetId);
-
-        if (targetSection) {
-          setTimeout(() => {
-            targetSection.style.display = 'block';
-            targetSection.classList.add('fade-in'); // Tambahkan animasi masuk
-          }, 300); // Tunggu animasi keluar selesai
-        }
-      });
-    });
-  </script> <!-- kegiatan dan berita -->
-  <?php
-  // Koneksi ke database
-
-  // Periksa koneksi
-  if ($koneksi->connect_error) {
-    die("Koneksi gagal: " . $koneksi->connect_error);
-  }
-  // Query untuk mengambil data kegiatan
-  $sql = "SELECT * FROM kegiatan ORDER BY tanggal DESC";
-  $result = $koneksi->query($sql);
-  ?>
-
-  <section class="portal-berita" id="kegiatan">
-    <div class="container-fluid">
-      <div class="container">
-        <h2 class="text-center">Kegiatan</h2>
-        <div class="row">
-          <!-- Carousel untuk perangkat mobile -->
-          <div id="carouselKegiatanMobile" class="carousel slide d-lg-none" data-bs-ride="carousel">
-            <!-- Indikator -->
-            <div class="carousel-indicators">
-              <?php for ($i = 0; $i < $result->num_rows; $i++) : ?>
-                <button type="button" data-bs-target="#carouselKegiatanMobile" data-bs-slide-to="<?= $i ?>" class="<?= $i === 0 ? 'active' : '' ?>" aria-current="<?= $i === 0 ? 'true' : '' ?>" aria-label="Slide <?= $i + 1 ?>"></button>
-              <?php endfor; ?>
-            </div>
-
-            <div class="carousel-inner">
-              <?php
-              $counter = 0;
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  $active = ($counter === 0) ? 'active' : '';
-              ?>
-                  <div class="carousel-item <?= $active ?>">
-                    <div class="card card_kegiatan h-100">
-                      <div class="card_image">
-                        <img src="img/<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
-                      </div>
-                      <div class="card-body ">
-                        <div class="info-header text-muted border-bottom mb-3">
-                          <p class="text-muted"><i class="fas fa-calendar-alt"></i> <?= date("d F Y", strtotime($row['tanggal'])) ?></p>
-                          <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p>
-                        </div>
-                        <div>
-                          <h5 class="card-title text-start"><?= substr($row['judul'], 0, 70) . '...' ?></h5>
-                          <?= substr($row['deskripsi'], 0, 180) . '...' ?>
-                        </div>
-                      </div>
-                      <div class="library-foter border-top">
-                        <button><a href="kegiatan/detail_kegiatan.php?id=<?= $row['id'] ?>">lihat detail</a></button>
-                      </div>
-                    </div>
-                  </div>
-              <?php
-                  $counter++;
-                }
-              } else {
-                echo "<p>Data tidak ditemukan.</p>";
-              }
-              ?>
-            </div>
-
-            <!-- Tombol Navigasi -->
-            <div class="carousel-controls d-flex justify-content-center mt-3">
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselKegiatanMobile" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselKegiatanMobile" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Carousel untuk perangkat desktop -->
-          <div id="carouselKegiatanDesktop" class="carousel slide d-none d-lg-block" data-bs-ride="carousel">
-            <!-- Indikator -->
-            <div class="carousel-indicators">
-              <?php for ($i = 0; $i < ceil($result->num_rows / 3); $i++) : ?>
-                <button type="button" data-bs-target="#carouselKegiatanDesktop" data-bs-slide-to="<?= $i ?>" class="<?= $i === 0 ? 'active' : '' ?>" aria-current="<?= $i === 0 ? 'true' : '' ?>" aria-label="Slide <?= $i + 1 ?>"></button>
-              <?php endfor; ?>
-            </div>
-
-            <div class="carousel-inner">
-              <?php
-              $counter = 0;
-              $result->data_seek(0);
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  if ($counter % 3 === 0) {
-                    if ($counter > 0) echo '</div></div>'; // Tutup slide sebelumnya
-                    $active = ($counter === 0) ? 'active' : '';
-                    echo '<div class="carousel-item ' . $active . '"><div class="row card_item_kegiatan">';
-                  }
-              ?>
-                  <div class="col-md-4">
-                    <div class="card card_kegiatan h-100">
-                      <div class="card_image">
-                        <img src="img/<?= $row['gambar'] ?>" alt="Gambar Berita" class="card-img-top img-berita">
-                      </div>
-                      <div class="card-body">
-                        <div class="info-header text-muted border-bottom mb-3">
-                          <!-- <p class="text-muted"><i class="fas fa-user"></i> <?= $row['penulis'] ?></p> -->
-                          <p class="text-muted"><i class="fas fa-calendar-alt"></i> <?= date("l, d F Y", strtotime($row['tanggal'])) ?></p>
-                        </div>
-
-                        <h5 class="card-title">
-                          <?= strlen($row['judul']) > 50 ? substr($row['judul'], 0, 50) . '...' : $row['judul'] ?>
-                        </h5>
-
-                        <?= strlen($row['deskripsi']) > 180 ? substr($row['deskripsi'], 0, 180) . '...' : $row['deskripsi'] ?>
-
-                      </div>
-
-                      <div class="library-foter border-top">
-                        <button><a href="kegiatan/detail_kegiatan.php?id=<?= $row['id'] ?>">lihat detail</a></button>
-                      </div>
-                    </div>
-                  </div>
-              <?php
-                  $counter++;
-                }
-                echo '</div></div>'; // Tutup slide terakhir
-              } else {
-                echo "<p>Data tidak ditemukan.</p>";
-              }
-              ?>
-            </div>
-
-            <!-- Tombol Navigasi -->
-            <div class="carousel-controls d-flex justify-content-center mt-3">
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselKegiatanDesktop" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselKegiatanDesktop" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
+          ?>
         </div>
       </div>
-      <div class="fotter-section">
-        <button class="button_semua_berita"><a href="kegiatan/kegiatan.html" class="">Semua Kegiatan</a></button>
-      </div>
+      <!-- </div> -->
     </div>
-  </section>
-  <!-- kontak -->
-  <!-- kontak Section -->
-  <section id="contact">
-    <div class="container-fluid overlay h-100">
-      <div class="container">
-        <h2 class="text-center"><span>Kontak</span> Kami</h2>
-        <div class="row kontak_item">
-          <div class="col-md-5 kontak_info">
-            <div class="kontak_item_header border-bottom">
-              <h4>Hubungi Kami</h4>
-              <p>Butuh Bantuan..? Silahkan Hubungi kami untuk informasi lebih lanjut</p>
-            </div>
-            <h5>Alamat</h5>
-            <div class="kontak">
-              <div class="kontak_detail">
-                <i class="fas fa-map-marker-alt"></i>
-                <a href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
+  </div>
+  <!-- Offer End -->
+
+  <!-- Blog Start -->
+  <div class="container-fluid blog py-5 " id="blog_articel">
+    <div class="container py-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px">
+        <h4 class="text-warning">Blog & Artikel</h4>
+        <h1 class="display-5 mb-4">Tunggu Apa Lagi? Simal artikel dibawah ini...</h1>
+        <p class="mb-0">
+          "Di sini, kita mengungkapkan sejarah yang tersembunyi, menggali kebudayaan lokal, dan membagikan pengetahuan baru. Temukan kisah inspiratif, fakta menarik, dan informasi terkini tentang pengelolaan arsip dan perpustakaan digital. Jelajahi artikel-artikel kami dan temukan keajaiban pengetahuan yang menunggu Anda!"
+        </p>
+      </div>
+      <div class="owl-carousel blog-carousel wow fadeInUp" data-wow-delay="0.2s">
+        <?php if (!empty($blogs)) {
+          foreach ($blogs as $blog) {
+            $judul = $blog['judul'];
+            $deskripsi = $blog['deskripsi'];
+            $max_length = 130;
+            // Hitung total panjang judul dan deskripsi
+            $total_length = strlen($judul) + strlen($deskripsi);
+            // Potong deskripsi jika total panjang melebihi batas
+            if ($total_length > $max_length) {
+              $deskripsi = substr($deskripsi, 0, $max_length - strlen($judul)) . '...';
+            }
+        ?>
+            <div class="blog-item p-2">
+              <div class="blog-img ">
+                <img src="img/<?php echo htmlspecialchars($blog['gambar']); ?>" class="img-fluid rounded-top w-100" alt="<?php echo htmlspecialchars($service['nama_layanan']); ?>" style="height: 230px; object-fit: cover; object-position: center; width: 100%;" />
+
+              </div>
+              <div class="d-flex align-items-center border-bottom py-2 mb-3">
+                <img src="img/aset/noimage.png" class="img-fluid rounded-circle" style="width: 50px; height: 50px" alt="" />
+                <div class="ms-2">
+                  <p class="mb-0"><?php echo htmlspecialchars($blog['penulis']); ?></p>
+                  <p class="mb-0"><?php echo htmlspecialchars($blog['tanggal']); ?></p>
+                </div>
+              </div>
+              <div class="mb-4" style="height: 150px; overflow: hidden;">
+                <a href="#" class="h4 d-inline-block mb-3">
+                  <?php echo ($judul); ?>
                 </a>
-              </div>
-            </div>
-            <h5>whatsapp</h5>
-            <div class="kontak">
-              <div class="kontak_detail">
-                <i class="fab fa-whatsapp"></i>
-                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
-              </div>
-              <div class="kontak_detail">
-                <i class="fab fa-whatsapp"></i>
-                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
-              </div>
-            </div>
-            <h5>Telepon</h5>
-            <div class="kontak">
-              <div class="kontak_detail">
-                <i class="fas fa-phone"></i>
-                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
-              </div>
-              <div class="kontak_detail">
-                <i class="fas fa-phone"></i>
-                <a href="https://wa.me/6281237788789" target="_blank">+621237788789</a>
+                <?php echo $deskripsi ?>
               </div>
 
-            </div>
-            <h5>Email</h5>
-            <div class="kontak">
-              <div class="kontak_detail">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
-              </div>
-              <div class="kontak_detail">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:arspuskpg@gmail.com">arspuskpg@gmail.com </a>
+              <div class="text-end mt-2 border-top pt-2">
+                <a href="articel_blog_detail.php?id=<?php echo $blog['id']; ?>" class="btn btn-secondary rounded-start rounded-bottom">Selengkapnya</a>
               </div>
             </div>
-            <div class="medsos mt-4 ">
-              <h5>Media Sosial</h5>
-            </div>
-            <div class="medsos mb-4 ">
-              <a href="https://www.facebook.com/profile.php?id=100069371252712" target="_blank"><i class="fab fa-facebook-f me-4 "></i></a>
-              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-4 "></i></a>
-              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter me-4 "></i></a>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card-contact ">
-              <form action="">
-                <h4>Ada Pertanyaan..?</h4>
-                <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                  <label for="floatingInput">Email </label>
+        <?php }
+        } else {
+          echo "<p>Tidak ada Blog dan berita</p>";
+        } ?>
+      </div>
+      <div class="text-end mt-4">
+        <a href="articel_blog.php" class="btn btn-secondary rounded-start rounded-top">Semua Berita</a>
+      </div>
+    </div>
+  </div>
+  <!-- Blog End -->
+  <!-- Contact Start -->
+  <div class="container-fluid contact py-5 " id="contact">
+
+    <div class="container py-5">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px">
+        <h4 class="text-warning">Kontak</h4>
+        <h1 class="display-5 mb-4">Hubungi Kami</h1>
+        <p class="mb-0">
+          Jika anda membutuhkan informasi atau bantuan lebih lebih lanjut, jangan ragu untuk menghubungi kami.
+          Kami siap membantu dengan sepenuh hati.
+        </p>
+      </div>
+      <div class="row kontak_item">
+        <div class="col-md-6">
+          <div class="bg-light rounded p-5 mb-5 h-100 wow fadeInLeft" data-wow-delay="0.2s">
+            <h4 class="text-warning mb-4">Tekan untuk menghubungi</h4>
+            <div class="row g-4">
+              <!-- <div class="col-md-6"> -->
+              <div class="contact-add-item">
+                <div class="contact-icon text-warning mb-4">
+                  <i class="fas fa-map-marker-alt fa-2x"></i>
                 </div>
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="floatingInput_no" placeholder="no hp">
-                  <label for="floatingInput">No HP </label>
+                <div>
+                  <h4>Alamat</h4>
+                  <p class="mb-0"> <a class="text-dark" href="https://www.google.com/maps?q=Jl.+R.+W.+Monginsidi+No.3,+Pasir+Panjang,+Kec.+Kota+Lama,+Kota+Kupang,+Nusa+Tenggara+Tim." target="_blank">Jl. R. W. Monginsidi No.3, Pasir Panjang, Kec. Kota Lama, Kota Kupang, Nusa Tenggara Tim.
+                    </a> </p>
                 </div>
-                <div class="form-floating">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                  <label for="floatingTextarea2">Pesan</label>
+              </div>
+              <!-- </div> -->
+              <!-- <div class="col-md-6"> -->
+              <div class="contact-add-item">
+                <div class="contact-icon text-warning mb-4">
+                  <i class="fas fa-envelope fa-2x"></i>
                 </div>
-                <button type="submit" class="button_contact">Kirim Pesan</button>
-              </form>
+                <div>
+                  <h4>Email</h4>
+                  <p class="mb-0">
+                    <a class="text-dark" href="mailto:<?php echo $profile['email'] ?>"><?php echo $profile['email'] ?></a>
+                  </p>
+                </div>
+              </div>
+              <!-- </div> -->
+              <!-- <div class="col-md-6"> -->
+              <div class="contact-add-item">
+                <div class="contact-icon text-warning mb-4">
+                  <i class="fa fa-phone-alt fa-2x"></i>
+                </div>
+                <div>
+                  <h4>Telepon</h4>
+                  <p class="mb-0">
+                    <a class="text-dark" href="mailto:<?php echo $profile['telepon'] ?>"><?php echo $profile['telepon'] ?></a>
+                  </p>
+                  <!-- <p class="mb-0"><?php echo $profile['telepon'] ?></p> -->
+                </div>
+              </div>
+              <!-- </div> -->
+              <div class="col-md-6">
+                <div class="contact-add-item">
+                  <div class="contact-icon text-warning mb-4">
+                    <i class="fab fa-whatsapp fa-2x"></i>
+                  </div>
+                  <div>
+                    <h4>WhatsApp</h4>
+                    <p class="mb-0">
+                      <a class="text-dark" href="https://wa.me/<?php echo $profile['telepon'] ?>" target="_blank">
+                        <?php echo $profile['telepon'] ?>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <section id="gmap">
-    <div class="container-fluid gmap">
-      <div class="row g_map">
-        <!-- <p><?php echo $profile['gmap'] ?></p> -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3927.342696545936!2d123.60418207479559!3d-10.152773889960576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c569de836b48afd%3A0x14faa4d8e96d8525!2sDinas%20Kearsipan%20Dan%20Perpustakaan%20Kota%20Kupang!5e0!3m2!1sid!2sid!4v1732518029038!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-  </section>
-  <!-- footer -->
-  <footer>
-    <div class="container-fluid">
-      <div class="container">
-        <div class="row footer">
-          <div class="col-md-4 ">
-            <div class="logo">
-              <a href="#" class="scroll-top"> <img src="img/buku.jpg" alt=""> | <?php echo "$profile[titlewebsite]"; ?></a>
-            </div>
-          </div>
-          <div class="col-md-8 my-auto">
-            <div class="copyrigt ">
-              <a>Copyright &copy; <?php echo date("Y"); ?> | Created by : <span>Kerja Praktek Ilmu Komputer UNDANA</span></a>
-            </div>
+        <div class="col-md-6">
+          <div class="bg-light p-5 rounded h-100 wow fadeInRight" data-wow-delay="0.2s">
+            <h4 class="text-warning">Kirim pesan ke kami</h4>
+            <p class="mb-4">Butuh Bantuan..? Silahkan Hubungi kami untuk informasi lebih lanjut</p>
+            <form method="POST">
+              <div class="form-floating mb-3">
+                <input type="text" name="name" class="form-control" placeholder="Nama " required>
+                <label>Nama</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                <label>Email</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" name="no_hp" class="form-control" placeholder="No Hp" required>
+                <label>No Hp</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                <label>Subject</label>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea name="message" class="form-control" placeholder="Pesan" style="height: 150px" required></textarea>
+                <label>Pesan</label>
+              </div>
+              <button type="submit" class="btn btn-secondary w-100 py-3">Kirim Pesan</button>
+            </form>
           </div>
         </div>
+
+      </div>
+      <div class="row wow fadeInUp pt-5" data-wow-delay="0.2s ">
+        <?php echo $profile['gmap']
+        ?>
       </div>
     </div>
-  </footer>
-  <!-- Optional JavaScript; choose one of the two! -->
+  </div>
+  <!-- Contact End -->
+  <!-- Footer Start -->
+  <?php include "footer.php" ?>
+  <!-- Footer End -->
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
-  <!-- my script.js -->
-  <script src="js/script.js"></script>
 
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+  
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <?php
+
+  ?>
+  <?php
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil data dari form
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $no_hp = $_POST['no_hp'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    $date_receive = date('Y-m-d H:i:s'); // Tanggal saat ini
+    $query = "INSERT INTO tbl_inbox (date_receive_inbox, name_inbox, email_inbox, subject_inbox, message_inbox)
+    VALUES ('$date_receive', '$name', '$email', '$subject', '$message')";
+    // Eksekusi query
+    if (mysqli_query($koneksi, $query)) {
+      echo "<script>
+        Swal.fire({
+            title: 'Kirim Pesan Berhasil',
+            text: 'Terima Kasih Telah Mengirim Pesan.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = 'index.php#contact';
+            }
+        });
+    </script>";
+      exit;
+    } else {
+      echo "<script>
+        Swal.fire({
+            title: 'Kirim Pesan Gagal ',
+            text: 'Periksa Isian Pesan Anda.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = 'index.php#contact';
+            }
+        });
+    </script>";
+    }
+  }
+  ?>
 </body>
 
 </html>

@@ -19,8 +19,16 @@
               <tr>
                 <td>Gambar</td>
                 <td>
-                  <a class="fancybox" data-fancybox="gallery" href="../img/<?php echo $data['gambar']; ?>">
-                    <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar" style="width: 100px; height: auto;">
+                  <a class="fancybox" data-fancybox="gallery" href="../img/profil/<?php echo $data['gambar']; ?>">
+                    <img src="../img/profil/<?php echo $data['gambar']; ?>" alt="Gambar" style="width: 100px; height: auto;">
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>Logo</td>
+                <td>
+                  <a class="fancybox" data-fancybox="gallery" href="../img/profil/<?php echo $data['logo']; ?>">
+                    <img src="../img/profil/<?php echo $data['logo']; ?>" alt="logo" style="width: 100px; height: auto;">
                   </a>
                 </td>
               </tr>

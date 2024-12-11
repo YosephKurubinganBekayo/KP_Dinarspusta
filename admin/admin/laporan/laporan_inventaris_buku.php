@@ -15,8 +15,6 @@ if (!isset($_GET['tab'])) {
                 <a href="#laporan_per_kelas" data-toggle="tab" onclick="updateURL('laporan_per_kelas')">Laporan Jumlah Buku per Kelas</a>
             </li>
         </ul>
-
-
         <div class="tab-content">
             <!-- Tab Kelola Inventaris Buku -->
             <div class="tab-pane <?php echo (isset($_GET['tab']) && $_GET['tab'] == 'laporan_buku') ? 'active' : ''; ?>" id="laporan_buku">

@@ -22,43 +22,18 @@ if (isset($_POST['tambah'])) {
         })</script>";
     exit;
   }
-
-  // Proses upload gambar jika ada
-  $gambar = null; // Default gambar null
-  if (!empty($_FILES['gambar']['name'])) {
-    $target_dir = "../img/";
-    $gambar_baru = basename($_FILES['gambar']['name']);
-    $target_file = $target_dir . $gambar_baru;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Validasi file gambar
-    $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-    if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
-      if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        $gambar = $gambar_baru; // Set nama gambar untuk disimpan di database
-      } else {
-        echo "<script>alert('Gagal mengupload gambar.');</script>";
-      }
-    } else {
-      echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
-    }
-  }
-
-  // Query tambah data
   $stmt = $koneksi->prepare("INSERT INTO informasi_pelayanan 
-        (`id_departemen`, `alamat`, `lantai`, `jam_operasional`, `jam_tambahan`, `tutup`, `gambar`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)");
+  (`id_departemen`, `alamat`, `lantai`, `jam_operasional`, `jam_tambahan`, `tutup`) 
+  VALUES (?, ?, ?, ?, ?, ?)");
   $stmt->bind_param(
-    "sssssss",
+    "ssssss",
     $id_departemen,
     $alamat,
     $lantai,
     $jam_operasional,
     $jam_tambahan,
-    $tutup,
-    $gambar
+    $tutup
   );
-
   if ($stmt->execute()) {
     echo "<script>
         Swal.fire({title: 'Tambah Data Berhasil', text: '', icon: 'success', confirmButtonText: 'OK'
@@ -122,10 +97,7 @@ if (isset($_POST['tambah'])) {
               <label>Informasi Tutup</label>
               <input type="text" name="tutup" class="form-control" placeholder="Informasi Tutup">
             </div>
-            <div class="form-group">
-              <label>Gambar</label>
-              <input type="file" name="gambar" class="form-control">
-            </div>
+
           </div>
           <div class="box-footer">
             <button type="submit" name="tambah" class="btn btn-info">Tambah</button>

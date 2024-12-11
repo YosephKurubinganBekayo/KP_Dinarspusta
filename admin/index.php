@@ -2,7 +2,7 @@
 //Mulai Sesion
 session_start();
 if (isset($_SESSION["ses_username"]) == "") {
-	header("location: login.php");
+	header("location: ../login.php");
 } else {
 	$data_id = $_SESSION["ses_id"];
 	$data_nama = $_SESSION["ses_nama"];
@@ -42,7 +42,7 @@ include "inc/koneksi.php";
 	<!-- <link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/dataTables.bootstrap.css"> -->
 	<link rel="stylesheet" href="plugins/datatables2/DataTables-1.10.16/css/jquery.dataTables.min.css">
 	<!-- Select2 -->
-	<!-- <link rel="stylesheet" href="plugins/select2/select2.min.css"> -->
+	<link rel="stylesheet" href="plugins/select2/select2.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -59,21 +59,32 @@ include "inc/koneksi.php";
 	<!-- Site wrapper -->
 	<div class="wrapper">
 
-		<header class="main-header ">
+		<header class="main-header">
 			<style>
 				.main-header {
 					position: fixed;
+					width: 100%;
+					z-index: 1000;
+				}
+
+				.navbar {
+					margin: 0;
+					padding-right: 20px;
+
+				}
+
+				.messages-menu .dropdown-menu {
+					width: 400px;
 				}
 			</style>
 			<!-- Logo -->
 			<a href="index.php" class="logo">
 				<span class="logo-lg">
-					<!-- <img src="dist/img/logo.png" width="37px"> -->
 					<b>Arspus</b>
 				</span>
 			</a>
 			<!-- Header Navbar: style can be found in header.less -->
-			<nav class="navbar  navbar-fixed-top">
+			<nav class="navbar navbar-fixed-top">
 				<!-- Sidebar toggle button-->
 				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 					<span class="sr-only">Toggle navigation</span>
@@ -81,23 +92,62 @@ include "inc/koneksi.php";
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
-						<!-- Messages: style can be found in dropdown.less-->
+						<!-- Messages: style can be found in dropdown.less -->
 						<li class="dropdown messages-menu">
-							<a class="dropdown-toggle">
-								<span>
-									<b>
-										Sistem Informasi Dinas Kearsipan dan Perpustakaan Kota kupang
-									</b>
-								</span>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-envelope"></i>
+								<?php
+								// Query untuk menghitung jumlah pesan
+								$result_count = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM tbl_inbox");
+								$count_data = mysqli_fetch_assoc($result_count);
+								$total_messages = $count_data['total'];
+								?>
+								<span class="label label-success"><?php echo $total_messages; ?></span> <!-- Jumlah pesan -->
 							</a>
+							<ul class="dropdown-menu">
+								<li class="header">Anda memiliki <?php echo $total_messages; ?> pesan</li>
+								<li>
+									<!-- inner menu: contains the messages -->
+									<ul class="menu" style="list-style: none; padding: 0; margin: 0;">
+										<?php
+										// Query untuk mengambil data pesan terbaru
+										$result_messages = mysqli_query($koneksi, "SELECT * FROM tbl_inbox ORDER BY date_receive_inbox DESC LIMIT 3");
+										while ($message = mysqli_fetch_assoc($result_messages)) {
+										?>
+											<li style="padding: 10px 15px; border-bottom: 1px solid #ddd;">
+												<a href="?page=MyApp/data_pesan_detail&kode=<?php echo $message['id_inbox'] ?>" style="text-decoration: none; color: #333; display: block;">
+													<!-- start message -->
+													<h4 style="margin: 0; font-size: 14px;">
+														<?php echo htmlspecialchars(substr($message['name_inbox'], 0, 20)); ?>
+													</h4>
+													<p style="margin: 5px 0 0; font-size: 12px; color: #666;">
+														<?php echo htmlspecialchars(substr($message['message_inbox'], 0, 30)); ?>...
+													</p>
+													<small style="float: left; color: #999;">
+														<i class="fa fa-calendar"></i>
+														<?php
+														// Format waktu
+														echo date("j F Y, H:i", strtotime($message['date_receive_inbox']));
+														?>
+													</small>
+												</a>
+											</li>
+										<?php } ?>
+									</ul>
+								</li>
+								<li class="footer" style="text-align: center;">
+									<a href="?page=MyApp/data_pesan" style="color: #007bff; text-decoration: none;">Lihat semua pesan</a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
+
 			</nav>
 		</header>
+
 
 		<!-- =============================================== -->
 
@@ -149,31 +199,62 @@ include "inc/koneksi.php";
 						<li class="treeview">
 							<a href="#">
 								<i class="fa fa-folder"></i>
-								<span>Perpustakaan</span>
+								<span>Kelola Data</span>
 								<span class="pull-right-container">
 									<i class="fa fa-angle-left pull-right"></i>
 								</span>
 							</a>
 							<ul class="treeview-menu">
-
+								<li>
+									<a href="?page=MyApp/data_agt">
+										<i class="fa fa-users"></i>Data Anggota</a>
+								</li>
 								<li>
 									<a href="?page=MyApp/data_buku">
 										<i class="fa fa-book"></i>Data inventaris Buku</a>
 								</li>
 								<li>
-									<a href="?page=MyApp/data_agt">
-										<i class="fa fa-users"></i>Data Anggota</a>
+									<a href="?page=MyApp/data_kunjungan">
+										<i class="fa fa-history"></i>Riwayat Kunjungan</a>
 								</li>
-								<li class="treeview">
+								<li>
+									<a href="?page=MyApp/data_pengunjung">
+										<i class="fa fa-users"></i>Data Pengunjung</a>
+								</li>
+
+								<!-- <li>
+									<a href="?page=MyApp/data_pegawai">
+										<i class="fa fa-"></i>Data Pegawai</a>
+								</li> -->
+
+								<!-- <li class="treeview">
 									<a href="#">
 										<i class="fa fa-book"></i>
-										<span>Transaksi</span>
+										<span>Pengunjung</span>
 										<span class="pull-right-container">
 											<i class="fa fa-angle-left pull-right"></i>
 										</span>
 									</a>
 									<ul class="treeview-menu">
-
+										<li>
+											<a href="?page=MyApp/data_kunjungan">
+												<i class="fa fa-arrow-circle-o-down"></i>Riwayat Kunjungan</a>
+										</li>
+										<li>
+											<a href="?page=log_kembali">
+												<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
+										</li>
+									</ul>
+								</li> -->
+								<!-- <li class="treeview">
+									<a href="#">
+										<i class="fa fa-book"></i>
+										<span>Riwayat Transaksi</span>
+										<span class="pull-right-container">
+											<i class="fa fa-angle-left pull-right"></i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
 										<li>
 											<a href="?page=log_pinjam">
 												<i class="fa fa-arrow-circle-o-down"></i>Peminjaman</a>
@@ -183,8 +264,8 @@ include "inc/koneksi.php";
 												<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
 										</li>
 									</ul>
-								</li>
-								<li class="treeview">
+								</li> -->
+								<!-- <li class="treeview">
 									<a href="#">
 										<i class="fa fa-print"></i>
 										<span>Laporan</span>
@@ -202,20 +283,17 @@ include "inc/koneksi.php";
 												<i class="fa fa-file"></i>Laporan Inventaris Buku</a>
 										</li>
 									</ul>
-								</li>
-								<!-- <li>
-									<a href="?page=MyApp/data_pegawai">
-										<i class="fa fa-"></i>Data Pegawai</a>
-								</li>
-								<li>
-									<a href="?page=MyApp/data_departemen">
-										<i class="fa fa-"></i>Data Depatemen</a>
-								</li>
-								<li>
-									<a href="?page=MyApp/data_bidang">
-										<i class="fa fa-"></i>Data Bidang</a>
 								</li> -->
+
 							</ul>
+						</li>
+						<li class="treeview">
+							<a href="?page=MyApp/data_pengguna">
+								<i class="fa fa-user"></i>
+								<span>Pegawai</span>
+								<span class="pull-right-container">
+								</span>
+							</a>
 						</li>
 						<li class="treeview">
 							<a href="?page=data_sirkul">
@@ -226,6 +304,44 @@ include "inc/koneksi.php";
 							</a>
 						</li>
 						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-book"></i>
+								<span>Riwayat Transaksi</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="?page=log_pinjam">
+										<i class="fa fa-arrow-circle-o-down"></i>Peminjaman</a>
+								</li>
+								<li>
+									<a href="?page=log_kembali">
+										<i class="fa fa-arrow-circle-o-up"></i>Pengembalian</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-print"></i>
+								<span>Laporan</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="?page=laporan_sirkulasi">
+										<i class="fa fa-file"></i>Laporan Sirkulasi</a>
+								</li>
+								<li>
+									<a href="?page=laporan_inventaris_buku">
+										<i class="fa fa-file"></i>Laporan Inventaris Buku</a>
+								</li>
+							</ul>
+						</li>
+						<!-- <li class="treeview">
 							<a href="#">
 								<i class="fa fa-book"></i>
 								<span>Kepegawaian</span>
@@ -249,7 +365,7 @@ include "inc/koneksi.php";
 										<i class="fa fa-"></i>Data Pegawai</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 						<!-- <li class="treeview">
 							<a href="#">
 								<i class="fa fa-print"></i>
@@ -270,15 +386,8 @@ include "inc/koneksi.php";
 							</ul>
 						</li> -->
 						<li class="header">SETTING</li>
-						<li class="treeview">
-							<a href="?page=MyApp/data_pengguna">
-								<i class="fa fa-user"></i>
-								<span>Pengguna Sistem</span>
-								<span class="pull-right-container">
-								</span>
-							</a>
-						</li>
-						<li class="treeview">
+
+						<!-- <li class="treeview">
 							<a href="#">
 								<i class="fa fa-home"></i>
 								<span>Profil Website</span>
@@ -319,7 +428,7 @@ include "inc/koneksi.php";
 										<i class="fa fa-activity"></i>Kegiatan</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 						<!-- belum tambahkan navigasinya-->
 
 
@@ -446,11 +555,16 @@ include "inc/koneksi.php";
 						case 'petugas':
 							include "home/petugas.php";
 							break;
-							// profile page
-						case 'MyApp/halaman_profile':
-							include "admin/profile/profile.php";
+							// pesan
+						case 'MyApp/data_pesan':
+							include "admin/pesan/semua_pesan.php";
 							break;
-
+						case 'MyApp/data_pesan_detail':
+							include "admin/pesan/detail_pesan.php";
+							break;
+						case 'MyApp/del_pesan':
+							include "admin/pesan/del_pesan.php";
+							break;
 							//Pengguna
 						case 'MyApp/data_pengguna':
 							include "admin/pengguna/data_pengguna.php";
@@ -463,6 +577,19 @@ include "inc/koneksi.php";
 							break;
 						case 'MyApp/del_pengguna':
 							include "admin/pengguna/del_pengguna.php";
+							break;
+							//pengunjung
+						case 'MyApp/data_kunjungan':
+							include "admin/Pengunjung/data_kunjungan.php";
+							break;
+						case 'MyApp/add_kunjungan':
+							include "admin/pengunjung/add_kunjungan.php";
+							break;
+						case 'MyApp/edit_kunjungan':
+							include "admin/pengunjung/edit_kunjungan.php";
+							break;
+						case 'MyApp/del_kunjungan':
+							include "admin/pengunjung/del_kunjungan.php";
 							break;
 							//agt
 						case 'MyApp/data_agt':
@@ -545,6 +672,9 @@ include "inc/koneksi.php";
 						case 'data_sirkul':
 							include "admin/sirkul/data_sirkul.php";
 							break;
+						case 'MyApp/data_sirkul_detail':
+							include "admin/sirkul/data_sirkul_detail.php";
+							break;
 						case 'add_sirkul':
 							include "admin/sirkul/add_sirkul.php";
 							break;
@@ -585,6 +715,9 @@ include "inc/koneksi.php";
 						case 'MyApp/edit_tentang_kami':
 							include "admin/tentang_kami/edit_tentang_kami.php";
 							break;
+						case 'MyApp/del_tentang_kami':
+							include "admin/tentang_kami/del_tentang_kami.php";
+							break;
 							// kegiatan
 						case 'MyApp/kegiatan':
 							include "admin/kegiatan/kegiatan.php";
@@ -594,6 +727,9 @@ include "inc/koneksi.php";
 							break;
 						case 'MyApp/edit_kegiatan':
 							include "admin/kegiatan/edit_kegiatan.php";
+							break;
+						case 'MyApp/del_kegiatan':
+							include "admin/kegiatan/del_kegiatan.php";
 							break;
 							// layanan
 						case 'MyApp/layanan':
@@ -605,6 +741,9 @@ include "inc/koneksi.php";
 						case 'MyApp/edit_layanan':
 							include "admin/layanan/edit_layanan.php";
 							break;
+						case 'MyApp/del_layanan':
+							include "admin/layanan/del_layanan.php";
+							break;
 							// info layanan
 						case 'MyApp/data_informasi':
 							include "admin/informsi_pelayanan/informasi.php";
@@ -614,6 +753,9 @@ include "inc/koneksi.php";
 							break;
 						case 'MyApp/edit_informasi':
 							include "admin/informsi_pelayanan/edit_informasi.php";
+							break;
+						case 'MyApp/del_informasi':
+							include "admin/informsi_pelayanan/del_informasi.php";
 							break;
 						default:
 							echo "<center><br><br><br><br><br><br><br><br><br>

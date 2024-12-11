@@ -20,6 +20,7 @@
             <tr>
               <th>No</th>
               <th>gambar</th>
+              <th>Departemen</th>
               <th>Judul</th>
               <th>Penulis</th>
               <th>Tanggal</th>
@@ -30,7 +31,7 @@
 
             <?php
             $no = 1;
-            $sql = $koneksi->query("SELECT * from kegiatan");
+            $sql = $koneksi->query("SELECT k.*, d.nama_departemen FROM kegiatan k JOIN departemen d ON k.id_departemen = d.id");
             while ($data = $sql->fetch_assoc()) {
             ?>
 
@@ -38,10 +39,14 @@
                 <td>
                   <?php echo $no++; ?>
                 </td>
+                
                 <td>
                   <a class="fancybox" data-fancybox="gallery" href="../img/<?php echo $data['gambar']; ?>">
                     <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar" style="width: 100px; height: auto;">
                   </a>
+                </td>
+                <td>
+                  <?php echo $data['nama_departemen']; ?>
                 </td>
                 <td>
                   <?php echo $data['judul']; ?>

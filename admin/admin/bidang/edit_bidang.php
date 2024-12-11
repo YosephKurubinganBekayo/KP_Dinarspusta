@@ -58,25 +58,31 @@ if (isset($_GET['kode'])) {
 if (isset($_POST['edit'])) {
     $nama_bidang = $_POST['nama_bidang'];
     $id_departemen = $_POST['id_departemen'];
+
     // Periksa jika ada gambar baru
     $gambar_baru = $_FILES['gambar']['name'];
     if ($gambar_baru) {
         $target_dir = "../img/";
-        $target_file = $target_dir . basename($gambar_baru);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($gambar_baru, PATHINFO_EXTENSION));
+        $file_name = time() . '_' . uniqid() . '.' . $imageFileType; // Nama file unik
+        $target_file = $target_dir . $file_name;
 
         // Validasi file
         $check = getimagesize($_FILES["gambar"]["tmp_name"]);
         if ($check !== false && in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
             if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                $gambar = $gambar_baru;
+                // Jika ada gambar lama, hapus
+                if (!empty($data['gambar']) && file_exists($target_dir . $data['gambar'])) {
+                    unlink($target_dir . $data['gambar']);
+                }
+                $gambar = $file_name; // Set nama file baru
             } else {
                 echo "<script>alert('Gagal mengupload gambar.');</script>";
                 $gambar = $data['gambar']; // Tetap gunakan gambar lama
             }
         } else {
             echo "<script>alert('File yang diunggah bukan gambar atau format tidak sesuai.');</script>";
-            $gambar = $data['gambar'];
+            $gambar = $data['gambar']; // Tetap gunakan gambar lama
         }
     } else {
         $gambar = $data['gambar']; // Tetap gunakan gambar lama

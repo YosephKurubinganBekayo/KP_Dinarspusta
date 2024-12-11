@@ -8,6 +8,7 @@ $id_profile = $_GET['kode'];
 $sql = $koneksi->query("SELECT * FROM tbl_profile WHERE id_profile = '$id_profile'");
 $data = $sql->fetch_assoc();
 $gambar_lama = $data['gambar']; // Simpan nama gambar lama untuk digunakan nanti
+$logo_lama = $data['logo']; // Simpan nama gambar lama untuk digunakan nanti
 
 // Proses update data ketika form disubmit
 if (isset($_POST['update'])) {
@@ -29,7 +30,7 @@ if (isset($_POST['update'])) {
   // Proses upload gambar baru jika ada
   $gambar_baru = $_FILES['gambar']['name'];
   if ($gambar_baru) {
-    $target_dir = "../img/";
+    $target_dir = "../img/profil/";
     $target_file = $target_dir . basename($gambar_baru);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -68,6 +69,66 @@ if (isset($_POST['update'])) {
     $gambar = $gambar_lama; // Jika tidak ada gambar baru, gunakan gambar lama
   }
 
+  // logo
+  $logo_baru = $_FILES['logo']['name'];
+  if ($logo_baru) {
+    $target_dir = "../img/profil/";
+    $target_file = $target_dir . basename($logo_baru);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Periksa apakah file adalah logo (cek ukuran untuk file non-SVG)
+    if ($imageFileType === "svg") {
+      $uploadOk = 1; // SVG tidak perlu pengecekan ukuran
+    } else {
+      $check = getimagesize($_FILES["logo"]["tmp_name"]);
+      if ($check !== false) {
+        $uploadOk = 1;
+      } else {
+        echo "<script>alert('File yang dipilih bukan gambar.');</script>";
+        $uploadOk = 0;
+      }
+    }
+
+    // Batasi tipe file yang diizinkan
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "svg") {
+      echo "<script>alert('Hanya file JPG, JPEG, PNG, dan SVG yang diizinkan.');</script>";
+      $uploadOk = 0;
+    }
+
+    // Cek jika $uploadOk sama dengan 1, maka file dapat diupload
+    if ($uploadOk == 1) {
+      // Hapus logo lama jika ada
+      if (file_exists($target_dir . $logo_lama)) {
+        unlink($target_dir . $logo_lama);
+      }
+      // Upload logo baru
+      if (move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+        // Tambahkan validasi konten SVG untuk keamanan
+        if ($imageFileType === "svg") {
+          $svgContent = file_get_contents($target_file);
+          if (stripos($svgContent, '<script') !== false) {
+            unlink($target_file); // Hapus file SVG yang mencurigakan
+            echo "<script>alert('File SVG tidak valid.');</script>";
+            $logo = $logo_lama; // Gunakan logo lama jika SVG tidak aman
+          } else {
+            $logo = $logo_baru; // Set nama logo baru untuk disimpan di database
+          }
+        } else {
+          $logo = $logo_baru; // Set nama logo baru untuk disimpan di database
+        }
+      } else {
+        echo "<script>alert('Gagal mengupload logo.');</script>";
+      }
+    } else {
+      $logo = $logo_lama; // Jika gagal upload, gunakan logo lama
+    }
+  } else {
+    $logo = $logo_lama; // Jika tidak ada logo baru, gunakan logo lama
+  }
+
+
+
   // Query update data
   $query_ubah = $koneksi->query("UPDATE tbl_profile SET 
         titlewebsite = '$titlewebsite',
@@ -84,7 +145,8 @@ if (isset($_POST['update'])) {
         instagram = '$instagram',
         x = '$x',
         youtube = '$youtube',
-        gambar = '$gambar'
+        gambar = '$gambar',
+        logo = '$logo'
         WHERE id_profile = '$id_profile'");
 
   if ($query_ubah) {
@@ -123,6 +185,11 @@ if (isset($_POST['update'])) {
         <div class="form-group">
           <label>Nama Dinas</label>
           <input type="text" name="titleparagraf" class="form-control" value="<?php echo $data['titleparagraf']; ?>" required>
+        </div>
+        <div class="form-group">
+          <label>Logo</label><br>
+          <img src="../img/profil/<?php echo $data['logo']; ?>" alt="logo Profil" style="width: 100px; height: auto;"><br><br>
+          <input type="file" name="logo" class="form-control">
         </div>
         <div class="form-group">
           <label>Paragraf Welcome</label>
@@ -174,7 +241,7 @@ if (isset($_POST['update'])) {
         </div>
         <div class="form-group">
           <label>Gambar</label><br>
-          <img src="../img/<?php echo $data['gambar']; ?>" alt="Gambar Profil" style="width: 100px; height: auto;"><br><br>
+          <img src="../img/profil/<?php echo $data['gambar']; ?>" alt="Gambar Profil" style="width: 100px; height: auto;"><br><br>
           <input type="file" name="gambar" class="form-control">
         </div>
 

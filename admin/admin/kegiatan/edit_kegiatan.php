@@ -11,80 +11,93 @@ $gambar_lama = $data['gambar']; // Simpan nama gambar lama untuk digunakan nanti
 
 // Proses update data ketika form disubmit
 if (isset($_POST['update'])) {
-  $judul = $_POST['judul'];
-  $deskripsi = $_POST['deskripsi'];
+  $judul = ($_POST['judul']); // Sanitasi input
+  $deskripsi = ($_POST['deskripsi']); // Sanitasi input
   $tanggal = $_POST['tanggal'];
-  $penulis = $_POST['penulis'];
-  // Proses upload gambar baru jika ada
-  $gambar_baru = $_FILES['gambar']['name'];
-  if ($gambar_baru) {
-    $target_dir = "../img/";
-    $target_file = $target_dir . basename($gambar_baru);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+  $penulis = ($_POST['penulis']); // Sanitasi input
+  $id_departemen = ($_POST['id_departemen']); // Sanitasi input
 
-    // Periksa apakah file adalah gambar
+  // Proses upload gambar baru jika ada
+  if (!empty($_FILES['gambar']['name'])) {
+    $target_dir = "../img/";
+    $gambar_baru = time() . "_" . basename($_FILES['gambar']['name']);
+    $target_file = $target_dir . $gambar_baru;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $uploadOk = 1;
+
+    // Validasi apakah file adalah gambar
     $check = getimagesize($_FILES["gambar"]["tmp_name"]);
-    if ($check !== false) {
-      $uploadOk = 1;
-    } else {
+    if ($check === false) {
       echo "<script>alert('File yang dipilih bukan gambar.');</script>";
       $uploadOk = 0;
     }
 
-    // Batasi tipe file yang diizinkan
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+    // Batasi ukuran file
+    if ($_FILES["gambar"]["size"] > 2000000) {
+      echo "<script>alert('Ukuran gambar terlalu besar. Maksimal 2MB.');</script>";
+      $uploadOk = 0;
+    }
+
+    // Batasi tipe file
+    if (!in_array($imageFileType, ['jpg', 'jpeg', 'png'])) {
       echo "<script>alert('Hanya file JPG, JPEG, dan PNG yang diizinkan.');</script>";
       $uploadOk = 0;
     }
 
-    // Cek jika $uploadOk sama dengan 1, maka file dapat diupload
-    if ($uploadOk == 1) {
+    // Upload file jika valid
+    if ($uploadOk == 1 && move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
+      $gambar = $gambar_baru; // Gunakan gambar baru
+
       // Hapus gambar lama jika ada
-      if (file_exists($target_dir . $gambar_lama)) {
-        unlink($target_dir . $gambar_lama);
-      }
-      // Upload gambar baru
-      if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        $gambar = $gambar_baru; // Set nama gambar baru untuk disimpan di database
-      } else {
-        echo "<script>alert('Gagal mengupload gambar.');</script>";
-        $gambar = $gambar_lama; // Gunakan gambar lama jika gagal upload
+      if (isset($gambar_lama) && file_exists("../img/" . $gambar_lama)) {
+        unlink("../img/" . $gambar_lama);
       }
     } else {
-      $gambar = $gambar_lama; // Jika gagal upload, gunakan gambar lama
+      echo "<script>alert('Gagal mengupload gambar.');</script>";
+      $gambar = $gambar_lama; // Tetap menggunakan gambar lama jika gagal upload
     }
   } else {
-    $gambar = $gambar_lama; // Jika tidak ada gambar baru, gunakan gambar lama
+    $gambar = $gambar_lama; // Tidak ada gambar baru, tetap gunakan gambar lama
   }
 
   // Query update data
   $query_ubah = $koneksi->query("UPDATE kegiatan SET 
-        judul = '$judul',
-        deskripsi = '$deskripsi',
-        tanggal = '$tanggal',
-        penulis = '$penulis',
-        gambar = '$gambar'
-        WHERE id = '$id_profile'");
+      judul = '$judul',
+      deskripsi = '$deskripsi',
+      tanggal = '$tanggal',
+      penulis = '$penulis',
+      gambar = '$gambar'
+      WHERE id = '$id_profile'");
 
   if ($query_ubah) {
     echo "<script>
-  Swal.fire({title: 'Ubah Data Berhasil',text: '',icon: 'success',confirmButtonText: 'OK'
-  }).then((result) => {
-      if (result.value) {
-          window.location = 'index.php?page=MyApp/kegiatan';
-      }
-  })</script>";
+          Swal.fire({
+              title: 'Ubah Data Berhasil',
+              text: '',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          }).then((result) => {
+              if (result.value) {
+                  window.location = 'index.php?page=MyApp/kegiatan';
+              }
+          });
+      </script>";
   } else {
     echo "<script>
-  Swal.fire({title: 'Ubah Data Gagal',text: '',icon: 'error',confirmButtonText: 'OK'
-  }).then((result) => {
-      if (result.value) {
-          window.location = 'index.php?page=MyApp/kegiatan';
-      }
-  })</script>";
+          Swal.fire({
+              title: 'Ubah Data Gagal',
+              text: '',
+              icon: 'error',
+              confirmButtonText: 'OK'
+          }).then((result) => {
+              if (result.value) {
+                  window.location = 'index.php?page=MyApp/edit_kegiatan';
+              }
+          });
+      </script>";
   }
 }
+
 ?>
 
 <section class="content">
@@ -97,6 +110,19 @@ if (isset($_POST['update'])) {
         <div class="form-group">
           <label>Judul</label>
           <input type="text" name="judul" class="form-control" value="<?php echo $data['judul']; ?>" required>
+        </div>
+        <div class="form-group">
+          <label>Nama Departemen</label>
+          <select name="id_departemen" class="form-control" required>
+            <option value="">-- Pilih Departemen --</option>
+            <?php
+            $query_departemen = $koneksi->query("SELECT id, nama_departemen FROM departemen");
+            while ($row = $query_departemen->fetch_assoc()) {
+              $selected = ($data['id_departemen'] == $row['id']) ? 'selected' : '';
+              echo '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['nama_departemen'] . '</option>';
+            }
+            ?>
+          </select>
         </div>
         <div class="form-group">
           <label>Penulis</label>
