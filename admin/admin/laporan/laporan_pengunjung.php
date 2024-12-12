@@ -26,7 +26,7 @@
 			</div>
 			<p>Cetak Laporan</p>
 			<div class="row">
-				<div class="col-md-6 ">
+				<div class="col-md-8 ">
 					<div class="table-responsive">
 						<table id="tabel_laporan1" class="table table-bordered table-striped" data-title="Laporan Pengunjung Teraktif">
 							<thead>
@@ -44,7 +44,7 @@
 								// Jalankan query
 
 								$sql = $koneksi->query("
-        			SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 10;
+        			SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 5;
     				");
 
 								// Cek apakah query berhasil
@@ -83,8 +83,8 @@
 				</div>
 				<?php
 				$sql = $koneksi->query("
-                SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 10;
-            ");
+                SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 5;
+            	");
 
 
 				$data_pengunjung = [];
@@ -148,7 +148,7 @@
 		$tahunFilter = isset($_GET['tahun1']) ? $_GET['tahun1'] : '';
 		$jenisFilter = isset($_GET['jenis1']) ? $_GET['jenis1'] : ''; ?>
 		<div class="box-body">
-			<h3 class="box-header with-border">Laporan Semua data Kunjungan</h3>
+			<h3 class="box-header with-border">Laporan  Data Kunjungan</h3>
 			<div class="text-right mb-3" style="padding: 20px;">
 				<button class="btn btn-primary" data-toggle="modal" data-target="#filterModal_data_kunjungan">Filter Data</button>
 				<?php if ($bulanFilter || $tahunFilter || $jenisFilter) : ?>

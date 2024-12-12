@@ -300,7 +300,7 @@ include "inc/koneksi.php";
 						<li class="treeview">
 							<a href="?page=data_sirkul">
 								<i class="fa fa-refresh"></i>
-								<span>Sirkulasi</span>
+								<span>Transaksi</span>
 								<span class="pull-right-container">
 								</span>
 							</a>
@@ -335,7 +335,7 @@ include "inc/koneksi.php";
 							<ul class="treeview-menu">
 								<li>
 									<a href="?page=laporan_sirkulasi">
-										<i class="fa fa-file"></i>Laporan Sirkulasi</a>
+										<i class="fa fa-file"></i>Laporan Transaksi</a>
 								</li>
 								<li>
 									<a href="?page=laporan_inventaris_buku">
@@ -343,7 +343,7 @@ include "inc/koneksi.php";
 								</li>
 								<li>
 									<a href="?page=laporan_kunjungan">
-										<i class="fa fa-file"></i>Kunjungan</a>
+										<i class="fa fa-file"></i>Laporan Kunjungan</a>
 								</li>
 							</ul>
 						</li>
@@ -942,6 +942,35 @@ include "inc/koneksi.php";
 							extend: 'print',
 							title: function() {
 								return `${$('#tabel_laporan2').attr('data-title')}`; // Tambahkan kop cetak
+							}
+						}
+					],
+					// Opsi tambahan untuk DataTables
+					paging: true,
+					lengthChange: true,
+					searching: true,
+					ordering: true,
+					info: true,
+					autoWidth: false
+				});
+				$("#tabel_laporan3").DataTable({
+					dom: 'Bfrtip', // Aktifkan tombol
+					buttons: [{
+							extend: 'csv',
+							title: $('#tabel_laporan3').attr('data-title'), // Ambil judul dari atribut tabel
+						},
+						{
+							extend: 'excel',
+							title: $('#tabel_laporan3').attr('data-title'),
+						},
+						{
+							extend: 'pdf',
+							title: $('#tabel_laporan3').attr('data-title'),
+						},
+						{
+							extend: 'print',
+							title: function() {
+								return `${$('#tabel_laporan3').attr('data-title')}`; // Tambahkan kop cetak
 							}
 						}
 					],

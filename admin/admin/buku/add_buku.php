@@ -52,6 +52,10 @@ if ($datakode) {
                             <!-- Kolom Kiri -->
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>ISBN</label>
+                                    <input type="text" name="id_buku" id="id_buku" class="form-control" value="" placeholder="ISBN" />
+                                </div>
+                                <div class="form-group">
                                     <label>ID Buku</label>
                                     <input type="text" name="id_buku" id="id_buku" class="form-control" value="<?php echo $format; ?>" readonly />
                                 </div>
@@ -86,36 +90,83 @@ if ($datakode) {
                                 </div>
 
                                 <div class="form-group">
-                                    <label>No Kelas</label>
-                                    <input type="number" name="no_kelas" id="no_kelas" class="form-control" placeholder="No kelas" required>
+                                    <label>Kategori Buku</label>
+                                    <select name="id_kategori" id="id_kategori" class="form-control select2" required>
+                                        <option value="">-- Pilih Kategori --</option>
+                                        <?php
+                                        // Query untuk mengambil data kategori dari tabel kategori_ddc
+                                        $sql_kategori = "SELECT k.id_kategori, k.nama_kategori, kl.nama_kelas 
+                         FROM kategori_ddc k
+                         JOIN kelas_ddc kl ON k.id_kelas = kl.id_kelas
+                         ORDER BY kl.nama_kelas, k.nama_kategori ASC";
+                                        $query_kategori = mysqli_query($koneksi, $sql_kategori);
+
+                                        // Loop untuk menampilkan data kategori sebagai opsi
+                                        while ($data_kategori = mysqli_fetch_assoc($query_kategori)) {
+                                            echo "<option value='" . $data_kategori['id_kategori'] . "'>" .
+                                                $data_kategori['nama_kelas'] . " - " . $data_kategori['nama_kategori'] .
+                                                "</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
+
                                 <div class="form-group">
-                                    <label>Eksampler</label>
-                                    <input type="number" name="eksamplar" id="eksamplar" class="form-control" placeholder="Eksampler" required>
+                                    <label>Eksamplar</label>
+                                    <input type="number" name="eksamplar" id="eksamplar" class="form-control" placeholder="Eksamplar" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Jenis</label>
 
-                                    <select name="jenis" id="jenis" class="form-control" required>
+                                    <select name="jenis" id="jenis" class="form-control select2" required>
                                         <option value="">Pilih Jenis</option>
-                                        <option value="F">F</option>
-                                        <option value="NF">NF</option>
-                                        <option value="R">R</option>
+                                        <option value="F">Fiksi</option>
+                                        <option value="NF">Non Fiksi</option>
+                                        <option value="R">Random</option>
                                     </select>
-                                    <input type="text" name="jenis_manual" id="jenis_manual" class="form-control" placeholder="Atau ketik jenis" oninput="setJenisValue()" />
 
                                 </div>
+
+                                <?php
+                                // Koneksi ke database
+
+
+                                // Periksa koneksi
+
+
+                                // Query untuk mengambil data supplier
+                                $sql = "SELECT id_supplier, nama_supplier FROM supplier";
+                                $result = $koneksi->query($sql);
+                                ?>
 
                                 <div class="form-group">
-                                    <label>Keterangan</label>
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Sumber buku" required>
+                                    <label for="suplier">Suplier</label>
+                                    <select name="suplier" id="suplier" class="form-control" required>
+                                        <option value="" disabled selected>Pilih Suplier</option>
+                                        <?php
+
+                                        // Loop melalui data supplier
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . $row['id_supplier'] . "'>" . $row['nama_supplier'] . "</option>";
+                                        }
+
+                                        ?>
+                                    </select>
                                 </div>
+
+                                <?php
+                                // Tutup koneksi
+                                ?>
 
                                 <div class="form-group">
                                     <label>Harga</label>
                                     <input type="number" name="harga" id="harga" class="form-control" placeholder="Harga" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Keterangan Sumber </label>
+                                    <input type="text" name="harga" id="harga" class="form-control" placeholder="Harga" required>
                                 </div>
                             </div>
                             <!-- /.col-md-6 -->

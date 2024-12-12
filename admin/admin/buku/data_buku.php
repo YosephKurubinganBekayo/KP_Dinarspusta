@@ -69,6 +69,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="jenis">Supplier</label>
+                                <select name="jenis" class="form-control">
+                                    <option value="">Pilih Supplier</option>
+                                    <option value="F" >F</option>
+                                    <option value="NF">NF</option>
+                                    <option value="R" >R</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
                                 <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="<?php echo isset($_GET['keterangan']) ? $_GET['keterangan'] : ''; ?>">
                             </div>
@@ -90,16 +99,17 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID</th>
+                            <th>ISBN</th>
                             <th>Tanggal Terima</th>
                             <th>No Induk</th>
                             <th>Judul Buku</th>
                             <th>Pengarang</th>
                             <th>Penerbit</th>
-                            <th>No Kelas</th>
+                            <th>No Kategori</th>
                             <th>Eksamplar</th>
                             <th>Jenis</th>
-                            <th>Keterangan</th>
+                            <th>Suplier</th>
+                            <th>keterangan</th>
                             <th>Harga</th>
                             <th>Aksi</th>
                         </tr>
@@ -148,7 +158,7 @@
                         ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
-                                <td><?php echo $data['id_buku']; ?></td>
+                                <td><?php echo $data['ISBN']; ?></td>
                                 <td><?php echo $data['tanggal_terima']; ?></td>
                                 <td><?php echo $data['no_induk']; ?></td>
                                 <td><?php echo $data['judul_buku']; ?></td>
@@ -157,6 +167,7 @@
                                 <td><?php echo $data['no_kelas']; ?></td>
                                 <td><?php echo $data['eksamplar']; ?></td>
                                 <td><?php echo $data['jenis']; ?></td>
+                                <td><?php echo $data['suplier']; ?></td>
                                 <td><?php echo $data['keterangan']; ?></td>
                                 <td>Rp.<?php echo number_format($data['harga'], 0, ',', '.'); ?></td>
                                 <td>

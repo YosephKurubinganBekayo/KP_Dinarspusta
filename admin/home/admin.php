@@ -620,121 +620,120 @@ while ($data = $sql->fetch_assoc()) {
                     </div>
                 </div>
             </div>
+            <script>
+                // Data Buku Terpopuler
+                <?php
+                $labelsBuku = [];
+                $dataBuku = [];
+                $query_buku_populer = $koneksi->query("
+                    SELECT b.judul_buku, COUNT(s.id_buku) as jumlah_peminjaman
+                    FROM buku b
+                    JOIN log_pinjam s ON b.no_induk = s.id_buku
+                    GROUP BY s.id_buku
+                    ORDER BY jumlah_peminjaman DESC
+                    LIMIT 10
+                ");
+                while ($row = $query_buku_populer->fetch_assoc()) {
+                    $labelsBuku[] = $row['judul_buku'];
+                    $dataBuku[] = $row['jumlah_peminjaman'];
+                }
+                ?>
+                const labelsBuku = <?= json_encode($labelsBuku); ?>;
+                const dataBuku = <?= json_encode($dataBuku); ?>;
+
+                // Data Anggota Teraktif
+                <?php
+                $labelsAnggota = [];
+                $dataAnggota = [];
+                                $query_anggota_aktif = $koneksi->query("
+                        SELECT a.nama, COUNT(s.id_anggota) as jumlah_peminjaman
+                        FROM tb_anggota a
+                        JOIN log_pinjam s ON a.id_anggota = s.id_anggota
+                        GROUP BY s.id_anggota
+                        ORDER BY jumlah_peminjaman DESC
+                        LIMIT 10
+                    ");
+                while ($row = $query_anggota_aktif->fetch_assoc()) {
+                    $labelsAnggota[] = $row['nama'];
+                    $dataAnggota[] = $row['jumlah_peminjaman'];
+                }
+                ?>
+                const labelsAnggota = <?= json_encode($labelsAnggota); ?>;
+                const dataAnggota = <?= json_encode($dataAnggota); ?>;
+
+                // Chart Buku Terpopuler
+                const ctxBuku = document.getElementById('chartBuku').getContext('2d');
+                new Chart(ctxBuku, {
+                    type: 'bar',
+                    data: {
+                        labels: labelsBuku,
+                        datasets: [{
+                            label: 'Jumlah Peminjaman',
+                            data: dataBuku,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false // Menyembunyikan label di sumbu X
+                                },
+                                grid: {
+                                    display: false // Menyembunyikan garis grid pada sumbu X
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                    }
+                });
+
+                // Chart Anggota Teraktif
+                const ctxAnggota = document.getElementById('chartAnggota').getContext('2d');
+                new Chart(ctxAnggota, {
+                    type: 'bar',
+                    data: {
+                        labels: labelsAnggota,
+                        datasets: [{
+                            label: 'Jumlah Peminjaman',
+                            data: dataAnggota,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    display: false // Menyembunyikan label di sumbu X
+                                },
+                                grid: {
+                                    display: false // Menyembunyikan garis grid pada sumbu X
+                                }
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                    }
+                });
+            </script>
         </div>
 </section>
-
-<script>
-    // Data Buku Terpopuler
-    <?php
-    $labelsBuku = [];
-    $dataBuku = [];
-    $query_buku_populer = $koneksi->query("
-        SELECT b.judul_buku, COUNT(s.id_buku) as jumlah_peminjaman
-        FROM buku b
-        JOIN log_pinjam s ON b.no_induk = s.id_buku
-        GROUP BY s.id_buku
-        ORDER BY jumlah_peminjaman DESC
-        LIMIT 10
-    ");
-    while ($row = $query_buku_populer->fetch_assoc()) {
-        $labelsBuku[] = $row['judul_buku'];
-        $dataBuku[] = $row['jumlah_peminjaman'];
-    }
-    ?>
-    const labelsBuku = <?= json_encode($labelsBuku); ?>;
-    const dataBuku = <?= json_encode($dataBuku); ?>;
-
-    // Data Anggota Teraktif
-    <?php
-    $labelsAnggota = [];
-    $dataAnggota = [];
-    $query_anggota_aktif = $koneksi->query("
-        SELECT a.nama, COUNT(s.id_anggota) as jumlah_peminjaman
-        FROM tb_anggota a
-        JOIN log_pinjam s ON a.id_anggota = s.id_anggota
-        GROUP BY s.id_anggota
-        ORDER BY jumlah_peminjaman DESC
-        LIMIT 10
-    ");
-    while ($row = $query_anggota_aktif->fetch_assoc()) {
-        $labelsAnggota[] = $row['nama'];
-        $dataAnggota[] = $row['jumlah_peminjaman'];
-    }
-    ?>
-    const labelsAnggota = <?= json_encode($labelsAnggota); ?>;
-    const dataAnggota = <?= json_encode($dataAnggota); ?>;
-
-    // Chart Buku Terpopuler
-    const ctxBuku = document.getElementById('chartBuku').getContext('2d');
-    new Chart(ctxBuku, {
-        type: 'bar',
-        data: {
-            labels: labelsBuku,
-            datasets: [{
-                label: 'Jumlah Peminjaman',
-                data: dataBuku,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        display: false // Menyembunyikan label di sumbu X
-                    },
-                    grid: {
-                        display: false // Menyembunyikan garis grid pada sumbu X
-                    }
-                },
-                y: {
-                    beginAtZero: true
-                }
-            },
-        }
-    });
-
-    // Chart Anggota Teraktif
-    const ctxAnggota = document.getElementById('chartAnggota').getContext('2d');
-    new Chart(ctxAnggota, {
-        type: 'bar',
-        data: {
-            labels: labelsAnggota,
-            datasets: [{
-                label: 'Jumlah Peminjaman',
-                data: dataAnggota,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        display: false // Menyembunyikan label di sumbu X
-                    },
-                    grid: {
-                        display: false // Menyembunyikan garis grid pada sumbu X
-                    }
-                },
-                y: {
-                    beginAtZero: true
-                }
-            },
-        }
-    });
-</script>
