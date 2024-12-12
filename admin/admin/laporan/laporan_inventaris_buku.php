@@ -103,7 +103,7 @@ if (!isset($_GET['tab'])) {
                     <div class="box-body">
                         <p>Simpan Data</p>
                         <div class="table-responsive">
-                            <table id="tabel_laporan_inventaris_buku" class="table table-bordered table-striped">
+                            <table id="tabel_laporan_inventaris_buku" class="table table-bordered table-striped" data-title="Laporan data Inventaris Buku">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -245,7 +245,7 @@ if (!isset($_GET['tab'])) {
                     <div class="box-body">
                         <p>Simpan Data</p>
                         <div class="table-responsive">
-                            <table id="tabel_laporan1" class="table table-bordered table-striped">
+                            <table id="tabel_laporan1" class="table table-bordered table-striped" data-title="Laporan data Inventaris Buku Per Kelas">
                                 <thead>
                                     <?php
                                     // Mendapatkan nilai filter dari form pencarian

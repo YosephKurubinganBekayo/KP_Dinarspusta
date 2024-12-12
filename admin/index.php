@@ -52,6 +52,8 @@ include "inc/koneksi.php";
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<!-- fancybox -->
 	<link rel="stylesheet" href="assets/fancybox/jquery.fancybox.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini">
@@ -338,6 +340,10 @@ include "inc/koneksi.php";
 								<li>
 									<a href="?page=laporan_inventaris_buku">
 										<i class="fa fa-file"></i>Laporan Inventaris Buku</a>
+								</li>
+								<li>
+									<a href="?page=laporan_kunjungan">
+										<i class="fa fa-file"></i>Kunjungan</a>
 								</li>
 							</ul>
 						</li>
@@ -704,6 +710,9 @@ include "inc/koneksi.php";
 						case 'laporan_sirkulasi':
 							include "admin/laporan/laporan_sirkulasi.php";
 							break;
+						case 'laporan_kunjungan':
+							include "admin/laporan/laporan_pengunjung.php";
+							break;
 						case 'laporan_inventaris_buku':
 							include "admin/laporan/laporan_inventaris_buku.php";
 							break;
@@ -847,11 +856,11 @@ include "inc/koneksi.php";
 				$("#tabel_laporanasli").DataTable({
 					dom: 'Bfrtip', // Tambahkan 'Bfrtip' untuk mengaktifkan tombol
 					buttons: ['csv', 'excel', 'pdf', 'print'],
-					// "paging": true,
-					// "lengthChange": true,
-					// "searching": false,
+					"paging": true,
+					"lengthChange": true,
+					"searching": false,
 					"ordering": false,
-					// "info": true,
+					"info": true,
 					"autoWidth": false
 
 				});
@@ -873,21 +882,78 @@ include "inc/koneksi.php";
 								// Gabungkan nama file dengan nilai filter
 								return 'Laporan inventaris buku_' + bulan + tahun + noKelas + ket + '_' + formattedDate;
 							},
+							title: function() {
+								return `${$('#tabel_laporan_inventaris_buku').attr('data-title')}`; // Tambahkan kop cetak
+							},
+
 							text: 'Export to Excel'
+						}, 'pdf', {
+							extend: 'print',
+							title: function() {
+								return `${$('#tabel_laporan_inventaris_buku').attr('data-title')}`; // Tambahkan kop cetak
+							}
 						}]
 					});
 				});
 				$("#tabel_laporan1").DataTable({
-					dom: 'Bfrtip', // Tambahkan 'Bfrtip' untuk mengaktifkan tombol
-					buttons: ['csv', 'excel', 'pdf', 'print'],
-					// "paging": true,
-					// "lengthChange": true,
-					// "searching": false,
-					// "ordering": true,
-					// "info": true,
-					// "autoWidth": false
-
+					dom: 'Bfrtip', // Aktifkan tombol
+					buttons: [{
+							extend: 'csv',
+							title: $('#tabel_laporan1').attr('data-title'), // Ambil judul dari atribut tabel
+						},
+						{
+							extend: 'excel',
+							title: $('#tabel_laporan1').attr('data-title'),
+						},
+						{
+							extend: 'pdf',
+							title: $('#tabel_laporan1').attr('data-title'),
+						},
+						{
+							extend: 'print',
+							title: function() {
+								return `${$('#tabel_laporan1').attr('data-title')}`; // Tambahkan kop cetak
+							}
+						}
+					],
+					// Opsi tambahan untuk DataTables
+					paging: true,
+					lengthChange: true,
+					searching: true,
+					ordering: true,
+					info: true,
+					autoWidth: false
 				});
+				$("#tabel_laporan2").DataTable({
+					dom: 'Bfrtip', // Aktifkan tombol
+					buttons: [{
+							extend: 'csv',
+							title: $('#tabel_laporan2').attr('data-title'), // Ambil judul dari atribut tabel
+						},
+						{
+							extend: 'excel',
+							title: $('#tabel_laporan2').attr('data-title'),
+						},
+						{
+							extend: 'pdf',
+							title: $('#tabel_laporan2').attr('data-title'),
+						},
+						{
+							extend: 'print',
+							title: function() {
+								return `${$('#tabel_laporan2').attr('data-title')}`; // Tambahkan kop cetak
+							}
+						}
+					],
+					// Opsi tambahan untuk DataTables
+					paging: true,
+					lengthChange: true,
+					searching: true,
+					ordering: true,
+					info: true,
+					autoWidth: false
+				});
+
 				$('#example2').DataTable({
 					"paging": true,
 					"lengthChange": false,

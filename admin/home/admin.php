@@ -442,7 +442,6 @@ while ($data = $sql->fetch_assoc()) {
 
 
             <!-- Script untuk grafik Chart.js -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -529,8 +528,8 @@ while ($data = $sql->fetch_assoc()) {
             </div>
             <?php
             $sql = $koneksi->query("
-        SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 10;
-    ");
+                SELECT p.nama, pb.pengunjung_NIK, COUNT(*) as total_kunjungan FROM ( SELECT pengunjung_NIK, tanggal_baca FROM pengunjung_buku GROUP BY pengunjung_NIK, tanggal_baca ) as pb JOIN pengunjung p ON pb.pengunjung_NIK = p.NIK GROUP BY pb.pengunjung_NIK, p.nama ORDER BY total_kunjungan DESC LIMIT 10;
+            ");
 
 
             $data_pengunjung = [];

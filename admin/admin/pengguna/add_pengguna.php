@@ -1,6 +1,6 @@
 <section class="content-header">
 	<h1>
-		Pengguna Sistem
+		Data Pegawai
 	</h1>
 	<ol class="breadcrumb">
 		<li>
