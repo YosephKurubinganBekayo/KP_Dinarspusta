@@ -15,7 +15,7 @@
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header with-border">
-			
+
 			<a href="?page=MyApp/print_allagt" title="Print" class="btn btn-success" stlye="color : green;">
 				<i class="glyphicon glyphicon-print"></i>Print</a>
 		</div>
@@ -74,23 +74,16 @@
 									<?php echo $data['instansi']; ?>
 								</td>
 								<td>
-									<a href="?page=MyApp/edit_agt&kode=<?php echo $data['id_anggota']; ?>" title="Ubah Data"
-										class="btn btn-success">
+									<a href="?page=MyApp/edit_agt&kode=<?php echo $data['id_anggota']; ?>" title="Ubah Data" class="btn btn-success">
 										<i class="glyphicon glyphicon-edit"></i>
 									</a>
 
-									<a href="?page=MyApp/del_agt&kode=<?php echo $data['id_anggota']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')"
-										title="Hapus" class="btn btn-danger">
+									<a href="?page=MyApp/del_agt&kode=<?php echo $data['id_anggota']; ?>" onclick="return confirm('Yakin Hapus Data Ini ?')" title="Hapus" class="btn btn-danger">
 										<i class="glyphicon glyphicon-trash"></i>
 									</a>
 
-									<a href="?page=MyApp/print_agt&kode=<?php echo $data['id_anggota'] ?>" title="print"
-										target="_blank"><button class="btn btn-primary">
+									<a href="?page=MyApp/print_agt&kode=<?php echo $data['id_anggota'] ?>" title="print" target="_blank"><button class="btn btn-primary">
 											<i class="fa fa-print"></i>
-
-
-
-
 								</td>
 							</tr>
 						<?php
