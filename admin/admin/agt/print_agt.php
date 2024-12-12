@@ -102,7 +102,7 @@ error_reporting(0);
 										<td>Kelas</td>
 										<td>:</td>
 										<td>
-										<?php echo $data['kelas']; ?>
+										<?php echo $data['pekerjaan']; ?>
 										</td>
 									</tr>
 									<tr>
