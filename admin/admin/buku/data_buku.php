@@ -1,7 +1,7 @@
 <div class="box box-primary">
     <div class="box-body">
         <h3 class="box-header">
-            Kelola Inventaris Buku
+            Kelola daata Buku
         </h3>
     </div>
     <div class="box box-primary">
