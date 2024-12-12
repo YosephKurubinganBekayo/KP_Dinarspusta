@@ -1,6 +1,6 @@
 <section class="content-header" style="text-align: center;">
 	<h1>
-		Riwayat Kunjungan
+		Data Kunjungan
 	</h1>
 	<ol class="breadcrumb">
 		<li>

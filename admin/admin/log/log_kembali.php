@@ -31,9 +31,25 @@
 
 						<?php
                   $no = 1;
-                  $sql = $koneksi->query("SELECT b.judul_buku, a.id_anggota, a.nama, s.tgl_kembali, s.tgl_dikembalikan
-                  from tb_sirkulasi s inner join buku b on s.id_buku=b.no_induk
-				  inner join tb_anggota a on s.id_anggota=a.id_anggota where status='KEM' order by tgl_kembali asc");
+                  $sql = $koneksi->query("SELECT 
+						b.judul_buku, 
+						a.id_anggota, 
+						a.nama AS nama_anggota, 
+						s.tgl_kembali, 
+						s.tgl_dikembalikan, 
+						p.nama_pegawai AS petugas_kembali
+					FROM 
+						tb_sirkulasi s
+					INNER JOIN 
+						buku b ON s.id_buku = b.no_induk
+					INNER JOIN 
+						tb_anggota a ON s.id_anggota = a.id_anggota
+					INNER JOIN 
+						pegawai p ON s.id_petugas_kembali = p.id
+					WHERE 
+						status = 'KEM'
+					ORDER BY 
+						tgl_kembali ASC;");
                   while ($data= $sql->fetch_assoc()) {
                 ?>
 
