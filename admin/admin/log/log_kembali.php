@@ -17,7 +17,7 @@
 		<!-- /.box-header -->
 		<div class="box-body">
 			<div class="table-responsive">
-			
+
 				<table id="example1" class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -25,13 +25,14 @@
 							<th>Buku</th>
 							<th>Peminjam</th>
 							<th>Tgl Di kembalikan</th>
+							<th>Dilayani Oleh</th>
 						</tr>
 					</thead>
 					<tbody>
 
 						<?php
-                  $no = 1;
-                  $sql = $koneksi->query("SELECT 
+						$no = 1;
+						$sql = $koneksi->query("SELECT 
 						b.judul_buku, 
 						a.id_anggota, 
 						a.nama AS nama_anggota, 
@@ -45,33 +46,38 @@
 					INNER JOIN 
 						tb_anggota a ON s.id_anggota = a.id_anggota
 					INNER JOIN 
-						pegawai p ON s.id_petugas_kembali = p.id
+						pegawai p ON s.id_petugas_kembali =p.id
 					WHERE 
 						status = 'KEM'
 					ORDER BY 
 						tgl_kembali ASC;");
-                  while ($data= $sql->fetch_assoc()) {
-                ?>
+						while ($data = $sql->fetch_assoc()) {
+						?>
 
-						<tr>
-							<td>
-								<?php echo $no++; ?>
-							</td>
-							<td>
-								<?php echo $data['judul_buku']; ?>
-							</td>
-							<td>
-								<?php echo $data['id_anggota']; ?>
-								-
-								<?php echo $data['nama']; ?>
-							</td>
-							<td>
-							<?php  $tgl = $data['tgl_dikembalikan']; echo date("d/M/Y", strtotime($tgl))?>
-							</td>
-						</tr>
+							<tr>
+								<td>
+									<?php echo $no++; ?>
+								</td>
+								<td>
+									<?php echo $data['judul_buku']; ?>
+								</td>
+
+								<td>
+									<?php echo $data['id_anggota']; ?>
+									-
+									<?php echo $data['nama_anggota']; ?>
+								</td>
+								<td>
+									<?php $tgl = $data['tgl_dikembalikan'];
+									echo date("d/M/Y", strtotime($tgl)) ?>
+								</td>
+								<td>
+									<?php echo $data['petugas_kembali']; ?>
+								</td>
+							</tr>
 						<?php
-                  }
-                ?>
+						}
+						?>
 					</tbody>
 
 				</table>
@@ -79,4 +85,3 @@
 		</div>
 	</div>
 </section>
-
