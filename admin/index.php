@@ -215,7 +215,7 @@ include "inc/koneksi.php";
 								</li>
 								<li>
 									<a href="?page=MyApp/data_kunjungan">
-										<i class="fa fa-history"></i>Riwayat Kunjungan</a>
+										<i class="fa fa-history"></i>Data Kunjungan</a>
 								</li>
 								<li>
 									<a href="?page=MyApp/data_pengunjung">
