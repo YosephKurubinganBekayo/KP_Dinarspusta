@@ -1,19 +1,19 @@
 <?php
 //kode 9 digit
 
-// $carikode = mysqli_query($koneksi, "SELECT id_sk FROM tb_sirkulasi order by id_sk desc");
-// $datakode = mysqli_fetch_array($carikode);
-// $kode = $datakode['id_sk'];
-// $urut = substr($kode, 1, 3);
-// $tambah = (int) $urut + 1;
+$carikode = mysqli_query($koneksi, "SELECT id_sk FROM tb_sirkulasi order by id_sk desc");
+$datakode = mysqli_fetch_array($carikode);
+$kode = $datakode['id_sk'];
+$urut = substr($kode, 1, 3);
+$tambah = (int) $urut + 1;
 
-// if (strlen($tambah) == 1) {
-// 	$format = "S" . "00" . $tambah;
-// } else if (strlen($tambah) == 2) {
-// 	$format = "S" . "0" . $tambah;
-// } else if (strlen($tambah) == 3) {
-// 	$format = "S" . $tambah;
-// }
+if (strlen($tambah) == 1) {
+	$format = "S" . "00" . $tambah;
+} else if (strlen($tambah) == 2) {
+	$format = "S" . "0" . $tambah;
+} else if (strlen($tambah) == 3) {
+	$format = "S" . $tambah;
+}
 ?>
 
 <section class="content-header">
@@ -53,7 +53,7 @@
 					<div class="box-body">
 						<div class="form-group">
 							<label>Id Sirkulasi</label>
-							<!-- <input type="text" name="id_sk" id="id_sk" class="form-control" value="<?php echo $format; ?>" readonly /> -->
+							<input type="text" name="id_sk" id="id_sk" class="form-control" value="<?php echo $format; ?>" readonly />
 						</div>
 						<div class="form-group">
 							<label>Nama Peminjam</label>
@@ -101,7 +101,7 @@
 <?php
 if (isset($_POST['Simpan'])) {
     // Menangkap data dari form
-    // $id_sk = $_POST['id_sk'];
+    $id_sk = $_POST['id_sk'];
     $id_anggota = $_POST['id_anggota'];
     $tgl_pinjam = $_POST['tgl_pinjam'];
     $id_buku_array = $_POST['id_buku']; // Array buku yang dipilih
@@ -118,9 +118,9 @@ if (isset($_POST['Simpan'])) {
         foreach ($id_buku_array as $id_buku) {
             // Masukkan data ke tabel `tb_sirkulasi`
             $sql_sirkulasi = "INSERT INTO tb_sirkulasi 
-                              ( id_buku, id_anggota, tgl_pinjam, status, tgl_kembali, tgl_dikembalikan, id_petugas) 
+                              (id_sk, id_buku, id_anggota, tgl_pinjam, status, tgl_kembali, tgl_dikembalikan, id_petugas) 
                               VALUES 
-                              ('$id_buku', '$id_anggota', '$tgl_pinjam', '$status', '$tgl_kembali', '$tgl_dikembalikan', '$data_id')";
+                              ('$id_sk','$id_buku', '$id_anggota', '$tgl_pinjam', '$status', '$tgl_kembali', '$tgl_dikembalikan', '$data_id')";
             $koneksi->query($sql_sirkulasi);
 
             // Masukkan data ke tabel `log_pinjam`

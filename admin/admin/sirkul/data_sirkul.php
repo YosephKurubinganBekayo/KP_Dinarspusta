@@ -75,9 +75,5 @@
 			</div>
 		</div>
 	</div>
-	<h4> *Note
-		<br> Masa peminjaman buku adalah <span style="color:red; font-weight:bold;">7 hari</span> dari tanggal peminjaman.
-		<br> Jika buku dikembalikan lebih dari masa peminjaman, maka akan dikenakan <span style="color:red; font-weight:bold;">denda</span>
-		<br> sebesar <span style="color:red; font-weight:bold;">Rp 1.000/hari</span>.
-	</h4>
+	
 </section>

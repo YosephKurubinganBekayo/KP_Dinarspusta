@@ -15,8 +15,6 @@
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header with-border">
-			<a href="?page=MyApp/add_agt" title="Tambah Data" class="btn btn-primary">
-				<i class="glyphicon glyphicon-plus"></i> Tambah Data</a>
 			<a href="?page=MyApp/print_allagt" title="Print" class="btn btn-success" stlye="color : green;">
 				<i class="glyphicon glyphicon-print"></i>Print</a>
 		</div>

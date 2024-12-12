@@ -17,9 +17,8 @@
 	<div class="box box-primary">
 		<div class="box-header with-border">
 			<a href="?page=MyApp/add_kunjungan" title="Tambah Riwayat Pembacaan" class="btn btn-primary">
-				<i class="glyphicon glyphicon-plus"></i> Tambah Riwayat</a>
-			<a href="?page=MyApp/print_all_reading" title="Print Riwayat" class="btn btn-success">
-				<i class="glyphicon glyphicon-print"></i> Print</a>
+				<i class="glyphicon glyphicon-plus"></i> Tambah Kunjungan</a>
+			
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
@@ -30,7 +29,7 @@
 							<th>No</th>
 							<th>Id Pengunjung</th>
 							<th>Nama Pengunjung</th>
-							<th>Judul Buku</th>
+							<th>Judul Buku Yang Dibaca</th>
 							<th>Tanggal Kunjung</th>
 							<th>Kelola</th>
 						</tr>

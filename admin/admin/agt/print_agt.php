@@ -99,10 +99,10 @@ error_reporting(0);
 										</td>
 									</tr>
 									<tr>
-										<td>Kelas</td>
+										<td>Pekerjaan</td>
 										<td>:</td>
 										<td>
-										<?php echo $data['kelas']; ?>
+										<?php echo $data['pekerjaan']; ?>
 										</td>
 									</tr>
 									<tr>

@@ -20,8 +20,8 @@ if (isset($_GET['kode'])) {
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header with-border">
-			<a href="?page=add_sirkul" title="Tambah Data" class="btn btn-primary">
-				<i class="glyphicon glyphicon-plus"></i> Tambah Data</a>
+			<a href="?page=data_sirkul" title="Tambah Data" class="btn btn-primary">
+				<i class=""></i> Kembali</a>
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
@@ -36,7 +36,6 @@ if (isset($_GET['kode'])) {
 							<th>Tgl Pinjam</th>
 							<th>Jatuh Tempo</th>
 							<th>Dilayani</th>
-							<th>Denda</th>
 							<th>Kelola</th>
 						</tr>
 					</thead>
@@ -86,43 +85,7 @@ if (isset($_GET['kode'])) {
 									?>
 								</td>
 
-								<?php
-
-								$u_denda = 1000;
-
-								$tgl1 = date("Y-m-d");
-								$tgl2 = $data['tgl_kembali'];
-
-								$pecah1 = explode("-", $tgl1);
-								$date1 = $pecah1[2];
-								$month1 = $pecah1[1];
-								$year1 = $pecah1[0];
-
-								$pecah2 = explode("-", $tgl2);
-								$date2 = $pecah2[2];
-								$month2 = $pecah2[1];
-								$year2 =  $pecah2[0];
-
-								$jd1 = GregorianToJD($month1, $date1, $year1);
-								$jd2 = GregorianToJD($month2, $date2, $year2);
-
-								$selisih = $jd1 - $jd2;
-								$denda = $selisih * $u_denda;
-								?>
-
-								<td>
-									<?php if ($selisih <= 0) { ?>
-										<span class="label label-primary">Masa Peminjaman</span>
-									<?php } elseif ($selisih > 0) { ?>
-										<span class="label label-danger">
-											Rp.
-											<?= $denda ?>
-										</span>
-										<br> Terlambat :
-										<?= $selisih ?>
-										Hari
-								</td>
-							<?php } ?>
+								
 
 							<td>
 								<a href="?page=panjang&kode=<?php echo $data['id_sk']; ?>" onclick="return confirm('Perpanjang Data Ini ?')" title="Perpanjang" class="btn btn-success">
@@ -141,9 +104,4 @@ if (isset($_GET['kode'])) {
 			</div>
 		</div>
 	</div>
-	<h4> *Note
-		<br> Masa peminjaman buku adalah <span style="color:red; font-weight:bold;">7 hari</span> dari tanggal peminjaman.
-		<br> Jika buku dikembalikan lebih dari masa peminjaman, maka akan dikenakan <span style="color:red; font-weight:bold;">denda</span>
-		<br> sebesar <span style="color:red; font-weight:bold;">Rp 1.000/hari</span>.
-	</h4>
-</section>
+	</section>
