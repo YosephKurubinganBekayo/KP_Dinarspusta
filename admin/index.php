@@ -838,7 +838,7 @@ include "inc/koneksi.php";
 		<!-- script datatabels-->
 		<script>
 			$(function() {
-				$("#tabel_kelola_data").DataTable({
+				$("#example1").DataTable({
 					columnDefs: [{
 						"defaultContent": "-",
 						"targets": "_all"
