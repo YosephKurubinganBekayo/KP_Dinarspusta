@@ -36,6 +36,7 @@ if (!isset($_GET['tab'])) {
                     </div>
 
                     <!-- Modal Filter Data -->
+                    <!-- Modal Filter Data -->
                     <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -46,10 +47,8 @@ if (!isset($_GET['tab'])) {
                                     </button>
                                 </div>
                                 <form method="GET" action="">
-                                    <input type="hidden" name="page" value="laporan_inventaris_buku">
-                                    <input type="hidden" name="tab" value="laporan_buku">
+                                    <input type="hidden" name="page" value="MyApp/data_buku">
                                     <div class="modal-body">
-                                        <!-- Form Fields -->
                                         <div class="form-group">
                                             <label for="bulan">Bulan (1-12)</label>
                                             <input type="number" name="bulan" class="form-control" placeholder="Bulan (1-12)" value="<?php echo isset($_GET['bulan']) ? $_GET['bulan'] : ''; ?>">
@@ -85,6 +84,15 @@ if (!isset($_GET['tab'])) {
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label for="jenis">Supplier</label>
+                                            <select name="jenis" class="form-control">
+                                                <option value="">Pilih Supplier</option>
+                                                <option value="F">F</option>
+                                                <option value="NF">NF</option>
+                                                <option value="R">R</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="keterangan">Keterangan</label>
                                             <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" value="<?php echo isset($_GET['keterangan']) ? $_GET['keterangan'] : ''; ?>">
                                         </div>
@@ -107,15 +115,17 @@ if (!isset($_GET['tab'])) {
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ISBN</th>
                                         <th>Tanggal Terima</th>
                                         <th>No Induk</th>
                                         <th>Judul Buku</th>
                                         <th>Pengarang</th>
                                         <th>Penerbit</th>
-                                        <th>No Kelas</th>
+                                        <th>No Kategori</th>
                                         <th>Eksamplar</th>
                                         <th>Jenis</th>
-                                        <th>Keterangan</th>
+                                        <th>Suplier</th>
+                                        <th>keterangan</th>
                                         <th>Harga</th>
                                     </tr>
                                 </thead>
@@ -163,6 +173,7 @@ if (!isset($_GET['tab'])) {
                                     ?>
                                         <tr>
                                             <td><?php echo $no++; ?></td>
+                                            <td><?php echo $data['ISBN']; ?></td>
                                             <td><?php echo $data['tanggal_terima']; ?></td>
                                             <td><?php echo $data['no_induk']; ?></td>
                                             <td><?php echo $data['judul_buku']; ?></td>
@@ -171,6 +182,7 @@ if (!isset($_GET['tab'])) {
                                             <td><?php echo $data['no_kelas']; ?></td>
                                             <td><?php echo $data['eksamplar']; ?></td>
                                             <td><?php echo $data['jenis']; ?></td>
+                                            <td><?php echo $data['suplier']; ?></td>
                                             <td><?php echo $data['keterangan']; ?></td>
                                             <td><?php echo $data['harga']; ?></td>
                                         </tr>
